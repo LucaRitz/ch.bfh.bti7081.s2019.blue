@@ -1,0 +1,18 @@
+plugins {
+    // https://github.com/devsoap/gradle-vaadin-flow/wiki
+    id 'com.devsoap.vaadin-flow' version '1.0'
+    id 'org.gretty' version '2.3.1'
+}
+
+apply plugin: 'java'
+apply plugin: 'maven'
+
+group = 'ch.bfh.bti7081.s2019.blue'
+// artifactId is taken by default, from folder name
+version = '0.1-SNAPSHOT'
+
+dependencies {
+    compile 'commons-lang:commons-lang:2.3'
+}
+
+vaadin.autoconfigure()
