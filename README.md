@@ -7,3 +7,8 @@ Project CS2
 - Christian Nussbaum (Christian-Nussbaum)
 - Lukas Seglias (GuitarVirtuoso)
 - Luca Berger (kucki10)
+
+## Running the application
+./gradlew jettyRun
+
+Then go to http://localhost:8080/mhc-pms/
