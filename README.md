@@ -5,7 +5,7 @@ Project CS2
 - Damian Schüpbach (OWGS)
 - Luca Ritz (LucaRitz)
 - Christian Nussbaum (Christian-Nussbaum)
-- Lukas Seglias (GuitarVirtuoso)
+- Lukas Seglias (LukasSeglias)
 - Luca Berger (kucki10)
 
 ## Running the application
