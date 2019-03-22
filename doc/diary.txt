@@ -1,5 +1,8 @@
 15.03.2019 Project Setup
 
+    Begin of the project. We have chosen the problem domain health visitor (i. e. SPITEX worker) and as mental health
+    problem addiction. First discussions for the interview.
+
     Attendees:  Berger Luca
                 Nussbaum Christian
                 Ritz Luca
@@ -8,7 +11,92 @@
 
     To Do:
                 - write interview
-                    - everyone
+                    - Assignee: everyone
                     - work in progress
+                    - until 29.03.2019
 
 
+20.03.2019 Design Thinking 1
+
+    Further information about the project and explanation of the task 1.
+
+    Attendees:  Berger Luca
+                Nussbaum Christian
+                Ritz Luca
+                Schüpbach Damian
+                Seglias Lukas
+
+    To Do:
+
+                - Scoping
+                    - Assignee: Christian Nussbaum
+                    - open
+                    - until 29.03.2019
+                - Research
+                    - Generel research of information about problem domain
+                        - Assignee: Christian Nussbaum
+                        - open
+                        - until 29.03.2019
+                    - Interview
+                        - Assignee: Lukas Seglias
+                        - work in progress
+                        - until 29.03.2019
+                - Synthesize
+                    - Assignee: Berger Lukas and Damian Schüpbach
+                    - open
+                    - until 29.03.2019
+                - Design
+                    - Assginee: everyone
+                    - open
+                    - until 29.03.2019
+                - Prototype
+                    - Assignee: everyone
+                    - open
+                    - until 29.03.2019
+                - Validate
+                    - Assignee: everyone
+                    - open
+                    - until 29.03.2019
+
+
+20.03.2019 Design Thinking 2
+
+    Work on task 1.
+
+    Attendees:  Berger Luca
+                Nussbaum Christian
+                Ritz Luca
+                Schüpbach Damian
+                Seglias Lukas
+
+    To Do:
+
+                - Scoping
+                    - Assignee: Christian Nussbaum
+                    - work in progress
+                    - until 29.03.2019
+                - Research
+                    - Generel research of information about problem domain
+                        - Assignee: Christian Nussbaum
+                        - work in progress
+                        - until 29.03.2019
+                    - Interview
+                        - Assignee: Lukas Seglias
+                        - still work in progress, will be carried out on 23.03.2019
+                        - until 29.03.2019
+                - Synthesize
+                    - Assignee: Berger Lukas and Damian Schüpbach
+                    - work in progress
+                    - until 29.03.2019
+                - Design
+                    - Assginee: everyone
+                    - open
+                    - until 29.03.2019
+                - Prototype
+                    - Assignee: everyone
+                    - open
+                    - until 29.03.2019
+                - Validate
+                    - Assignee: everyone
+                    - open
+                    - until 29.03.2019
