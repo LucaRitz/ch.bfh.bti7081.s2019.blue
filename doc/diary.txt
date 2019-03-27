@@ -42,7 +42,7 @@
                         - work in progress
                         - until 29.03.2019
                 - Synthesize
-                    - Assignee: Berger Lukas and Schüpbach Damian
+                    - Assignee: Berger Luca and Schüpbach Damian
                     - open
                     - until 29.03.2019
                 - Design
@@ -58,10 +58,9 @@
                     - open
                     - until 29.03.2019
 
+22.03.2019 Design Thinking 2
 
-20.03.2019 Design Thinking 2
-
-    Work on task 1. Assignment of the individual tasks and start working on them.
+    Further work on task 1. First research and work on the interview.
 
     Attendees:  Berger Luca
                 Nussbaum Christian
@@ -82,10 +81,10 @@
                         - until 29.03.2019
                     - Interview
                         - Assignee: Seglias Lukas
-                        - still work in progress, will be carried out on 23.03.2019
+                        - work in progress
                         - until 29.03.2019
                 - Synthesize
-                    - Assignee: Berger Lukas and Schüpbach Damian
+                    - Assignee: Berger Luca and Schüpbach Damian
                     - work in progress
                     - until 29.03.2019
                 - Design
@@ -100,6 +99,12 @@
                     - Assignee: everyone
                     - open
                     - until 29.03.2019
+
+23.03.2019 Interview
+
+    Carrying out of the interview.
+
+    Attendees:  Seglias Lukas
 
 24.03.2019 Design Thinking 3
 
@@ -127,7 +132,7 @@
                         - done
                         - until 29.03.2019
                 - Synthesize
-                    - Assignee: Berger Lukas and Schüpbach Damian
+                    - Assignee: Berger Luca and Schüpbach Damian
                     - done
                     - until 29.03.2019
                 - Design
@@ -168,7 +173,7 @@
                     - work in progress
                     - until 29.03.2019
 
-26.03.2019 Design Thinking 5
+27.03.2019 Design Thinking 5
 
     Further work on task 1. Finalisation of the Design Thinking and the chapter validate.
 
