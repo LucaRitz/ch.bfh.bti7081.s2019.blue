@@ -29,24 +29,24 @@
     To Do:
 
                 - Scoping
-                    - Assignee: Christian Nussbaum
+                    - Assignee: Nussbaum Christian
                     - open
                     - until 29.03.2019
                 - Research
-                    - Generel research of information about problem domain
-                        - Assignee: Christian Nussbaum
+                    - General research of information about problem domain
+                        - Assignee: Nussbaum Christian
                         - open
                         - until 29.03.2019
                     - Interview
-                        - Assignee: Lukas Seglias
+                        - Assignee: Seglias Lukas
                         - work in progress
                         - until 29.03.2019
                 - Synthesize
-                    - Assignee: Berger Lukas and Damian Schüpbach
+                    - Assignee: Berger Lukas and Schüpbach Damian
                     - open
                     - until 29.03.2019
                 - Design
-                    - Assginee: everyone
+                    - Assignee: everyone
                     - open
                     - until 29.03.2019
                 - Prototype
@@ -61,7 +61,7 @@
 
 20.03.2019 Design Thinking 2
 
-    Work on task 1.
+    Work on task 1. Assignment of the individual tasks and start working on them.
 
     Attendees:  Berger Luca
                 Nussbaum Christian
@@ -72,24 +72,24 @@
     To Do:
 
                 - Scoping
-                    - Assignee: Christian Nussbaum
+                    - Assignee: Nussbaum Christian
                     - work in progress
                     - until 29.03.2019
                 - Research
-                    - Generel research of information about problem domain
-                        - Assignee: Christian Nussbaum
+                    - General research of information about problem domain
+                        - Assignee: Nussbaum Christian
                         - work in progress
                         - until 29.03.2019
                     - Interview
-                        - Assignee: Lukas Seglias
+                        - Assignee: Seglias Lukas
                         - still work in progress, will be carried out on 23.03.2019
                         - until 29.03.2019
                 - Synthesize
-                    - Assignee: Berger Lukas and Damian Schüpbach
+                    - Assignee: Berger Lukas and Schüpbach Damian
                     - work in progress
                     - until 29.03.2019
                 - Design
-                    - Assginee: everyone
+                    - Assignee: everyone
                     - open
                     - until 29.03.2019
                 - Prototype
@@ -99,4 +99,93 @@
                 - Validate
                     - Assignee: everyone
                     - open
+                    - until 29.03.2019
+
+24.03.2019 Design Thinking 3
+
+    Further work on task 1. Goal of this meeting is to finish Design Thinking up to prototype. Everyone present helps
+    to work on the storyboards and the first iterations of the prototypes.
+
+    Attendees:  Berger Luca
+                Nussbaum Christian
+                Ritz Luca
+                Seglias Lukas
+
+    To Do:
+
+                - Scoping
+                    - Assignee: Nussbaum Christian
+                    - done
+                    - until 29.03.2019
+                - Research
+                    - General research of information about problem domain
+                        - Assignee: Nussbaum Christian
+                        - done
+                        - until 29.03.2019
+                    - Interview
+                        - Assignee: Seglias Lukas
+                        - done
+                        - until 29.03.2019
+                - Synthesize
+                    - Assignee: Berger Lukas and Schüpbach Damian
+                    - done
+                    - until 29.03.2019
+                - Design
+                    - Assignee: everyone
+                    - work in progress
+                    - until 29.03.2019
+                - Prototype
+                    - Assignee: everyone
+                    - work in progress
+                    - until 29.03.2019
+                - Validate
+                    - Assignee: everyone
+                    - work in progress
+                    - until 29.03.2019
+
+25.03.2019 Design Thinking 4
+
+    Further work on task 1. Further iterations of the prototypes and discussing them.
+
+    Attendees:  Berger Luca
+                Nussbaum Christian
+                Ritz Luca
+                Schüpbach Damian
+                Seglias Lukas
+
+    To Do:
+
+                - Design
+                    - Assignee: everyone
+                    - done
+                    - until 29.03.2019
+                - Prototype
+                    - Assignee: everyone
+                    - done
+                    - until 29.03.2019
+                - Validate
+                    - Assignee: everyone
+                    - work in progress
+                    - until 29.03.2019
+
+26.03.2019 Design Thinking 5
+
+    Further work on task 1. Finalisation of the Design Thinking and the chapter validate.
+
+    Attendees:  Berger Luca
+                Nussbaum Christian
+                Ritz Luca
+                Schüpbach Damian
+                Seglias Lukas
+
+    To Do:
+
+                - Validate
+                    - Assignee: everyone
+                    - work in progress
+                    - until 29.03.2019
+
+                - Presentation
+                    - Assignee: Schüpbach Damian
+                    - work in progress
                     - until 29.03.2019
