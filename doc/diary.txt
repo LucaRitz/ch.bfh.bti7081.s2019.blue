@@ -1,4 +1,4 @@
-15.03.2019 Project Setup
+15.03.2019 Project Setup 1.5h
 
     Begin of the project. We have chosen the problem domain health visitor (i. e. SPITEX worker) and as mental health
     problem addiction. First discussions for the interview.
@@ -15,8 +15,7 @@
                     - work in progress
                     - until 29.03.2019
 
-
-20.03.2019 Design Thinking 1
+20.03.2019 Design Thinking 1 3h
 
     Further information about the project and explanation of the task 1.
 
@@ -58,7 +57,7 @@
                     - open
                     - until 29.03.2019
 
-22.03.2019 Design Thinking 2
+22.03.2019 Design Thinking 2 1.5h
 
     Further work on task 1. First research and work on the interview.
 
@@ -100,13 +99,13 @@
                     - open
                     - until 29.03.2019
 
-23.03.2019 Interview
+23.03.2019 Interview 1h
 
     Carrying out of the interview.
 
     Attendees:  Seglias Lukas
 
-24.03.2019 Design Thinking 3
+24.03.2019 Design Thinking 3 6h
 
     Further work on task 1. Goal of this meeting is to finish Design Thinking up to prototype. Everyone present helps
     to work on the storyboards and the first iterations of the prototypes.
@@ -148,7 +147,7 @@
                     - work in progress
                     - until 29.03.2019
 
-25.03.2019 Design Thinking 4
+25.03.2019 Design Thinking 4 1.5h
 
     Further work on task 1. Further iterations of the prototypes and discussing them.
 
@@ -173,7 +172,7 @@
                     - work in progress
                     - until 29.03.2019
 
-27.03.2019 Design Thinking 5
+27.03.2019 Design Thinking 5 4h
 
     Further work on task 1. Finalisation of the Design Thinking and the chapter validate.
 
@@ -194,3 +193,63 @@
                     - Assignee: Schüpbach Damian
                     - work in progress
                     - until 29.03.2019
+
+29.03.2019 Presentation of Design Thinking task 1.5h
+
+    Presentation of the Design Thinking task
+
+    Attendees:  Berger Luca
+                Nussbaum Christian
+                Ritz Luca
+                Schüpbach Damian
+                Seglias Lukas
+
+01.04.2019 Requirements Specification 1 1.5h
+
+    Information about the task Requirements Specification and first work at this task.
+
+    Attendees:  Berger Luca
+                Nussbaum Christian
+                Ritz Luca
+                Schüpbach Damian
+                Seglias Lukas
+
+    To Do:
+
+                - User Requirements
+                    - Assignee: Berger Lucas and Schüpbach Damian
+                    - work in progress
+                    - until 08.04.2019
+                - System Requirements
+                    - Assignee: Nussbaum Christian
+                    - work in progress
+                    - until 08.04.2019
+                - Document specifics
+                    - Assignee: Ritz Luca and Seglias Lukas
+                    - work in progress
+                    - until 08.04.2019
+
+03.04.2019 Requirements Specification 1 3h
+
+    Work on the tasks of the Requirements Specification.
+
+    Attendees:  Berger Luca
+                Nussbaum Christian
+                Ritz Luca
+                Schüpbach Damian
+                Seglias Lukas
+
+    To Do:
+
+                - User Requirements
+                    - Assignee: Berger Lucas and Schüpbach Damian
+                    - work in progress
+                    - until 08.04.2019
+                - System Requirements
+                    - Assignee: Nussbaum Christian and Seglias Lukas
+                    - work in progress
+                    - until 08.04.2019
+                - Document specifics
+                    - Assignee: Ritz Luca
+                    - work in progress
+                    - until 08.04.2019
