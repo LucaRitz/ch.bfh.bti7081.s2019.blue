@@ -253,3 +253,49 @@
                     - Assignee: Ritz Luca
                     - work in progress
                     - until 08.04.2019
+
+05.04.2019 Requirements Specification 2 1.5h
+
+    Work on the tasks for the Requirements Specification. Goal is to finish up the task
+
+    Attendees:  Berger Luca
+                Nussbaum Christian
+                Ritz Luca
+                Schüpbach Damian
+                Seglias Lukas
+
+    To Do:
+
+                    - User Requirements
+                        - Assignee: Berger Lucas and Schüpbach Damian
+                        - done
+                        - until 08.04.2019
+                    - System Requirements
+                        - Assignee: Nussbaum Christian and Seglias Lukas
+                        - done, but needs some checks
+                        - until 08.04.2019
+                    - Document specifics
+                        - Assignee: Ritz Luca
+                        - done
+                        - until 08.04.2019
+
+08.04.2019 Requirements Specification 3 + Presentation 1.5h
+
+    Finishing touches and presentation of the task Requirements Specification
+
+    Attendees:  Berger Luca
+                Nussbaum Christian
+                Ritz Luca
+                Schüpbach Damian
+                Seglias Lukas
+
+    To Do:
+
+                    - Presentation
+                        - Assignee: Schüpbach Damian
+                        - done
+                        - until 08.04.2019
+                    - Finishing touches for the task
+                        - Assignee: Everyone
+                        - done
+                        -until 08.04.2019
