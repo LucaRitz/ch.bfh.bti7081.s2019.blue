@@ -299,3 +299,20 @@
                         - Assignee: Everyone
                         - done
                         -until 08.04.2019
+
+10.04.2019 Requirements Document Review of Team Yellow and Architecture Design 1.5h
+
+    Review and Validation of the Requirements Document of team Yellow.
+
+    Attendees:  Berger Luca
+                Nussbaum Christian
+                Ritz Luca
+                Schüpbach Damian
+                Seglias Lukas
+
+    To Do:
+
+                    - Requirements Document Review
+                        - Assignee: everyone
+                        - done
+                        - until 10.04.2019
