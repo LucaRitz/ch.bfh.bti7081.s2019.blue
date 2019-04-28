@@ -316,3 +316,75 @@
                         - Assignee: everyone
                         - done
                         - until 10.04.2019
+
+24.04.2019 Domain Model, Sequence Diagram and Class Diagram 3h
+
+    Theory and work at the task for the Domain Model, Sequence Diagram and Class Diagram
+
+    Attendees:  Ritz Luca
+                Schüpbach Damian
+                Seglias Lukas
+
+    To Do:
+
+                    - UML domain model
+                        - Assignee: Schüpbach Damian
+                        - work in progress
+                        - until 29.04.2019
+                    - UML sequence diagrams
+                        - Assignee: everyone
+                        - work in progress
+                        - until 29.04.2019
+                    - UML class diagram
+                        - Assignee: everyone
+                        - work in progress
+                        - until 29.04.2019
+
+26.04.2019 Vaadin Web Application Framework 1.5h
+
+    Theory and explanation of the Vaadin Web Application Framework
+
+    Attendees:  Berger Luca
+                Nussbaum Christian
+                Ritz Luca
+                Schüpbach Damian
+                Seglias Lukas
+
+    To Do:
+
+                    - UML domain model
+                        - Assignee: Schüpbach Damian
+                        - work in progress
+                        - until 29.04.2019
+                    - UML sequence diagrams
+                        - Assignee: everyone
+                        - work in progress
+                        - until 29.04.2019
+                    - UML class diagram
+                        - Assignee: everyone
+                        - work in progress
+                        - until 29.04.2019
+
+28.04.2019 Domain Model, Sequence Diagram and Class Diagram 3h
+
+    Work at the task Domain Model, Sequence Diagram and Class Diagram
+
+    Attendees:  Berger Luca
+                Nussbaum Christian
+                Ritz Luca
+                Seglias Lukas
+
+    To Do:
+
+                    - UML domain model
+                        - Assignee: Schüpbach Damian
+                        - work in progress
+                        - until 29.04.2019
+                    - UML sequence diagrams
+                        - Assignee: everyone
+                        - work in progress
+                        - until 29.04.2019
+                    - UML class diagram
+                        - Assignee: everyone
+                        - work in progress
+                        - until 29.04.2019
