@@ -1,6 +1,6 @@
 package ch.bfh.bti7081.s2019.blue;
 
-import ch.bfh.bti7081.s2019.blue.server.service.home.HomeServiceImpl;
+import ch.bfh.bti7081.s2019.blue.server.service.HomeServiceImpl;
 import ch.bfh.bti7081.s2019.blue.shared.service.HomeService;
 import com.vaadin.flow.spring.annotation.EnableVaadin;
 import com.vaadin.flow.spring.annotation.UIScope;
