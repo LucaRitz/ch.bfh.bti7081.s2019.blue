@@ -388,3 +388,83 @@
                         - Assignee: everyone
                         - work in progress
                         - until 29.04.2019
+
+29.04.2019 Domain Model, Sequence Diagram and Class Diagram 1.5h
+
+    Final work at the task Domain Model, Sequence Diagram and Class Diagram and presentation of the task and
+    information about the MVP Pattern
+
+    Attendees:  Nussbaum Christian
+                Ritz Luca
+                Schüpbach Damian
+                Seglias Lukas
+
+    To Do:
+
+                    - UML domain model
+                        - Assignee: Schüpbach Damian
+                        - done
+                        - until 29.04.2019
+                    - UML sequence diagrams
+                        - Assignee: everyone
+                        - done
+                        - until 29.04.2019
+                    - UML class diagram
+                        - Assignee: everyone
+                        - done
+                        - until 29.04.2019
+
+01.05.2019 Architecture, Maven and Scrum in general 3h
+
+    Information about Maven and Scrum. Work at the task Architecture and Scrum Backlog and Sprint planning
+
+    Attendees:  Nussbaum Christian
+                Ritz Luca
+                Schüpbach Damian
+                Seglias Lukas
+
+    To Do:
+
+                    - Model of the software architecture high-level
+                        - Assignee: Seglias Lukas
+                        - work in progress
+                        - until 03.05.2019
+                    - Model of the software architecture detailed
+                        - Assignee: Seglias Lukas
+                        - work in progress
+                        - until 03.05.2019
+                    - Scrum Backlog
+                        - Assignee: Schüpbach Damian and Nussbaum Chrstian
+                        - work in progress
+                        - until 03.05.2019
+                    - Sprint planning
+                        - Assignee: Schüpbach Damian and Nussbaum Chrstian
+                        - work in progress
+                        - until 03.05.2019
+
+03.05.2019 Architecture and Scrum planning 1.5h
+
+    Finalisation of the Architecture and Scrum planning task
+
+    Attendees:  Berger Luca
+                Nussbaum Christian
+                Ritz Luca
+                Schüpbach Damian
+                Seglias Lukas
+
+                    - Model of the software architecture high-level
+                        - Assignee: Seglias Lukas
+                        - done
+                        - until 03.05.2019
+                    - Model of the software architecture detailed
+                        - Assignee: Seglias Lukas
+                        - done
+                        - until 03.05.2019
+                    - Scrum Backlog
+                        - Assignee: Schüpbach Damian and Nussbaum Chrstian
+                        - done
+                        - until 03.05.2019
+                    - Sprint planning
+                        - Assignee: Schüpbach Damian and Nussbaum Chrstian
+                        - done
+                        - until 03.05.2019
