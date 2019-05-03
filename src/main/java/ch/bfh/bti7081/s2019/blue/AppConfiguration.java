@@ -1,7 +1,5 @@
 package ch.bfh.bti7081.s2019.blue;
 
-import ch.bfh.bti7081.s2019.blue.client.home.HomeView;
-import ch.bfh.bti7081.s2019.blue.client.home.HomeViewImpl;
 import ch.bfh.bti7081.s2019.blue.server.service.home.HomeServiceImpl;
 import ch.bfh.bti7081.s2019.blue.shared.service.HomeService;
 import com.vaadin.flow.spring.annotation.EnableVaadin;
@@ -22,13 +20,6 @@ import javax.inject.Singleton;
 })
 @EnableJpaRepositories("ch.bfh.bti7081.s2019.blue.server.persistence")
 public class AppConfiguration {
-
-    @Bean
-    @UIScope
-    @Singleton
-    HomeView homeView() {
-        return new HomeViewImpl();
-    }
 
     @Bean
     @UIScope
