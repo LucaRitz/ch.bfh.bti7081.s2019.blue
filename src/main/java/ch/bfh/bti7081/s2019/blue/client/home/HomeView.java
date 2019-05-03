@@ -1,6 +1,5 @@
 package ch.bfh.bti7081.s2019.blue.client.home;
 
-import ch.bfh.bti7081.s2019.blue.client.base.HasView;
 import ch.bfh.bti7081.s2019.blue.client.base.IsView;
 
 public interface HomeView extends IsView {
@@ -9,6 +8,6 @@ public interface HomeView extends IsView {
 
     void setText(String text);
 
-    interface Presenter extends HasView {
+    interface Presenter {
     }
 }
