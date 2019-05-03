@@ -1,4 +1,4 @@
-package ch.bfh.bti7081.s2019.blue.server.service.home;
+package ch.bfh.bti7081.s2019.blue.server.service;
 
 import ch.bfh.bti7081.s2019.blue.server.persistence.HomeRepository;
 import ch.bfh.bti7081.s2019.blue.server.persistence.builder.HomeBuilder;
