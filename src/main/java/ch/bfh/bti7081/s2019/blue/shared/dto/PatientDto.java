@@ -4,7 +4,7 @@ import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 
-public class PatientDto implements Person {
+public class PatientDto implements Person, HasBirthdate {
 
     private Integer id;
 
