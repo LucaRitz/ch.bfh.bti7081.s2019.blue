@@ -1,0 +1,17 @@
+<link rel="import" href="../bower_components/polymer/polymer.html">
+<dom-module id="home-view">
+    <template>
+        <vaadin-vertical-layout>
+            <label id="welcomeText"></label>
+        </vaadin-vertical-layout>
+    </template>
+
+    <script>
+        class ViewApply extends Polymer.Element {
+            static get is() {
+                return 'home-view'
+            }
+        }
+        customElements.define(ViewApply.is, ViewApply);
+    </script>
+</dom-module>
