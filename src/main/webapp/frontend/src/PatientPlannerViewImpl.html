@@ -1,0 +1,19 @@
+<link rel="import" href="../bower_components/polymer/polymer.html">
+<dom-module id="patient-planner-view">
+    <template>
+        <vaadin-vertical-layout>
+            <vaadin-combo-box id="patients">
+            </vaadin-combo-box>
+        </vaadin-vertical-layout>
+    </template>
+
+    <script>
+        class ViewApply extends Polymer.Element {
+            static get is() {
+                return 'patient-planner-view'
+            }
+        }
+
+        customElements.define(ViewApply.is, ViewApply);
+    </script>
+</dom-module>

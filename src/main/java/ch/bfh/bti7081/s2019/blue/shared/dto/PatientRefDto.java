@@ -2,7 +2,7 @@ package ch.bfh.bti7081.s2019.blue.shared.dto;
 
 import java.util.Date;
 
-public class PatientRefDto implements Person {
+public class PatientRefDto implements Person, HasBirthdate {
 
     private Integer id;
 
