@@ -1,16 +1,19 @@
 package ch.bfh.bti7081.s2019.blue.client.patient;
 
 import ch.bfh.bti7081.s2019.blue.client.base.BaseViewImpl;
+import ch.bfh.bti7081.s2019.blue.client.i18n.AppConstants;
 import ch.bfh.bti7081.s2019.blue.shared.dto.PatientRefDto;
 import com.vaadin.flow.component.ItemLabelGenerator;
 import com.vaadin.flow.component.Tag;
 import com.vaadin.flow.component.combobox.ComboBox;
 import com.vaadin.flow.component.dependency.HtmlImport;
+import com.vaadin.flow.component.html.Label;
 import com.vaadin.flow.component.polymertemplate.Id;
 import com.vaadin.flow.spring.annotation.UIScope;
 import com.vaadin.flow.templatemodel.TemplateModel;
 import org.springframework.stereotype.Component;
 
+import javax.annotation.PostConstruct;
 import java.util.List;
 
 @HtmlImport("src/PatientPlannerViewImpl.html")
@@ -19,7 +22,9 @@ import java.util.List;
 @UIScope
 public class PatientPlannerViewImpl extends BaseViewImpl<TemplateModel> implements PatientPlannerView {
 
-    @Id("patients")
+    @Id
+    private Label title;
+    @Id
     private ComboBox<PatientRefDto> patients;
 
     private Presenter presenter;
@@ -39,4 +44,8 @@ public class PatientPlannerViewImpl extends BaseViewImpl<TemplateModel> implemen
         this.patients.setItems(patients);
     }
 
+    @PostConstruct
+    private void setUp() {
+        title.setText(getTranslation(AppConstants.MENU_PATIENTPLANNER.getKey()));
+    }
 }

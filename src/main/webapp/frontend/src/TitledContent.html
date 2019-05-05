@@ -1,0 +1,51 @@
+<link rel="import" href="../bower_components/polymer/polymer.html">
+<dom-module id="titled-content">
+
+    <template>
+        <style>
+            .title-box {
+                background-color: #197de1;
+                color: white;
+                width: 100%;
+            }
+
+            .title {
+                margin-left: 1em;
+                font-size: 2em;
+            }
+
+            .action-box {
+                float: right;
+                margin-right: 1em;
+                color: white;
+            }
+
+            .content {
+               padding: 1em;
+            }
+        </style>
+        <div>
+            <div class="title-box">
+                <span class="title">
+                    <slot name="title"></slot>
+                </span>
+                <span class="action-box">
+                    <slot name="actions"></slot>
+                </span>
+            </div>
+
+            <div class="content">
+                <slot name="content"></slot>
+            </div>
+        </div>
+    </template>
+
+    <script>
+        class TitleContentAppy extends Polymer.Element {
+            static get is() {
+                return 'titled-content'
+            }
+        }
+        customElements.define(TitleContentAppy.is, TitleContentAppy);
+    </script>
+</dom-module>
