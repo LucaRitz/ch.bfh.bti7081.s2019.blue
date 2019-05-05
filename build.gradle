@@ -16,6 +16,10 @@ dependencies {
     
     compile 'commons-lang:commons-lang:2.3'
     
+    // UI
+    compile group: 'com.vaadin', name: 'vaadin-button-flow', version: '13.0.3'
+    compile group: 'org.webjars.bowergithub.polymerelements', name: 'iron-icons', version: '3.0.1'
+    
     // i18n
     compile group: 'com.vaadin.addon', name: 'flow-guice-addon', version: '2.3.6-vaadin10'
 
