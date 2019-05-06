@@ -20,5 +20,6 @@ public class HomeEntryPoint extends Div {
     @PostConstruct
     void setUp() {
         add(presenter.getView().asComponent());
+        presenter.start();
     }
 }
