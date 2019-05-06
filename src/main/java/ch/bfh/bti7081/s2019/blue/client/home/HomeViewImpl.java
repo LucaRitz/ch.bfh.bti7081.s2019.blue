@@ -12,8 +12,6 @@ import com.vaadin.flow.spring.annotation.UIScope;
 import com.vaadin.flow.templatemodel.TemplateModel;
 import org.springframework.stereotype.Component;
 
-import javax.annotation.PostConstruct;
-
 @HtmlImport("src/HomeViewImpl.html")
 @Tag("home-view")
 @Component
@@ -26,6 +24,10 @@ public class HomeViewImpl extends BaseViewImpl<TemplateModel> implements HomeVie
     private Label welcomeText;
 
     private Presenter presenter;
+
+    public HomeViewImpl() {
+        title.setText(getTranslation(AppConstants.MENU_HOME.getKey()));
+    }
 
     @Override
     public void setPresenter(Presenter presenter) {
@@ -40,10 +42,5 @@ public class HomeViewImpl extends BaseViewImpl<TemplateModel> implements HomeVie
     @EventHandler
     private void infoButtonPressed() {
         Notification.show("Version 0.0.1-SNAPSHOT");
-    }
-
-    @PostConstruct
-    private void setUp() {
-        title.setText(getTranslation(AppConstants.MENU_HOME.getKey()));
     }
 }

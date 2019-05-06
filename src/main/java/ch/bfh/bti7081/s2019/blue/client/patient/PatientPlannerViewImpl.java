@@ -13,7 +13,6 @@ import com.vaadin.flow.spring.annotation.UIScope;
 import com.vaadin.flow.templatemodel.TemplateModel;
 import org.springframework.stereotype.Component;
 
-import javax.annotation.PostConstruct;
 import java.util.List;
 
 @HtmlImport("src/PatientPlannerViewImpl.html")
@@ -31,6 +30,7 @@ public class PatientPlannerViewImpl extends BaseViewImpl<TemplateModel> implemen
 
     public PatientPlannerViewImpl() {
         this.patients.setItemLabelGenerator((ItemLabelGenerator<PatientRefDto>) person -> person.getDisplayName() + ", " + person.getAge());
+        title.setText(getTranslation(AppConstants.MENU_PATIENTPLANNER.getKey()));
     }
 
     @Override
@@ -42,10 +42,5 @@ public class PatientPlannerViewImpl extends BaseViewImpl<TemplateModel> implemen
     public void setPatients(List<PatientRefDto> patients) {
 
         this.patients.setItems(patients);
-    }
-
-    @PostConstruct
-    private void setUp() {
-        title.setText(getTranslation(AppConstants.MENU_PATIENTPLANNER.getKey()));
     }
 }
