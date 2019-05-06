@@ -1,4 +1,8 @@
 <link rel="import" href="../bower_components/polymer/polymer.html">
+
+<link rel="import" href="../bower_components/vaadin-icons/vaadin-icons.html">
+<link rel="import" href="../bower_components/iron-icon/iron-icon.html">
+<link rel="import" href="../bower_components/vaadin-button/vaadin-button.html">
 <dom-module id="titled-content">
 
     <template>
@@ -27,6 +31,9 @@
         <div>
             <div class="title-box">
                 <span class="title">
+                    <vaadin-button id="backButton" theme="contrast icon" on-click="backPressed" hidden="true">
+                        <iron-icon icon="vaadin:arrow-backward"></iron-icon>
+                    </vaadin-button>
                     <slot name="title"></slot>
                 </span>
                 <span class="action-box">
@@ -44,6 +51,10 @@
         class TitleContentAppy extends Polymer.Element {
             static get is() {
                 return 'titled-content'
+            }
+
+            backPressed() {
+                window.history.back();
             }
         }
         customElements.define(TitleContentAppy.is, TitleContentAppy);
