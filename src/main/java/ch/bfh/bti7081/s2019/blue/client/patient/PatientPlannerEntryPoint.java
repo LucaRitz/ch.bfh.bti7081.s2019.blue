@@ -18,5 +18,6 @@ public class PatientPlannerEntryPoint extends Div {
     @PostConstruct
     void setUp() {
         add(presenter.getView().asComponent());
+        presenter.start();
     }
 }

@@ -22,13 +22,16 @@ public class HomeActivity extends BaseActivity implements HomeView.Presenter {
         this.view = view;
         this.view.setPresenter(this);
         this.homeService = homeService;
-
-        loadMasterdata();
     }
 
     @Override
     public IsView getView() {
         return view;
+    }
+
+    @Override
+    public void start() {
+        loadMasterdata();
     }
 
     @VisibleForTesting

@@ -1,5 +1,6 @@
 package ch.bfh.bti7081.s2019.blue.server.service;
 
+import ch.bfh.bti7081.s2019.blue.server.mapper.Mapper;
 import ch.bfh.bti7081.s2019.blue.server.persistence.HomeRepository;
 import ch.bfh.bti7081.s2019.blue.server.persistence.builder.HomeBuilder;
 import ch.bfh.bti7081.s2019.blue.server.persistence.model.Home;
@@ -15,10 +16,12 @@ import java.util.Optional;
 public class HomeServiceImpl implements HomeService {
 
     private final HomeRepository repository;
+    private final Mapper mapper;
 
     @Autowired
-    public HomeServiceImpl(HomeRepository repository) {
+    public HomeServiceImpl(HomeRepository repository, Mapper mapper) {
         this.repository = repository;
+        this.mapper = mapper;
     }
 
     @Override
@@ -26,11 +29,9 @@ public class HomeServiceImpl implements HomeService {
         Example<Home> statement = Example.of(new HomeBuilder().setReference(10L).build());
         Optional<Home> home = repository.findOne(statement);
 
-        if(home.isPresent()) {
+        if (home.isPresent()) {
             Home entity = home.get();
-            HomeDto dto = new HomeDto();
-            dto.setText(entity.getText());
-            return dto;
+            return mapper.map(entity, HomeDto.class);
         }
         return new HomeDto();
     }

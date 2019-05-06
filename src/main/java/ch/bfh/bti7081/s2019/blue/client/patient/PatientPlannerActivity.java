@@ -24,13 +24,16 @@ public class PatientPlannerActivity extends BaseActivity implements PatientPlann
         this.view = view;
         this.view.setPresenter(this);
         this.patientService = patientService;
-
-        loadMasterdata();
     }
 
     @Override
     public IsView getView() {
         return view;
+    }
+
+    @Override
+    public void start() {
+        loadMasterdata();
     }
 
     @VisibleForTesting
