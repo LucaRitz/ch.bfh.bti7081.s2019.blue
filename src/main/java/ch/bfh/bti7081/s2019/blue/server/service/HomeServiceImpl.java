@@ -26,7 +26,7 @@ public class HomeServiceImpl implements HomeService {
 
     @Override
     public HomeDto get() {
-        Example<Home> statement = Example.of(new HomeBuilder().setReference(10L).build());
+        Example<Home> statement = new HomeBuilder().setReference(10L).build();
         Optional<Home> home = repository.findOne(statement);
 
         if (home.isPresent()) {

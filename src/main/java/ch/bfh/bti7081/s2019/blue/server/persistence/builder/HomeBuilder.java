@@ -2,19 +2,13 @@ package ch.bfh.bti7081.s2019.blue.server.persistence.builder;
 
 import ch.bfh.bti7081.s2019.blue.server.persistence.model.Home;
 
-public class HomeBuilder {
-    private final Home home;
-
+public class HomeBuilder extends Builder<Home> {
     public HomeBuilder() {
-        home = new Home();
+        super(new Home());
     }
 
     public HomeBuilder setReference(Long referenceId) {
-        home.setReference(referenceId);
+        entity.setReference(referenceId);
         return this;
-    }
-
-    public Home build() {
-        return home;
     }
 }
