@@ -134,7 +134,7 @@ public class PatientPlannerViewImpl extends BaseViewImpl<TemplateModel> implemen
                 .atZone(ZoneId.systemDefault())
                 .toLocalDateTime();
 
-        String color = healthVisitor != null ? "3333ff" : "#ff3333";
+        String color = healthVisitor != null ? "#3333ff" : "#ff3333";
 
         return new Entry(seriesId, title, startDate, endDate, false, false, color, null);
     }
