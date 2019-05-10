@@ -37,6 +37,9 @@ public class Mapper {
         // Mapping Konfigurationen
         mapper.addMapping(new HomeMapping());
         mapper.addMapping(new PatientMapping());
+        mapper.addMapping(new EmployeeMapping());
+        mapper.addMapping(new MissionMapping());
+        mapper.addMapping(new MissionSeriesMapping());
     }
 
     public <T> T map(Object source, Class<T> destinationClass) {

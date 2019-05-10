@@ -22,7 +22,7 @@ public class ServerConstantsProvider implements InvocationHandler {
 
     private static final LoadingCache<Locale, ResourceBundle> bundleCache = CacheBuilder
             .newBuilder().expireAfterWrite(1, TimeUnit.DAYS)
-            .build(new CacheLoader<>() {
+            .build(new CacheLoader<Locale, ResourceBundle>() {
 
                 @Override
                 public ResourceBundle load(final Locale key) throws Exception {
