@@ -46,8 +46,6 @@ public class EmployeePlannerViewImpl extends BaseViewImpl<TemplateModel> impleme
     private Date startDate = null;
     private Date endDate = null;
 
-    private int cnt = 0;
-
     public EmployeePlannerViewImpl() {
 
         this.employees.setItemLabelGenerator((ItemLabelGenerator<EmployeeDto>)
@@ -88,7 +86,7 @@ public class EmployeePlannerViewImpl extends BaseViewImpl<TemplateModel> impleme
         this.startDate = Date.from(intervalStart.atStartOfDay(ZoneId.systemDefault()).toInstant());
         this.endDate = Date.from(intervalEnd.plusDays(1).atStartOfDay(ZoneId.systemDefault()).toInstant());
 
-        //reloadEntries();
+        reloadEntries();
     }
 
     private void reloadEntries() {
@@ -118,12 +116,6 @@ public class EmployeePlannerViewImpl extends BaseViewImpl<TemplateModel> impleme
     public void setMissions(List<MissionDto> missions) {
 
         calendar.removeAllEntries();
-
-        if (missions.isEmpty()) {
-            cnt++;
-            Notification notification = new Notification("No missions in that week! " + cnt);
-            notification.open();
-        }
 
         calendar.addEntries(missions.stream()
                 .map(this::toEntry)
