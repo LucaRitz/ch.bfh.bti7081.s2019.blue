@@ -9,11 +9,8 @@ import com.vaadin.flow.component.*;
 import com.vaadin.flow.component.button.Button;
 import com.vaadin.flow.component.combobox.ComboBox;
 import com.vaadin.flow.component.dependency.HtmlImport;
-import com.vaadin.flow.component.html.Label;
-import com.vaadin.flow.component.notification.Notification;
 import com.vaadin.flow.component.polymertemplate.Id;
 import com.vaadin.flow.spring.annotation.UIScope;
-import com.vaadin.flow.templatemodel.TemplateModel;
 import org.springframework.stereotype.Component;
 import org.vaadin.stefan.fullcalendar.*;
 
@@ -29,10 +26,8 @@ import java.util.stream.Collectors;
 @Tag("employee-planner-view")
 @Component
 @UIScope
-public class EmployeePlannerViewImpl extends BaseViewImpl<TemplateModel> implements EmployeePlannerView {
+public class EmployeePlannerViewImpl extends BaseViewImpl<EmployeeViewModel> implements EmployeePlannerView {
 
-    @Id
-    private Label title;
     @Id
     private ComboBox<EmployeeDto> employees;
     @Id
@@ -47,10 +42,11 @@ public class EmployeePlannerViewImpl extends BaseViewImpl<TemplateModel> impleme
     private Date endDate = null;
 
     public EmployeePlannerViewImpl() {
-
         this.employees.setItemLabelGenerator((ItemLabelGenerator<EmployeeDto>)
                 EmployeeDto::getDisplayName);
-        title.setText(getTranslation(AppConstants.MENU_EMPLOYEEPLANNER.getKey()));
+        setText(getModel().getText()::setTitle, AppConstants.MENU_EMPLOYEEPLANNER);
+        setText(getModel().getText()::setNext, AppConstants.ACTION_NEXT);
+        setText(getModel().getText()::setPrevious, AppConstants.ACTION_PREVIOUS);
 
         calendar.changeView(CalendarViewImpl.AGENDA_WEEK);
         calendar.setOption("allDaySlot", false);

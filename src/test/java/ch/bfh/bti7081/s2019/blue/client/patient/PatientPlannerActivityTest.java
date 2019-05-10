@@ -1,6 +1,7 @@
 package ch.bfh.bti7081.s2019.blue.client.patient;
 
 import ch.bfh.bti7081.s2019.blue.shared.dto.PatientRefDto;
+import ch.bfh.bti7081.s2019.blue.shared.service.MissionService;
 import ch.bfh.bti7081.s2019.blue.shared.service.PatientService;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
@@ -22,17 +23,19 @@ class PatientPlannerActivityTest {
     @Mock
     private PatientPlannerView view;
     @Mock
-    private PatientService service;
+    private PatientService patientService;
+    @Mock
+    private MissionService missionService;
 
     @BeforeEach
     void setUp() {
-        activity = new PatientPlannerActivity(view, service);
+        activity = new PatientPlannerActivity(view, patientService, missionService);
     }
 
     @Test
     void loadMasterdata_updateView() {
         List<PatientRefDto> expectedPatients = Collections.singletonList(new PatientRefDto());
-        when(service.findAll()).thenReturn(expectedPatients);
+        when(patientService.findAll()).thenReturn(expectedPatients);
 
         // Act
         activity.loadMasterdata();

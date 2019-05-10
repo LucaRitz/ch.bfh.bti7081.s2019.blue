@@ -31,7 +31,7 @@ public class HomeViewImpl extends BaseViewImpl<HomeViewModel> implements HomeVie
         this.binder = new BeanValidationBinder<>(HomeDto.class);
         this.binder.forField(text).bind("text");
 
-        getModel().setTitle(getTranslation(AppConstants.MENU_HOME.getKey()));
+        setText(getModel().getText()::setTitle, AppConstants.MENU_HOME);
     }
 
     @Override

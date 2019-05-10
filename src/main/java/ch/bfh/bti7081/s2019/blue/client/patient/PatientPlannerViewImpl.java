@@ -9,10 +9,8 @@ import com.vaadin.flow.component.*;
 import com.vaadin.flow.component.button.Button;
 import com.vaadin.flow.component.combobox.ComboBox;
 import com.vaadin.flow.component.dependency.HtmlImport;
-import com.vaadin.flow.component.html.Label;
 import com.vaadin.flow.component.polymertemplate.Id;
 import com.vaadin.flow.spring.annotation.UIScope;
-import com.vaadin.flow.templatemodel.TemplateModel;
 import org.springframework.stereotype.Component;
 import org.vaadin.stefan.fullcalendar.*;
 
@@ -28,10 +26,8 @@ import java.util.stream.Collectors;
 @Tag("patient-planner-view")
 @Component
 @UIScope
-public class PatientPlannerViewImpl extends BaseViewImpl<TemplateModel> implements PatientPlannerView {
+public class PatientPlannerViewImpl extends BaseViewImpl<PatientPlannerViewModel> implements PatientPlannerView {
 
-    @Id
-    private Label title;
     @Id
     private ComboBox<PatientRefDto> patients;
     @Id
@@ -48,9 +44,10 @@ public class PatientPlannerViewImpl extends BaseViewImpl<TemplateModel> implemen
     private Date endDate = null;
 
     public PatientPlannerViewImpl() {
-
         this.patients.setItemLabelGenerator((ItemLabelGenerator<PatientRefDto>) PatientRefDto::getDisplayName);
-        title.setText(getTranslation(AppConstants.MENU_PATIENTPLANNER.getKey()));
+        setText(getModel().getText()::setTitle, AppConstants.MENU_PATIENTPLANNER);
+        setText(getModel().getText()::setNext, AppConstants.ACTION_NEXT);
+        setText(getModel().getText()::setPrevious, AppConstants.ACTION_PREVIOUS);
 
         calendar.changeView(CalendarViewImpl.AGENDA_WEEK);
         calendar.setOption("allDaySlot", false);
