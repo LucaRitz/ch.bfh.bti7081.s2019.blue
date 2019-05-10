@@ -1,4 +1,5 @@
-<link rel="import" href="../bower_components/polymer/polymer.html">
+<link rel="import" href="../bower_components/polymer/polymer-element.html">
+<link rel="import" href="../bower_components/vaadin-text-field/vaadin-text-field.html">
 <link rel="import" href="TitledContent.html">
 
 <dom-module id="home-view">
@@ -9,10 +10,11 @@
             }
         </style>
         <titled-content>
-            <label id="title" slot="title"></label>
+            <label slot="title">[[title]]</label>
             <div slot="content">
                 <h1>Welcome</h1>
-                <label id="welcomeText"></label>
+                <label>[[home.text]]</label>
+                <vaadin-text-field id="text"></vaadin-text-field>
             </div>
             <div slot="actions">
                 <vaadin-button theme="contrast icon" on-click="infoButtonPressed">

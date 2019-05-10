@@ -10,7 +10,6 @@ import org.mockito.junit.jupiter.MockitoExtension;
 
 import java.util.Random;
 
-import static org.mockito.Mockito.mock;
 import static org.mockito.Mockito.verify;
 import static org.mockito.Mockito.when;
 
@@ -33,9 +32,7 @@ class HomeActivityTest {
 
     @Test
     void loadMasterdata_updateView() {
-        String expectedText = String.valueOf(RAND.nextLong());
-        HomeDto expectedDto = mock(HomeDto.class);
-        when(expectedDto.getText()).thenReturn(expectedText);
+        HomeDto expectedDto = new HomeDto();
 
         when(service.get()).thenReturn(expectedDto);
 
@@ -43,6 +40,6 @@ class HomeActivityTest {
         activity.loadMasterdata();
 
         // Assert
-        verify(view).setText(expectedText);
+        verify(view).setData(expectedDto);
     }
 }

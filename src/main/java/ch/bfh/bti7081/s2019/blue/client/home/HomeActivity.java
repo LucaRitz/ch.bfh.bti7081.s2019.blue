@@ -5,6 +5,7 @@ import ch.bfh.bti7081.s2019.blue.client.base.IsView;
 import ch.bfh.bti7081.s2019.blue.shared.dto.HomeDto;
 import ch.bfh.bti7081.s2019.blue.shared.service.HomeService;
 import com.google.common.annotations.VisibleForTesting;
+import com.vaadin.flow.component.notification.Notification;
 import com.vaadin.flow.spring.annotation.UIScope;
 import org.springframework.stereotype.Component;
 
@@ -37,6 +38,11 @@ public class HomeActivity extends BaseActivity implements HomeView.Presenter {
     @VisibleForTesting
     void loadMasterdata() {
         HomeDto dto = homeService.get();
-        view.setText(dto.getText());
+        view.setData(dto);
+    }
+
+    @Override
+    public void update(HomeDto homeDto) {
+        Notification.show(homeDto.getText());
     }
 }
