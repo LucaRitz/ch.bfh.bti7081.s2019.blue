@@ -9,6 +9,6 @@ Project CS2
 - Luca Berger (kucki10)
 
 ## Running the application
-./gradlew jettyRun
+./gradlew bootRun
 
-Then go to http://localhost:8080/mhc-pms/
+Then go to http://localhost:8080/home
