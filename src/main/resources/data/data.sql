@@ -4,13 +4,15 @@ INSERT INTO employee(firstname, lastname, profession, role) VALUES
   ('Sabine', 'Borislava', 'FAG', 'HEALTH_VISITOR'),
   ('Lara', 'Gerber', 'Pflegerin', 'HEALTH_VISITOR'),
   ('Hans', 'Brunner', 'FAG', 'HEALTH_VISITOR'),
-  ('Timo', 'Von Burg', 'Pfleger', 'HEALTH_VISITOR');
+  ('Timo', 'Von Burg', 'Pfleger', 'HEALTH_VISITOR'),
+  ('Ruedi', 'Rudolf', 'Manager', 'BACKOFFICE_AGENT');
 
 INSERT INTO user(username, password, employee_id) VALUES
   ('sabine.borislava', 'klartext', select id from employee where lastname = 'Borislava'),
   ('lara.gerber', 'klartext', select id from employee where lastname = 'Gerber'),
   ('hans.brunner', 'klartext', select id from employee where lastname = 'Brunner'),
-  ('timo.vonburg', 'klartext', select id from employee where lastname = 'Von Burg');
+  ('timo.vonburg', 'klartext', select id from employee where lastname = 'Von Burg'),
+  ('admin.root', 'klartext', select id from employee where lastname = 'Rudolf');
 
 INSERT INTO address(postal_code, city, street_name, house_nr) VALUES
   (3000, 'Bern', 'Teststrasse', 34),

@@ -15,6 +15,9 @@ dependencies {
     compile vaadin.springBoot()
     
     compile 'commons-lang:commons-lang:2.3'
+
+    // UI
+    compile 'org.vaadin.stefan:fullcalendar:1.9.1'
     
     // UI
     compile group: 'com.vaadin', name: 'vaadin-button-flow', version: '13.0.3'
@@ -44,6 +47,12 @@ dependencies {
 test {
     useJUnitPlatform() {
         excludeTags = ['Integration']
+    }
+}
+
+repositories {
+    maven {
+        url 'http://maven.vaadin.com/vaadin-addons'
     }
 }
 

@@ -1,11 +1,11 @@
-package ch.bfh.bti7081.s2019.blue.client.patient;
+package ch.bfh.bti7081.s2019.blue.client.employee;
 
 import ch.bfh.bti7081.s2019.blue.client.base.BaseActivity;
 import ch.bfh.bti7081.s2019.blue.client.base.IsView;
+import ch.bfh.bti7081.s2019.blue.shared.dto.EmployeeDto;
 import ch.bfh.bti7081.s2019.blue.shared.dto.MissionDto;
-import ch.bfh.bti7081.s2019.blue.shared.dto.PatientRefDto;
+import ch.bfh.bti7081.s2019.blue.shared.service.EmployeeService;
 import ch.bfh.bti7081.s2019.blue.shared.service.MissionService;
-import ch.bfh.bti7081.s2019.blue.shared.service.PatientService;
 import com.google.common.annotations.VisibleForTesting;
 import com.vaadin.flow.spring.annotation.UIScope;
 import org.springframework.stereotype.Component;
@@ -16,19 +16,19 @@ import java.util.List;
 
 @Component
 @UIScope
-public class PatientPlannerActivity extends BaseActivity implements PatientPlannerView.Presenter {
+public class EmployeePlannerActivity extends BaseActivity implements EmployeePlannerView.Presenter {
 
-    private final PatientPlannerView view;
-    private final PatientService patientService;
+    private final EmployeePlannerView view;
+    private final EmployeeService employeeService;
     private final MissionService missionService;
 
     @Inject
-    public PatientPlannerActivity(PatientPlannerView view,
-                                  PatientService patientService,
-                                  MissionService missionService) {
+    public EmployeePlannerActivity(EmployeePlannerView view,
+                                   EmployeeService employeeService,
+                                   MissionService missionService) {
         this.view = view;
         this.view.setPresenter(this);
-        this.patientService = patientService;
+        this.employeeService = employeeService;
         this.missionService = missionService;
     }
 
@@ -44,13 +44,13 @@ public class PatientPlannerActivity extends BaseActivity implements PatientPlann
 
     @VisibleForTesting
     void loadMasterdata() {
-        List<PatientRefDto> list = patientService.findAll();
-        view.setPatients(list);
+        List<EmployeeDto> list = employeeService.findAllHealthVisitors();
+        view.setEmployees(list);
     }
 
     @Override
-    public void onSelectionChange(PatientRefDto patient, Date startDate, Date endDate) {
-        List<MissionDto> list = missionService.findMissions(patient.getNumber(), startDate, endDate);
+    public void onSelectionChange(EmployeeDto employee, Date startDate, Date endDate) {
+        List<MissionDto> list = missionService.findMissionsForEmployee(employee.getId(), startDate, endDate);
         view.setMissions(list);
     }
 }
