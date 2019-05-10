@@ -20,7 +20,7 @@ dependencies {
     compile 'org.vaadin.stefan:fullcalendar:1.9.1'
     
     // UI
-    compile group: 'com.vaadin', name: 'vaadin-button-flow', version: '13.0.3'
+    compile group: 'com.vaadin', name: 'vaadin', version: '13.0.6'
     compile group: 'org.webjars.bowergithub.polymerelements', name: 'iron-icons', version: '3.0.1'
     
     // i18n
