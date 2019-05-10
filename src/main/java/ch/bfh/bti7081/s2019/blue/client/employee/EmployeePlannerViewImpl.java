@@ -10,7 +10,6 @@ import com.vaadin.flow.component.button.Button;
 import com.vaadin.flow.component.combobox.ComboBox;
 import com.vaadin.flow.component.dependency.HtmlImport;
 import com.vaadin.flow.component.html.Label;
-import com.vaadin.flow.component.notification.Notification;
 import com.vaadin.flow.component.polymertemplate.Id;
 import com.vaadin.flow.spring.annotation.UIScope;
 import com.vaadin.flow.templatemodel.TemplateModel;
@@ -19,6 +18,7 @@ import org.vaadin.stefan.fullcalendar.*;
 
 import java.time.DayOfWeek;
 import java.time.LocalDate;
+import java.time.LocalDateTime;
 import java.time.ZoneId;
 import java.util.Date;
 import java.util.List;
@@ -45,6 +45,7 @@ public class EmployeePlannerViewImpl extends BaseViewImpl<TemplateModel> impleme
     private Presenter presenter;
     private Date startDate = null;
     private Date endDate = null;
+    private Integer selectedMissionId = null;
 
     public EmployeePlannerViewImpl() {
 
@@ -59,13 +60,15 @@ public class EmployeePlannerViewImpl extends BaseViewImpl<TemplateModel> impleme
         calendar.setFirstDay(DayOfWeek.MONDAY);
         calendar.setHeightAuto();
         calendar.setLocale(Locale.GERMAN);
+        calendar.setNowIndicatorShown(true);
 
         addEventListeners();
     }
 
     private void addEventListeners() {
         calendar.addEntryClickedListener((ComponentEventListener<EntryClickedEvent>) event -> {
-            // TODO: do something
+            Entry entry = event.getEntry();
+            this.selectedMissionId = entry != null ? Integer.parseInt(entry.getId()) : null;
         });
 
         calendar.addViewRenderedListener((ComponentEventListener<ViewRenderedEvent>) event -> onDateRangeChange(event.getIntervalStart(), event.getIntervalEnd()));
@@ -126,20 +129,20 @@ public class EmployeePlannerViewImpl extends BaseViewImpl<TemplateModel> impleme
 
         PatientRefDto patient = missionDto.getMissionSeries().getPatient();
 
-        Entry entry = new Entry();
+        String missionId = String.valueOf(missionDto.getId());
 
-        entry.setTitle(patient.getDisplayName());
+        String title = patient.getDisplayName();
 
-        entry.setStart(missionDto.getStartDate().toInstant()
+        LocalDateTime startDate = missionDto.getStartDate().toInstant()
                 .atZone(ZoneId.systemDefault())
-                .toLocalDateTime());
+                .toLocalDateTime();
 
-        entry.setEnd(missionDto.getEndDate().toInstant()
+        LocalDateTime endDate = missionDto.getEndDate().toInstant()
                 .atZone(ZoneId.systemDefault())
-                .toLocalDateTime());
+                .toLocalDateTime();
 
-        entry.setColor("dddd00");
+        String color = "dddd00";
 
-        return entry;
+        return new Entry(missionId, title, startDate, endDate, false, false, color, null);
     }
 }

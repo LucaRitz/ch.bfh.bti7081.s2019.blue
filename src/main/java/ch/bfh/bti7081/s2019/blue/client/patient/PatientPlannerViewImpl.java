@@ -18,6 +18,7 @@ import org.vaadin.stefan.fullcalendar.*;
 
 import java.time.DayOfWeek;
 import java.time.LocalDate;
+import java.time.LocalDateTime;
 import java.time.ZoneId;
 import java.util.Date;
 import java.util.List;
@@ -46,6 +47,7 @@ public class PatientPlannerViewImpl extends BaseViewImpl<TemplateModel> implemen
     private Presenter presenter;
     private Date startDate = null;
     private Date endDate = null;
+    private Integer selectedMissionSeriesId = null;
 
     public PatientPlannerViewImpl() {
 
@@ -59,13 +61,15 @@ public class PatientPlannerViewImpl extends BaseViewImpl<TemplateModel> implemen
         calendar.setFirstDay(DayOfWeek.MONDAY);
         calendar.setHeightAuto();
         calendar.setLocale(Locale.GERMAN);
+        calendar.setNowIndicatorShown(true);
 
         addEventListeners();
     }
 
     private void addEventListeners() {
         calendar.addEntryClickedListener((ComponentEventListener<EntryClickedEvent>) event -> {
-            // TODO: do something
+            Entry entry = event.getEntry();
+            this.selectedMissionSeriesId = entry != null ? Integer.parseInt(entry.getId()) : null;
         });
         calendar.addViewRenderedListener((ComponentEventListener<ViewRenderedEvent>) event -> onDateRangeChange(event.getIntervalStart(), event.getIntervalEnd()));
 
@@ -118,20 +122,20 @@ public class PatientPlannerViewImpl extends BaseViewImpl<TemplateModel> implemen
     private Entry toEntry(MissionDto missionDto) {
         EmployeeDto healthVisitor = missionDto.getHealthVisitor();
 
-        Entry entry = new Entry();
+        String seriesId = String.valueOf(missionDto.getMissionSeries().getId());
 
-        entry.setTitle(healthVisitor != null ? healthVisitor.getDisplayName() : null);
+        String title = healthVisitor != null ? healthVisitor.getDisplayName() : null;
 
-        entry.setStart(missionDto.getStartDate().toInstant()
+        LocalDateTime startDate = missionDto.getStartDate().toInstant()
                 .atZone(ZoneId.systemDefault())
-                .toLocalDateTime());
+                .toLocalDateTime();
 
-        entry.setEnd(missionDto.getEndDate().toInstant()
+        LocalDateTime endDate = missionDto.getEndDate().toInstant()
                 .atZone(ZoneId.systemDefault())
-                .toLocalDateTime());
+                .toLocalDateTime();
 
-        entry.setColor(healthVisitor != null ? "3333ff" : "#ff3333");
+        String color = healthVisitor != null ? "3333ff" : "#ff3333";
 
-        return entry;
+        return new Entry(seriesId, title, startDate, endDate, false, false, color, null);
     }
 }
