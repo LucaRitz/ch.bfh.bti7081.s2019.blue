@@ -96,7 +96,7 @@ Layout extends Div implements RouterLayout {
         Anchor anchor = new Anchor("home");
         anchor.getClassNames().add("menu-logo");
 
-        Image img = new Image("/icons/icon.png", "ICON");
+        Image img = new Image("/icons/logo.png", "ICON");
 
         anchor.getElement().appendChild(img.getElement());
 

@@ -4,6 +4,7 @@ public enum AppConstants {
 
     MENU_HOME("menu.home"),
     MENU_PATIENTPLANNER("menu.patientplanner"),
+    MENU_EMPLOYEEPLANNER("menu.employeeplanner"),
     FOOTER_TEXT("footer.text");
 
     private final String key;

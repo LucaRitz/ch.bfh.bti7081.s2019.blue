@@ -4,13 +4,7 @@ import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 
-public class PatientDto implements Person, HasBirthdate {
-
-    private Integer id;
-
-    private String firstname;
-
-    private String lastname;
+public class PatientDto extends AbstractPerson implements HasBirthdate {
 
     private Date birthdate;
 
@@ -23,32 +17,6 @@ public class PatientDto implements Person, HasBirthdate {
     private DoctorDto doctor;
 
     private AddressDto address;
-
-    public void setId(Integer id) {
-        this.id = id;
-    }
-
-    public Integer getId() {
-        return this.id;
-    }
-
-    public void setFirstname(String firstname) {
-        this.firstname = firstname;
-    }
-
-    @Override
-    public String getFirstname() {
-        return this.firstname;
-    }
-
-    public void setLastname(String lastname) {
-        this.lastname = lastname;
-    }
-
-    @Override
-    public String getLastname() {
-        return this.lastname;
-    }
 
     public void setBirthdate(Date birthdate) {
         this.birthdate = birthdate;
