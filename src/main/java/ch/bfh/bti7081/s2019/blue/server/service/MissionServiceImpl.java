@@ -32,9 +32,36 @@ public class MissionServiceImpl implements MissionService {
 
     @Override
     public List<MissionDto> findMissions(Integer patientNumber, Date startDate, Date endDate) {
+        List<Mission> missions = new ArrayList<>(missionRepository.findByPatientNumberAndIntersectingDateRange(patientNumber, startDate, endDate));
         List<MissionSeries> series = new ArrayList<>(missionSeriesRepository.findByPatientNumberAndIntersectingDateRange(patientNumber, startDate, endDate));
-        List<Mission> missions = generator.generateMissionsFromSeries(series, new DateRange(startDate, endDate));
-        return mapper.map(missions, MissionDto.class);
+        List<Mission> temporaryMissions = generator.generateMissionsFromSeries(series, new DateRange(startDate, endDate));
+
+        //TODO: Only add temporary missions if they do not already have an instance
+        List<Mission> mergedMissions = mergeExistingMissionsWithTemporaryOnes(missions, temporaryMissions);
+
+        return mapper.map(mergedMissions, MissionDto.class);
+    }
+
+    private List<Mission> mergeExistingMissionsWithTemporaryOnes(List<Mission> missions, List<Mission> temporaryMissions) {
+        List<Mission> mergedMissions = new ArrayList<>(missions);
+
+
+        for (Mission temporaryMission : temporaryMissions) {
+            boolean isAlreadyAnExistingMission =
+                    missions
+                    .stream()
+                        .anyMatch(existingMission ->
+                                temporaryMission.getStartDate().equals(existingMission.getStartDate()) &&
+                                temporaryMission.getEndDate().equals(existingMission.getEndDate()) &&
+                                temporaryMission.getMissionSeries().getId().equals(existingMission.getMissionSeries().getId())
+                        );
+
+            if (!isAlreadyAnExistingMission) {
+                mergedMissions.add(temporaryMission);
+            }
+        }
+
+        return mergedMissions;
     }
 
 

@@ -177,9 +177,12 @@ INSERT INTO mission_series(start_date, end_date, repetition_type, patient_id) VA
   (parsedatetime('2019-05-28 14:00:00.00', 'yyyy-MM-dd hh:mm:ss.SS'), parsedatetime('2019-05-06 15:00:00.00', 'yyyy-MM-dd hh:mm:ss.SS'), 'ONCE', select id from patient where lastname = 'Stucki');
 
 INSERT INTO mission(start_date, end_date, mission_series_id, health_visitor_id) VALUES
-  (parsedatetime('2019-05-06 10:15:00.00', 'yyyy-MM-dd hh:mm:ss.SS'), parsedatetime('2019-05-06 11:15:00.00', 'yyyy-MM-dd hh:mm:ss.SS'),
+  (parsedatetime('2019-05-13 10:15:00.00', 'yyyy-MM-dd hh:mm:ss.SS'), parsedatetime('2019-05-13 11:15:00.00', 'yyyy-MM-dd hh:mm:ss.SS'),
   select id from mission_series where start_date = parsedatetime('2019-05-06 10:15:00.00', 'yyyy-MM-dd hh:mm:ss.SS') and end_date = parsedatetime('2019-07-07 11:15:00.00', 'yyyy-MM-dd hh:mm:ss.SS') and patient_id = (select id from patient where lastname = 'Stucki'),
-  select id from employee where lastname = 'Gerber'),
-  (parsedatetime('2019-05-06 06:15:00.00', 'yyyy-MM-dd hh:mm:ss.SS'), parsedatetime('2019-05-06 08:00:00.00', 'yyyy-MM-dd hh:mm:ss.SS'),
+  select id from employee where lastname = 'Borislava'),
+  (parsedatetime('2019-05-13 06:15:00.00', 'yyyy-MM-dd hh:mm:ss.SS'), parsedatetime('2019-05-13 08:00:00.00', 'yyyy-MM-dd hh:mm:ss.SS'),
   select id from mission_series where start_date = parsedatetime('2019-05-06 06:15:00.00', 'yyyy-MM-dd hh:mm:ss.SS') and end_date = parsedatetime('2019-07-07 08:00:00.00', 'yyyy-MM-dd hh:mm:ss.SS') and patient_id = (select id from patient where lastname = 'Müller'),
+  select id from employee where lastname = 'Borislava'),
+  (parsedatetime('2019-05-13 08:00:00.00', 'yyyy-MM-dd hh:mm:ss.SS'), parsedatetime('2019-05-13 09:00:00.00', 'yyyy-MM-dd hh:mm:ss.SS'),
+  select id from mission_series where start_date = parsedatetime('2019-05-06 08:00:00.00', 'yyyy-MM-dd hh:mm:ss.SS') and end_date = parsedatetime('2019-07-07 09:00:00.00', 'yyyy-MM-dd hh:mm:ss.SS') and patient_id = (select id from patient where lastname = 'Rickner'),
   select id from employee where lastname = 'Gerber');
