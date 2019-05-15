@@ -36,7 +36,6 @@ public class MissionServiceImpl implements MissionService {
         List<MissionSeries> series = new ArrayList<>(missionSeriesRepository.findByPatientNumberAndIntersectingDateRange(patientNumber, startDate, endDate));
         List<Mission> temporaryMissions = generator.generateMissionsFromSeries(series, new DateRange(startDate, endDate));
 
-        //TODO: Only add temporary missions if they do not already have an instance
         List<Mission> mergedMissions = mergeExistingMissionsWithTemporaryOnes(missions, temporaryMissions);
 
         return mapper.map(mergedMissions, MissionDto.class);
