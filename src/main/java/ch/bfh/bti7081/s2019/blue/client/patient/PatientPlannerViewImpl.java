@@ -9,6 +9,7 @@ import com.vaadin.flow.component.*;
 import com.vaadin.flow.component.button.Button;
 import com.vaadin.flow.component.combobox.ComboBox;
 import com.vaadin.flow.component.dependency.HtmlImport;
+import com.vaadin.flow.component.notification.Notification;
 import com.vaadin.flow.component.polymertemplate.Id;
 import com.vaadin.flow.spring.annotation.UIScope;
 import org.springframework.stereotype.Component;
@@ -43,7 +44,6 @@ public class PatientPlannerViewImpl extends BaseViewImpl<PatientPlannerViewModel
     private Presenter presenter;
     private Date startDate = null;
     private Date endDate = null;
-    private Integer selectedMissionSeriesId = null;
 
     public PatientPlannerViewImpl() {
         this.patients.setItemLabelGenerator((ItemLabelGenerator<PatientRefDto>) PatientRefDto::getDisplayName);
@@ -66,7 +66,17 @@ public class PatientPlannerViewImpl extends BaseViewImpl<PatientPlannerViewModel
     private void addEventListeners() {
         calendar.addEntryClickedListener((ComponentEventListener<EntryClickedEvent>) event -> {
             Entry entry = event.getEntry();
-            this.selectedMissionSeriesId = entry != null ? Integer.parseInt(entry.getId()) : null;
+            if (entry == null) {
+                return;
+            }
+
+            Integer id = Integer.parseInt(entry.getId());
+            String type = id >= 0 ? "Booked" : "Temporary";
+            Notification notification = new Notification("Click on " + type + " Mission with id=" + id + " was registered\n" +
+                    "Start: " + entry.getStart().toString() + " End: " + entry.getEnd(), 3000);
+            notification.open();
+
+
         });
         calendar.addViewRenderedListener((ComponentEventListener<ViewRenderedEvent>) event -> onDateRangeChange(event.getIntervalStart(), event.getIntervalEnd()));
 
@@ -119,7 +129,8 @@ public class PatientPlannerViewImpl extends BaseViewImpl<PatientPlannerViewModel
     private Entry toEntry(MissionDto missionDto) {
         EmployeeDto healthVisitor = missionDto.getHealthVisitor();
 
-        String seriesId = String.valueOf(missionDto.getMissionSeries().getId());
+        Integer id = healthVisitor != null ? missionDto.getId() : missionDto.getMissionSeries().getId() * -1;
+        String seriesId = String.valueOf(id);
 
         String title = healthVisitor != null ? healthVisitor.getDisplayName() : null;
 
