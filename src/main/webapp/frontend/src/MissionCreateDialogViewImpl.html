@@ -10,23 +10,19 @@
                 width: 100%;
             }
         </style>
-        <vaadin-vertical-layout>
-            <vaadin-horizontal-layout>
-                <vaadin-date-picker id="startDate" label="[[text.startDate]]"></vaadin-date-picker>
-                <vaadin-time-picker id="startTime" label="[[text.startTime]]"></vaadin-time-picker>
-            </vaadin-horizontal-layout>
-            <vaadin-horizontal-layout>
-                <vaadin-date-picker id="endDate" label="[[text.endDate]]"></vaadin-date-picker>
-                <vaadin-time-picker id="endTime" label="[[text.endTime]]"></vaadin-time-picker>
-            </vaadin-horizontal-layout>
-
+        <vaadin-form-layout>
+            <vaadin-date-picker id="startDate" label="[[text.startDate]]"></vaadin-date-picker>
+            <vaadin-time-picker id="startTime" label="[[text.startTime]]"></vaadin-time-picker>
+            <br>
+            <vaadin-date-picker id="endDate" label="[[text.endDate]]"></vaadin-date-picker>
+            <vaadin-time-picker id="endTime" label="[[text.endTime]]"></vaadin-time-picker>
+            <br>
             <vaadin-radio-group id="repetitionType" label="[[text.repetitionType]]">
             </vaadin-radio-group>
-            <vaadin-horizontal-layout>
-                <vaadin-button id="saveButton" on-click="saveButtonPressed">[[text.save]]</vaadin-button>
-                <vaadin-button id="cancelButton" on-click="cancelButtonPressed">[[text.cancel]]</vaadin-button>
-            </vaadin-horizontal-layout>
-        </vaadin-vertical-layout>
+            <br>
+            <vaadin-button id="saveButton" on-click="saveButtonPressed">[[text.save]]</vaadin-button>
+            <vaadin-button id="cancelButton" on-click="cancelButtonPressed">[[text.cancel]]</vaadin-button>
+        </vaadin-form-layout>
     </template>
 
     <script>
