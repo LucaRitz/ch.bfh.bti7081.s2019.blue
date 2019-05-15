@@ -8,25 +8,18 @@ import com.vaadin.flow.component.Tag;
 import com.vaadin.flow.component.button.Button;
 import com.vaadin.flow.component.datepicker.DatePicker;
 import com.vaadin.flow.component.dependency.HtmlImport;
-import com.vaadin.flow.component.notification.Notification;
 import com.vaadin.flow.component.polymertemplate.EventHandler;
 import com.vaadin.flow.component.polymertemplate.Id;
 import com.vaadin.flow.component.radiobutton.RadioButtonGroup;
 import com.vaadin.flow.component.timepicker.TimePicker;
 import com.vaadin.flow.data.binder.BeanValidationBinder;
 import com.vaadin.flow.data.binder.BinderValidationStatus;
-import com.vaadin.flow.data.converter.LocalDateToDateConverter;
-import com.vaadin.flow.data.provider.DataKeyMapper;
 import com.vaadin.flow.data.provider.DataProvider;
-import com.vaadin.flow.data.renderer.ComponentRenderer;
-import com.vaadin.flow.data.renderer.Rendering;
 import com.vaadin.flow.data.renderer.TextRenderer;
-import com.vaadin.flow.dom.Element;
 import com.vaadin.flow.spring.annotation.UIScope;
 import org.springframework.stereotype.Component;
 
-import java.time.LocalDate;
-import java.time.LocalTime;
+import java.util.Arrays;
 import java.util.List;
 
 @HtmlImport("src/MissionCreateDialogViewImpl.html")
@@ -68,7 +61,7 @@ public class MissionCreateViewImpl extends BaseViewImpl<MissionCreateViewModel> 
         this.binder.forField(endTime).bind("endTime");
         this.binder.forField(repetitionType).bind("repetitionType");
 
-        List<RepetitionType> repetitionTypes = List.of(RepetitionType.values());
+        List<RepetitionType> repetitionTypes = Arrays.asList(RepetitionType.values());
         repetitionType.setDataProvider(DataProvider.ofCollection(repetitionTypes));
         repetitionType.setRenderer(new TextRenderer<>(item -> getTranslation("RepetitionType_" + item.name())));
 
