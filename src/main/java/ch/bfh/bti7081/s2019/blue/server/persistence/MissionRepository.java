@@ -1,7 +1,6 @@
 package ch.bfh.bti7081.s2019.blue.server.persistence;
 
 import ch.bfh.bti7081.s2019.blue.server.persistence.model.Mission;
-import ch.bfh.bti7081.s2019.blue.server.persistence.model.MissionSeries;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.query.Param;
@@ -19,6 +18,17 @@ public interface MissionRepository extends JpaRepository<Mission, Long> {
             + " AND m.startDate <= :endDate AND m.endDate >= :startDate")
     List<Mission> findByHealthVisitorAndIntersectingDateRange(
             @Param("healthVisitorId") Integer healthVisitorId,
+            @Param("startDate") Date startDate,
+            @Param("endDate") Date endDate);
+
+
+    @Query("SELECT m FROM Mission m"
+            + " JOIN MissionSeries ms ON m.missionSeries = ms"
+            + " JOIN Patient p ON ms.patient = p"
+            + " WHERE p.number = :patientNr"
+            + " AND m.startDate <= :endDate AND m.endDate >= :startDate")
+    List<Mission> findByPatientNumberAndIntersectingDateRange(
+            @Param("patientNr") Integer patientNr,
             @Param("startDate") Date startDate,
             @Param("endDate") Date endDate);
 

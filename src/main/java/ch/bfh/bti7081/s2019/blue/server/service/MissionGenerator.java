@@ -22,11 +22,6 @@ public class MissionGenerator {
     }
 
     public List<Mission> generateMissionsFromSeries(MissionSeries missionSeries, DateRange viewRange) {
-
-
-        // TODO: Add already created missions as well
-        // And only generate new ones if it was not already created.
-
         List<Mission> missions = new ArrayList<>();
 
         Date date = missionSeries.getStartDate();

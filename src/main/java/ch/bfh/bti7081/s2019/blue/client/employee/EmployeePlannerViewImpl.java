@@ -139,7 +139,7 @@ public class EmployeePlannerViewImpl extends BaseViewImpl<EmployeeViewModel> imp
                 .atZone(ZoneId.systemDefault())
                 .toLocalDateTime();
 
-        String color = "#dddd00";
+        String color = "#3333ff";
 
         return new Entry(missionId, title, startDate, endDate, false, false, color, null);
     }
