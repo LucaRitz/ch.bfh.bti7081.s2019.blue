@@ -2,6 +2,7 @@ package ch.bfh.bti7081.s2019.blue.client.patient;
 
 import ch.bfh.bti7081.s2019.blue.client.base.IsView;
 import ch.bfh.bti7081.s2019.blue.shared.dto.MissionDto;
+import ch.bfh.bti7081.s2019.blue.shared.dto.MissionSeriesDto;
 import ch.bfh.bti7081.s2019.blue.shared.dto.PatientRefDto;
 
 import java.util.Date;
@@ -16,6 +17,10 @@ public interface PatientPlannerView extends IsView {
     void setMissions(List<MissionDto> missions);
 
     void reload();
+
+    PatientRefDto getPatient();
+
+    MissionSeriesDto getSelectedMissionSeries();
 
     interface Presenter {
         void onCreateClicked();

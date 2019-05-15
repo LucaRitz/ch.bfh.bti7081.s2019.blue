@@ -10,7 +10,7 @@ import static org.dozer.loader.api.TypeMappingOptions.oneWay;
 public class MissionSeriesMapping extends BeanMappingBuilder {
     @Override
     protected void configure() {
-        mapping(MissionSeries.class, MissionSeriesDto.class, oneWay())
+        mapping(MissionSeries.class, MissionSeriesDto.class)
                 .exclude("startDate")
                 .exclude("startTime")
                 .exclude("endDate")

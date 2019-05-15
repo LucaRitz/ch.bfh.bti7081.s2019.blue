@@ -18,6 +18,8 @@ import com.vaadin.flow.spring.annotation.UIScope;
 import com.vaadin.flow.templatemodel.TemplateModel;
 import org.springframework.stereotype.Component;
 
+import java.util.List;
+
 @HtmlImport("src/MissionEditDialogViewImpl.html")
 @Tag("mission-edit-dialog")
 @Component
@@ -54,6 +56,13 @@ public class MissionEditViewImpl extends BaseViewImpl<MissionEditViewModel> impl
     @Override
     public void edit(MissionSeriesDto missionSeriesDto) {
         binder.setBean(missionSeriesDto);
+    }
+
+    @Override
+    public void showErrors(List<String> errors) {
+        for (String error : errors) {
+            new Notification(error,10000).open();
+        }
     }
 
     @EventHandler

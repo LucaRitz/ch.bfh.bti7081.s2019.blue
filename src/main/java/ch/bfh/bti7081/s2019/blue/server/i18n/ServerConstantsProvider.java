@@ -45,7 +45,7 @@ public class ServerConstantsProvider implements InvocationHandler {
         final ResourceBundle bundle = bundleCache.getUnchecked(LocaleContextHolder.getLocale());
 
         String value = bundle.getString(method.getName());
-        if (args.length > 0) {
+        if (args != null && args.length > 0) {
             value = MessageFormat.format(value, args);
         }
         return value;

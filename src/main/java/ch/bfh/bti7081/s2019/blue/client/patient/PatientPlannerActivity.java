@@ -60,13 +60,17 @@ public class PatientPlannerActivity extends BaseActivity implements PatientPlann
     public void onCreateClicked() {
         createDialog.open(createdMissionSeries -> {
             view.reload();
-        });
+        }, view.getPatient());
     }
 
     @Override
     public void onEditClicked() {
-        // TODO: pass in selected mission series
-        MissionSeriesDto dto = new MissionSeriesDto();
+        MissionSeriesDto dto = view.getSelectedMissionSeries();
+
+        if(dto == null) {
+            System.out.println("fähler");
+            return; //TODO
+        }
 
         editDialog.open(dto, editedMissionSeries -> {
             view.reload();
