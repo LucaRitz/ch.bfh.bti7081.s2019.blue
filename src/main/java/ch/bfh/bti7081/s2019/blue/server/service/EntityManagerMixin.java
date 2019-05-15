@@ -6,6 +6,7 @@ import org.springframework.stereotype.Component;
 import javax.inject.Inject;
 import javax.persistence.EntityManager;
 import java.util.Optional;
+
 @Component
 public class EntityManagerMixin {
 
@@ -19,7 +20,7 @@ public class EntityManagerMixin {
     public <T> EntityWrapper<T> get(int id, JpaRepository<T, Integer> repository) {
         Optional<T> originalOpt = repository.findById(id);
 
-        if (originalOpt.isEmpty()) {
+        if (!originalOpt.isPresent()) {
             return new EntityWrapper<>();
         }
 

@@ -24,9 +24,6 @@ public class Address {
     @Column(name = "house_nr", length = 10)
     private String houseNr;
 
-    @OneToOne(mappedBy = "address")
-    private Patient patient;
-
     public void setId(Integer id) {
         this.id = id;
     }
@@ -67,11 +64,4 @@ public class Address {
         return this.houseNr;
     }
 
-    public Patient getPatient() {
-        return patient;
-    }
-
-    public void setPatient(Patient patient) {
-        this.patient = patient;
-    }
 }

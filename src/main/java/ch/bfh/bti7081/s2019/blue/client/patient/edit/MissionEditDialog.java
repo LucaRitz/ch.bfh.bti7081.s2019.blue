@@ -57,10 +57,12 @@ public class MissionEditDialog extends BaseActivity implements MissionEditView.P
 
     @Override
     public void onSaveClicked(MissionSeriesDto dto) {
+
         Date endDate = Date.from(
                 LocalDateTime.of(dto.getEndDate(), dto.getEndTime())
                         .atZone(ZoneId.systemDefault())
                         .toInstant());
+
         ResponseDto<Void> response = missionSeriesService.updateEndDate(endDate, dto.getId());
         if (response.hasErrors()) {
             view.showErrors(response.getErrors());
