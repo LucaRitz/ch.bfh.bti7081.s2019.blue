@@ -39,7 +39,7 @@ public class MissionEditViewImpl extends BaseViewImpl<MissionEditViewModel> impl
 
     public MissionEditViewImpl() {
         binder = new BeanValidationBinder<>(MissionSeriesDto.class);
-        this.binder.forField(endDate).withConverter(new LocalDateToDateConverter()).bind("endDate");
+        this.binder.forField(endDate).bind("endDate");
 
         setText(getModel().getText()::setEndDate, AppConstants.MISSION_EDIT_END_DATE);
         setText(getModel().getText()::setSave, AppConstants.ACTION_SAVE);
