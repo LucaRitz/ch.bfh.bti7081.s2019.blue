@@ -37,7 +37,6 @@ public class MissionServiceImpl implements MissionService {
         return mapper.map(missions, MissionDto.class);
     }
 
-
     @Override
     public List<MissionDto> findMissionsForEmployee(Integer employeeId, Date start, Date end) {
         List<Mission> missions = missionRepository.findByHealthVisitorAndIntersectingDateRange(employeeId, start, end);

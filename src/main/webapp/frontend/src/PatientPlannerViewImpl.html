@@ -10,26 +10,26 @@
         <titled-content>
             <label slot="title">[[text.title]]</label>
             <div slot="content">
-                <vaadin-vertical-layout>
-                    <vaadin-horizontal-layout>
-                        <vaadin-button id="previousButton">
-                            [[text.previous]]
-                        </vaadin-button>
-                        <vaadin-button id="nextButton">
-                            [[text.next]]
-                        </vaadin-button>
-                        <vaadin-combo-box id="patients">
-                        </vaadin-combo-box>
-                        <vaadin-button id="createButton">
-                            Create
-                        </vaadin-button>
-                    </vaadin-horizontal-layout>
-                    <full-calendar id="calendar">
-                    </full-calendar>
-                </vaadin-vertical-layout>
+                <vaadin-horizontal-layout id="layout">
+                    <vaadin-button id="previousButton">
+                        [[text.previous]]
+                    </vaadin-button>
+                    <vaadin-button id="nextButton">
+                        [[text.next]]
+                    </vaadin-button>
+                    <vaadin-combo-box id="patients">
+                    </vaadin-combo-box>
+                </vaadin-horizontal-layout>
+                <full-calendar id="calendar">
+                </full-calendar>
             </div>
             <div slot="actions">
-
+                <vaadin-button theme="contrast icon" on-click="createButtonPressed">
+                    <iron-icon icon="vaadin:plus"></iron-icon>
+                </vaadin-button>
+                <vaadin-button theme="contrast icon" on-click="changeEndDateButtonPressed">
+                    <iron-icon icon="vaadin:calendar-clock"></iron-icon>
+                </vaadin-button>
             </div>
         </titled-content>
     </template>

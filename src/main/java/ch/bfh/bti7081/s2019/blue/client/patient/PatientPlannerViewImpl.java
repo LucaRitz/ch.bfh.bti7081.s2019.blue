@@ -9,6 +9,8 @@ import com.vaadin.flow.component.*;
 import com.vaadin.flow.component.button.Button;
 import com.vaadin.flow.component.combobox.ComboBox;
 import com.vaadin.flow.component.dependency.HtmlImport;
+import com.vaadin.flow.component.orderedlayout.HorizontalLayout;
+import com.vaadin.flow.component.polymertemplate.EventHandler;
 import com.vaadin.flow.component.polymertemplate.Id;
 import com.vaadin.flow.spring.annotation.UIScope;
 import org.springframework.stereotype.Component;
@@ -35,16 +37,18 @@ public class PatientPlannerViewImpl extends BaseViewImpl<PatientPlannerViewModel
     @Id
     private Button nextButton;
     @Id
-    private Button createButton;
-    @Id
     private FullCalendar calendar;
+    @Id
+    private HorizontalLayout layout;
 
     private Presenter presenter;
     private Date startDate = null;
     private Date endDate = null;
 
+
     public PatientPlannerViewImpl() {
-        this.patients.setItemLabelGenerator((ItemLabelGenerator<PatientRefDto>) PatientRefDto::getDisplayName);
+        this.patients.setItemLabelGenerator((ItemLabelGenerator<PatientRefDto>) person -> person.getDisplayName() + ", " + person.getAge());
+
         setText(getModel().getText()::setTitle, AppConstants.MENU_PATIENTPLANNER);
         setText(getModel().getText()::setNext, AppConstants.ACTION_NEXT);
         setText(getModel().getText()::setPrevious, AppConstants.ACTION_PREVIOUS);
@@ -69,24 +73,7 @@ public class PatientPlannerViewImpl extends BaseViewImpl<PatientPlannerViewModel
         previousButton.addClickListener((ComponentEventListener<ClickEvent<Button>>) event -> calendar.previous());
         nextButton.addClickListener((ComponentEventListener<ClickEvent<Button>>) event -> calendar.next());
 
-        patients.addValueChangeListener((HasValue.ValueChangeListener<AbstractField.ComponentValueChangeEvent<ComboBox<PatientRefDto>, PatientRefDto>>) event -> reloadEntries());
-    }
-
-    private void onDateRangeChange(LocalDate intervalStart, LocalDate intervalEnd) {
-
-        this.startDate = Date.from(intervalStart.atStartOfDay(ZoneId.systemDefault()).toInstant());
-        this.endDate = Date.from(intervalEnd.plusDays(1).atStartOfDay(ZoneId.systemDefault()).toInstant());
-
-        reloadEntries();
-    }
-
-    private void reloadEntries() {
-
-        PatientRefDto selectedPatient = patients.getValue();
-
-        if (selectedPatient != null) {
-            presenter.onSelectionChange(selectedPatient, startDate, endDate);
-        }
+        patients.addValueChangeListener((HasValue.ValueChangeListener<AbstractField.ComponentValueChangeEvent<ComboBox<PatientRefDto>, PatientRefDto>>) event -> reload());
     }
 
     @Override
@@ -112,6 +99,16 @@ public class PatientPlannerViewImpl extends BaseViewImpl<PatientPlannerViewModel
                 .collect(Collectors.toList()));
     }
 
+    @EventHandler
+    private void createButtonPressed() {
+        presenter.onCreateClicked();
+    }
+
+    @EventHandler
+    private void changeEndDateButtonPressed() {
+        presenter.onEditClicked();
+    }
+
     private Entry toEntry(MissionDto missionDto) {
         EmployeeDto healthVisitor = missionDto.getHealthVisitor();
 
@@ -130,5 +127,23 @@ public class PatientPlannerViewImpl extends BaseViewImpl<PatientPlannerViewModel
         entry.setColor(healthVisitor != null ? "3333ff" : "#ff3333");
 
         return entry;
+    }
+
+    private void onDateRangeChange(LocalDate intervalStart, LocalDate intervalEnd) {
+
+        this.startDate = Date.from(intervalStart.atStartOfDay(ZoneId.systemDefault()).toInstant());
+        this.endDate = Date.from(intervalEnd.plusDays(1).atStartOfDay(ZoneId.systemDefault()).toInstant());
+
+        reload();
+    }
+
+    @Override
+    public void reload() {
+
+        PatientRefDto selectedPatient = patients.getValue();
+
+        if (selectedPatient != null) {
+            presenter.onSelectionChange(selectedPatient, startDate, endDate);
+        }
     }
 }
