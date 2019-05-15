@@ -3,6 +3,7 @@
 <link rel="import" href="../bower_components/vaadin-icons/vaadin-icons.html">
 <link rel="import" href="../bower_components/iron-icon/iron-icon.html">
 <link rel="import" href="../bower_components/vaadin-button/vaadin-button.html">
+<link rel="import" href="Theme.html">
 <dom-module id="titled-content">
 
     <template>
@@ -11,6 +12,8 @@
                 background-color: #197de1;
                 color: white;
                 width: 100%;
+                display: flex;
+                justify-content: space-between;
             }
 
             .title {
@@ -20,8 +23,8 @@
 
             .action-box {
                 float: right;
-                margin-right: 1em;
                 color: white;
+                margin:0.3em 0.5em;
             }
 
             .content {
