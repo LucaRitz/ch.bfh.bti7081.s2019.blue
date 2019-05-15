@@ -4,6 +4,7 @@ import ch.bfh.bti7081.s2019.blue.client.base.BaseActivity;
 import ch.bfh.bti7081.s2019.blue.client.base.IsView;
 import ch.bfh.bti7081.s2019.blue.shared.dto.MissionSeriesDto;
 import ch.bfh.bti7081.s2019.blue.shared.dto.RepetitionType;
+import ch.bfh.bti7081.s2019.blue.shared.dto.ResponseDto;
 import ch.bfh.bti7081.s2019.blue.shared.service.PatientService;
 import com.google.common.annotations.VisibleForTesting;
 import com.vaadin.flow.component.dialog.Dialog;
@@ -51,7 +52,7 @@ public class MissionCreateDialog extends BaseActivity implements MissionCreateVi
         this.createdMissionSeriesConsumer = createdMissionSeriesConsumer;
         MissionSeriesDto dto = new MissionSeriesDto();
         dto.setStartDate(LocalDate.now());
-        dto.setEndDate(LocalDate.now().plusDays(7));
+        dto.setEndDate(LocalDate.now());
         dto.setStartTime(LocalTime.now().withMinute(0));
         dto.setEndTime(LocalTime.now().withMinute(0).plusHours(2));
         dto.setRepetitionType(RepetitionType.ONCE);
@@ -63,10 +64,15 @@ public class MissionCreateDialog extends BaseActivity implements MissionCreateVi
     @Override
     public void onSaveClicked(MissionSeriesDto dto) {
 
-        if(createdMissionSeriesConsumer != null) {
-            createdMissionSeriesConsumer.accept(dto);
+        ResponseDto<Void> response = null; // TODO
+        if (response.hasErrors()) {
+            // TODO
+        } else {
+            if(createdMissionSeriesConsumer != null) {
+                createdMissionSeriesConsumer.accept(dto);
+            }
+            dialog.close();
         }
-        dialog.close();
     }
 
     @Override
