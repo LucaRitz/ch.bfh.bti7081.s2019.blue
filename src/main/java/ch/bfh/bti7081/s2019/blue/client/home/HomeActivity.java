@@ -18,11 +18,13 @@ public class HomeActivity extends BaseActivity implements HomeView.Presenter {
     private final HomeView view;
     private final HomeService homeService;
 
+
     @Inject
     public HomeActivity(HomeView view, HomeService homeService) {
         this.view = view;
         this.view.setPresenter(this);
         this.homeService = homeService;
+
     }
 
     @Override
@@ -45,4 +47,6 @@ public class HomeActivity extends BaseActivity implements HomeView.Presenter {
     public void update(HomeDto homeDto) {
         Notification.show(homeDto.getText());
     }
+
+
 }

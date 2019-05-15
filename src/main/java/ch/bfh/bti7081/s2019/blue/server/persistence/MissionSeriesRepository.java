@@ -10,7 +10,7 @@ import java.util.Date;
 import java.util.List;
 
 @Repository
-public interface MissionSeriesRepository extends JpaRepository<MissionSeries, Long> {
+public interface MissionSeriesRepository extends JpaRepository<MissionSeries, Integer> {
 
     @Query("SELECT ms FROM MissionSeries ms"
             + " JOIN Patient p ON ms.patient = p"
