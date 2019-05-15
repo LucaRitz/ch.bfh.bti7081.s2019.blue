@@ -53,10 +53,8 @@ public class MissionEditDialog extends BaseActivity implements MissionEditView.P
     @Override
     public void onSaveClicked(MissionSeriesDto dto) {
 
-        MissionSeriesDto missionSeries = null; // TODO: this should be the created mission series
-
         if(editedMissionSeriesConsumer != null) {
-            editedMissionSeriesConsumer.accept(missionSeries);
+            editedMissionSeriesConsumer.accept(dto);
         }
         dialog.close();
     }

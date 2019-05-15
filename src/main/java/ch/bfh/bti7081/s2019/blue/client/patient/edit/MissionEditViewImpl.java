@@ -60,7 +60,6 @@ public class MissionEditViewImpl extends BaseViewImpl<MissionEditViewModel> impl
     private void saveButtonPressed() {
         BinderValidationStatus<MissionSeriesDto> status = binder.validate();
         if (!status.hasErrors()) {
-            MissionSeriesDto dto = binder.getBean();
             presenter.onSaveClicked(binder.getBean());
         }
     }

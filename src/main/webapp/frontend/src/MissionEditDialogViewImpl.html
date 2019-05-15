@@ -8,15 +8,12 @@
                 width: 100%;
             }
         </style>
-            <vaadin-vertical-layout>
-                <vaadin-horizontal-layout>
+            <vaadin-form-layout>
                     <vaadin-date-picker id="endDate"  label="[[text.endDate]]"></vaadin-date-picker>
-                </vaadin-horizontal-layout>
-                <vaadin-horizontal-layout>
+                <br>
                     <vaadin-button id="saveButton" on-click="saveButtonPressed">[[text.save]]</vaadin-button>
                     <vaadin-button id="cancelButton" on-click="cancelButtonPressed">[[text.cancel]]</vaadin-button>
-                </vaadin-horizontal-layout>
-            </vaadin-vertical-layout>
+            </vaadin-form-layout>
     </template>
 
     <script>
