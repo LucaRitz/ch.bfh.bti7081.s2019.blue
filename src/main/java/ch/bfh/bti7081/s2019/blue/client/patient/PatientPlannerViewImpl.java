@@ -38,8 +38,6 @@ public class PatientPlannerViewImpl extends BaseViewImpl<PatientPlannerViewModel
     private Button nextButton;
     @Id
     private FullCalendar calendar;
-    @Id
-    private HorizontalLayout layout;
 
     private Presenter presenter;
     private Date startDate = null;
@@ -50,8 +48,6 @@ public class PatientPlannerViewImpl extends BaseViewImpl<PatientPlannerViewModel
         this.patients.setItemLabelGenerator((ItemLabelGenerator<PatientRefDto>) person -> person.getDisplayName() + ", " + person.getAge());
 
         setText(getModel().getText()::setTitle, AppConstants.MENU_PATIENTPLANNER);
-        setText(getModel().getText()::setNext, AppConstants.ACTION_NEXT);
-        setText(getModel().getText()::setPrevious, AppConstants.ACTION_PREVIOUS);
 
         calendar.changeView(CalendarViewImpl.AGENDA_WEEK);
         calendar.setOption("allDaySlot", false);

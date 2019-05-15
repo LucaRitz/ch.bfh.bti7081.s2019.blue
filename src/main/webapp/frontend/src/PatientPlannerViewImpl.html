@@ -10,18 +10,20 @@
         <titled-content>
             <label slot="title">[[text.title]]</label>
             <div slot="content">
-                <vaadin-horizontal-layout id="layout">
-                    <vaadin-button id="previousButton">
-                        [[text.previous]]
+                <vaadin-vertical-layout>
+                    <vaadin-horizontal-layout>
+                    <vaadin-button theme="icon" id="previousButton">
+                        <iron-icon icon="lumo:arrow-left"></iron-icon>
                     </vaadin-button>
-                    <vaadin-button id="nextButton">
-                        [[text.next]]
+                    <vaadin-button theme="icon" id="nextButton">
+                        <iron-icon icon="lumo:arrow-right"></iron-icon>
                     </vaadin-button>
                     <vaadin-combo-box id="patients">
                     </vaadin-combo-box>
-                </vaadin-horizontal-layout>
-                <full-calendar id="calendar">
-                </full-calendar>
+                    </vaadin-horizontal-layout>
+                    <full-calendar id="calendar">
+                    </full-calendar>
+                </vaadin-vertical-layout>
             </div>
             <div slot="actions">
                 <vaadin-button theme="contrast icon" on-click="createButtonPressed">
