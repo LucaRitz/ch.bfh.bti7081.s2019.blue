@@ -4,4 +4,6 @@ import com.vaadin.flow.component.Component;
 
 public interface IsView {
     Component asComponent();
+
+    void showNotification(String notificationText, int duration);
 }

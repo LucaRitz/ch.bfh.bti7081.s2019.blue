@@ -2,6 +2,7 @@ package ch.bfh.bti7081.s2019.blue.client.patient;
 
 import ch.bfh.bti7081.s2019.blue.client.base.BaseActivity;
 import ch.bfh.bti7081.s2019.blue.client.base.IsView;
+import ch.bfh.bti7081.s2019.blue.client.i18n.AppConstants;
 import ch.bfh.bti7081.s2019.blue.client.patient.create.MissionCreateDialog;
 import ch.bfh.bti7081.s2019.blue.client.patient.edit.MissionEditDialog;
 import ch.bfh.bti7081.s2019.blue.shared.dto.MissionDto;
@@ -68,8 +69,8 @@ public class PatientPlannerActivity extends BaseActivity implements PatientPlann
         MissionSeriesDto dto = view.getSelectedMissionSeries();
 
         if(dto == null) {
-            System.out.println("fähler");
-            return; //TODO
+            view.showNotification("Please select a mission first",3000); // TODO translation
+            return;
         }
 
         editDialog.open(dto, editedMissionSeries -> {
