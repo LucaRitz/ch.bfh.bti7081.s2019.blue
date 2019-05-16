@@ -7,13 +7,10 @@ import com.vaadin.flow.component.dependency.StyleSheet;
 import com.vaadin.flow.component.html.Anchor;
 import com.vaadin.flow.component.html.Div;
 import com.vaadin.flow.component.html.Image;
-import com.vaadin.flow.router.RouteData;
 import com.vaadin.flow.router.Router;
 import com.vaadin.flow.router.RouterLayout;
 import com.vaadin.flow.server.VaadinService;
 import com.vaadin.flow.server.VaadinServletRequest;
-
-import java.util.List;
 
 @StyleSheet("styles/styles.css")
 public class
@@ -53,7 +50,6 @@ Layout extends Div implements RouterLayout {
 
     private void generateMenuWithRegisteredRoutes() {
         Router router = UI.getCurrent().getRouter();
-        List<RouteData> routes = router.getRegistry().getRegisteredRoutes();
 
         this.menu.add(getLogoAnchor());
 
@@ -62,14 +58,13 @@ Layout extends Div implements RouterLayout {
 
         String currentRouteName = getCurrentRouteName();
 
-        for (RouteData route : routes) {
-            String url = route.getUrl();
-            String translatedValue = getTranslation("menu." + url);
+        for (String route : Navigation.getRoutes()) {
+            String translatedValue = getTranslation("menu." + route);
 
-            Anchor anchor = new Anchor(url, translatedValue);
+            Anchor anchor = new Anchor(route, translatedValue);
             anchor.getClassNames().add("menu-item");
 
-            if (url.equals(currentRouteName))  {
+            if (route.equals(currentRouteName)) {
                 anchor.getClassNames().add("active-menu-item");
             }
 
