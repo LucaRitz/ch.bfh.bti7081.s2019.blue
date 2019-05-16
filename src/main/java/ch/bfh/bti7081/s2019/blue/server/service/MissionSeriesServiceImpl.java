@@ -12,10 +12,12 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
 import javax.persistence.EntityManager;
+import javax.transaction.Transactional;
 import java.util.Date;
 import java.util.List;
 
 @Component
+@Transactional
 public class MissionSeriesServiceImpl implements MissionSeriesService {
 
     private final MissionSeriesRepository repository;
@@ -59,9 +61,7 @@ public class MissionSeriesServiceImpl implements MissionSeriesService {
 
         EntityWrapper<MissionSeries> wrapper = emm.get(id, repository);
 
-
-        if(wrapper.isEmpty())
-        {
+        if (wrapper.isEmpty()) {
             return new ResponseDto<>(messages.entityNotFound(id));
         }
         wrapper.getModified().setEndDate(endDate);

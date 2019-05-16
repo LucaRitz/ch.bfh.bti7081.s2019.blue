@@ -4,12 +4,14 @@ import ch.bfh.bti7081.s2019.blue.client.base.BaseViewImpl;
 import ch.bfh.bti7081.s2019.blue.client.i18n.AppConstants;
 import ch.bfh.bti7081.s2019.blue.shared.dto.EmployeeDto;
 import ch.bfh.bti7081.s2019.blue.shared.dto.MissionDto;
+import ch.bfh.bti7081.s2019.blue.shared.dto.MissionSeriesDto;
 import ch.bfh.bti7081.s2019.blue.shared.dto.PatientRefDto;
 import com.vaadin.flow.component.*;
 import com.vaadin.flow.component.button.Button;
 import com.vaadin.flow.component.combobox.ComboBox;
 import com.vaadin.flow.component.dependency.HtmlImport;
 import com.vaadin.flow.component.notification.Notification;
+import com.vaadin.flow.component.polymertemplate.EventHandler;
 import com.vaadin.flow.component.polymertemplate.Id;
 import com.vaadin.flow.spring.annotation.UIScope;
 import org.springframework.stereotype.Component;
@@ -37,19 +39,17 @@ public class PatientPlannerViewImpl extends BaseViewImpl<PatientPlannerViewModel
     @Id
     private Button nextButton;
     @Id
-    private Button createButton;
-    @Id
     private FullCalendar calendar;
 
     private Presenter presenter;
     private Date startDate = null;
     private Date endDate = null;
+    private List<MissionDto> missions;
+    private MissionSeriesDto selectedMissionSeries;
 
     public PatientPlannerViewImpl() {
         this.patients.setItemLabelGenerator((ItemLabelGenerator<PatientRefDto>) PatientRefDto::getDisplayName);
         setText(getModel().getText()::setTitle, AppConstants.MENU_PATIENTPLANNER);
-        setText(getModel().getText()::setNext, AppConstants.ACTION_NEXT);
-        setText(getModel().getText()::setPrevious, AppConstants.ACTION_PREVIOUS);
 
         calendar.changeView(CalendarViewImpl.AGENDA_WEEK);
         calendar.setOption("allDaySlot", false);
@@ -75,6 +75,7 @@ public class PatientPlannerViewImpl extends BaseViewImpl<PatientPlannerViewModel
             Notification notification = new Notification("Click on " + type + " Mission with id=" + id + " was registered\n" +
                     "Start: " + entry.getStart().toString() + " End: " + entry.getEnd(), 3000);
             notification.open();
+            this.selectedMissionSeries = getMissionSeriesById(id);
 
 
         });
@@ -83,7 +84,7 @@ public class PatientPlannerViewImpl extends BaseViewImpl<PatientPlannerViewModel
         previousButton.addClickListener((ComponentEventListener<ClickEvent<Button>>) event -> calendar.previous());
         nextButton.addClickListener((ComponentEventListener<ClickEvent<Button>>) event -> calendar.next());
 
-        patients.addValueChangeListener((HasValue.ValueChangeListener<AbstractField.ComponentValueChangeEvent<ComboBox<PatientRefDto>, PatientRefDto>>) event -> reloadEntries());
+        patients.addValueChangeListener((HasValue.ValueChangeListener<AbstractField.ComponentValueChangeEvent<ComboBox<PatientRefDto>, PatientRefDto>>) event -> reload());
     }
 
     private void onDateRangeChange(LocalDate intervalStart, LocalDate intervalEnd) {
@@ -91,16 +92,26 @@ public class PatientPlannerViewImpl extends BaseViewImpl<PatientPlannerViewModel
         this.startDate = Date.from(intervalStart.atStartOfDay(ZoneId.systemDefault()).toInstant());
         this.endDate = Date.from(intervalEnd.plusDays(1).atStartOfDay(ZoneId.systemDefault()).toInstant());
 
-        reloadEntries();
+        reload();
     }
 
-    private void reloadEntries() {
+    public void reload() {
 
         PatientRefDto selectedPatient = patients.getValue();
 
         if (selectedPatient != null) {
             presenter.onSelectionChange(selectedPatient, startDate, endDate);
         }
+    }
+
+    @Override
+    public PatientRefDto getPatient() {
+        return this.patients.getValue();
+    }
+
+    @Override
+    public MissionSeriesDto getSelectedMissionSeries() {
+        return this.selectedMissionSeries;
     }
 
     @Override
@@ -119,11 +130,23 @@ public class PatientPlannerViewImpl extends BaseViewImpl<PatientPlannerViewModel
 
     @Override
     public void setMissions(List<MissionDto> missions) {
+        this.missions = missions;
+        this.selectedMissionSeries = null;
 
         calendar.removeAllEntries();
         calendar.addEntries(missions.stream()
                 .map(this::toEntry)
                 .collect(Collectors.toList()));
+    }
+
+    @EventHandler
+    private void createButtonPressed() {
+        presenter.onCreateClicked();
+    }
+
+    @EventHandler
+    private void changeEndDateButtonPressed() {
+        presenter.onEditClicked();
     }
 
     private Entry toEntry(MissionDto missionDto) {
@@ -145,5 +168,21 @@ public class PatientPlannerViewImpl extends BaseViewImpl<PatientPlannerViewModel
         String color = healthVisitor != null ? "#3333ff" : "#ff3333";
 
         return new Entry(seriesId, title, startDate, endDate, false, false, color, null);
+    }
+
+    private MissionSeriesDto getMissionSeriesById(int id) {
+        if (id <= 0) {
+            return this.missions.stream()
+                    .map(mission -> mission.getMissionSeries())
+                    .filter(series -> series.getId().equals(id*(-1)))
+                    .findFirst()
+                    .orElse(null);
+        } else {
+            return this.missions.stream()
+                    .filter(mission -> mission.getId().equals(id))
+                    .map(mission -> mission.getMissionSeries())
+                    .findFirst()
+                    .orElse(null);
+        }
     }
 }

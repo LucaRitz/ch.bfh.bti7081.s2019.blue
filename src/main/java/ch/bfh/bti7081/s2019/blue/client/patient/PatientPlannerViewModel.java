@@ -8,7 +8,5 @@ public interface PatientPlannerViewModel extends TemplateModel {
 
     interface Text {
         void setTitle(String title);
-        void setPrevious(String previous);
-        void setNext(String next);
     }
 }

@@ -8,7 +8,6 @@ public class PatientRefDto extends AbstractPerson implements HasBirthdate {
 
     private Integer number;
 
-
     public void setBirthdate(Date birthdate) {
         this.birthdate = birthdate;
     }

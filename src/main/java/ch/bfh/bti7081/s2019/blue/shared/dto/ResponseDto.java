@@ -27,4 +27,8 @@ public class ResponseDto<D> {
     public List<String> getErrors() {
         return errors;
     }
+
+    public boolean hasErrors() {
+        return !errors.isEmpty();
+    }
 }

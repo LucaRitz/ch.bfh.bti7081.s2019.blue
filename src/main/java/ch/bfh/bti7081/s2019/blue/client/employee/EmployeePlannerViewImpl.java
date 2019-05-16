@@ -48,8 +48,6 @@ public class EmployeePlannerViewImpl extends BaseViewImpl<EmployeeViewModel> imp
         this.employees.setItemLabelGenerator((ItemLabelGenerator<EmployeeDto>)
                 EmployeeDto::getDisplayName);
         setText(getModel().getText()::setTitle, AppConstants.MENU_EMPLOYEEPLANNER);
-        setText(getModel().getText()::setNext, AppConstants.ACTION_NEXT);
-        setText(getModel().getText()::setPrevious, AppConstants.ACTION_PREVIOUS);
 
         calendar.changeView(CalendarViewImpl.AGENDA_WEEK);
         calendar.setOption("allDaySlot", false);

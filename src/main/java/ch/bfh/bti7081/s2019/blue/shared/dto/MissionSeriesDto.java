@@ -1,17 +1,31 @@
 package ch.bfh.bti7081.s2019.blue.shared.dto;
 
-import java.util.Date;
+import javax.validation.Valid;
+import javax.validation.constraints.NotNull;
+import java.time.LocalDate;
+import java.time.LocalTime;
 
 public class MissionSeriesDto {
 
     private Integer id;
 
-    private Date startDate;
+    @NotNull
+    private LocalDate startDate;
 
-    private Date endDate;
+    @NotNull
+    private LocalDate endDate;
 
+    @NotNull
+    private LocalTime startTime;
+
+    @NotNull
+    private LocalTime endTime;
+
+    @NotNull
     private RepetitionType repetitionType;
 
+    @NotNull
+    @Valid
     private PatientRefDto patient;
 
     public void setId(Integer id) {
@@ -22,20 +36,36 @@ public class MissionSeriesDto {
         return this.id;
     }
 
-    public void setStartDate(Date startDate) {
+    public LocalDate getStartDate() {
+        return startDate;
+    }
+
+    public void setStartDate(LocalDate startDate) {
         this.startDate = startDate;
     }
 
-    public Date getStartDate() {
-        return this.startDate;
+    public LocalDate getEndDate() {
+        return endDate;
     }
 
-    public void setEndDate(Date endDate) {
+    public void setEndDate(LocalDate endDate) {
         this.endDate = endDate;
     }
 
-    public Date getEndDate() {
-        return this.endDate;
+    public LocalTime getStartTime() {
+        return startTime;
+    }
+
+    public void setStartTime(LocalTime startTime) {
+        this.startTime = startTime;
+    }
+
+    public LocalTime getEndTime() {
+        return endTime;
+    }
+
+    public void setEndTime(LocalTime endTime) {
+        this.endTime = endTime;
     }
 
     public RepetitionType getRepetitionType() {
