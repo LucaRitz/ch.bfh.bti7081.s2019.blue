@@ -1,11 +1,9 @@
 package ch.bfh.bti7081.s2019.blue.server.validator;
 
 import ch.bfh.bti7081.s2019.blue.server.i18n.ServerConstants;
-import ch.bfh.bti7081.s2019.blue.server.i18n.ServerConstantsProvider;
 import ch.bfh.bti7081.s2019.blue.server.persistence.MissionRepository;
 import ch.bfh.bti7081.s2019.blue.server.persistence.MissionSeriesRepository;
 import ch.bfh.bti7081.s2019.blue.server.persistence.builder.MissionBuilder;
-import ch.bfh.bti7081.s2019.blue.server.persistence.builder.MissionSeriesBuilder;
 import ch.bfh.bti7081.s2019.blue.server.persistence.model.Mission;
 import ch.bfh.bti7081.s2019.blue.server.persistence.model.MissionSeries;
 import ch.bfh.bti7081.s2019.blue.server.service.DateRange;
@@ -17,7 +15,6 @@ import org.springframework.data.domain.Example;
 import org.springframework.stereotype.Component;
 
 import javax.annotation.Nonnull;
-import javax.inject.Inject;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
@@ -31,9 +28,9 @@ public class MissionSeriesValidator implements IsValidator<EntityWrapper<Mission
     private final MissionGenerator generator;
 
     @Autowired
-    public MissionSeriesValidator(ServerConstantsProvider constantsProvider, MissionSeriesRepository seriesRepository,
+    public MissionSeriesValidator(ServerConstants constants, MissionSeriesRepository seriesRepository,
                                   MissionRepository repository, MissionGenerator generator) {
-        this.constants = constantsProvider.get();
+        this.constants = constants;
         this.seriesRepository = seriesRepository;
         this.repository = repository;
         this.generator = generator;
@@ -67,9 +64,6 @@ public class MissionSeriesValidator implements IsValidator<EntityWrapper<Mission
 
     @VisibleForTesting
     Optional<String> validateMissionSeriesOverlappingWithMission(MissionSeries entity) {
-        //TODO
-        boolean hasErrors = false;
-
         List<Mission> temporaryMissions = generator.generateMissionsFromSeries(
                 entity, new DateRange(entity.getStartDate(), entity.getEndDate()));
 
@@ -79,13 +73,9 @@ public class MissionSeriesValidator implements IsValidator<EntityWrapper<Mission
         series.removeIf(seriesItem -> seriesItem.getId().equals(entity.getId()));
         List<Mission> existingTemporaryMissions = generator.generateMissionsFromSeries(series, new DateRange(
                 entity.getStartDate(), entity.getEndDate()));
-        System.err.println("existing series missions: " + existingTemporaryMissions.size());
 
         for (Mission newMission : temporaryMissions) {
-
             for (Mission existingMission : existingTemporaryMissions) {
-                System.err.println("new mission: " + newMission.getStartDate() + " " + newMission.getEndDate());
-                System.err.println("existing series missions after: " + existingMission.getStartDate() + " " + existingMission.getEndDate());
                 if(newMission.getStartDate().compareTo((existingMission.getEndDate()))<=0 &&
                         newMission.getEndDate().compareTo((existingMission.getStartDate()))>=0)
                 {
