@@ -65,7 +65,7 @@ public class MissionEditDialog extends BaseActivity implements MissionEditView.P
 
         ResponseDto<Void> response = missionSeriesService.updateEndDate(endDate, dto.getId());
         if (response.hasErrors()) {
-            view.showErrors(response.getErrors());
+            view.showTranslatedNotification(response.getErrors());
         } else {
             if (editedMissionSeriesConsumer != null) {
                 editedMissionSeriesConsumer.accept(dto);

@@ -14,7 +14,12 @@ public class BaseViewImpl<M extends TemplateModel> extends PolymerTemplate<M> {
         return this;
     }
 
-    public void showNotification(String notificationText, int duration) {
+    public void showNotification(String key, int duration) {
+        Notification notification = new Notification(getTranslation(key),duration);
+        notification.open();
+    }
+
+    public void showTranslatedNotification(String notificationText, int duration) {
         Notification notification = new Notification(notificationText,duration);
         notification.open();
     }
