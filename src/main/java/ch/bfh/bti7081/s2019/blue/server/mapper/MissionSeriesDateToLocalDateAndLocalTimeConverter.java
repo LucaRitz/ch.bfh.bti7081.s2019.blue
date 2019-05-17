@@ -1,6 +1,7 @@
 package ch.bfh.bti7081.s2019.blue.server.mapper;
 
 import ch.bfh.bti7081.s2019.blue.server.persistence.model.MissionSeries;
+import ch.bfh.bti7081.s2019.blue.server.utils.DateTimeUtil;
 import ch.bfh.bti7081.s2019.blue.shared.dto.MissionSeriesDto;
 import org.dozer.DozerConverter;
 
@@ -17,17 +18,8 @@ public class MissionSeriesDateToLocalDateAndLocalTimeConverter extends DozerConv
     @Override
     public MissionSeriesDto convertTo(MissionSeries source, MissionSeriesDto destination) {
 
-        LocalDateTime starDate = source
-                .getStartDate()
-                .toInstant()
-                .atZone(ZoneId.systemDefault())
-                .toLocalDateTime();
-
-        LocalDateTime endDate = source
-                .getEndDate()
-                .toInstant()
-                .atZone(ZoneId.systemDefault())
-                .toLocalDateTime();
+        LocalDateTime starDate = DateTimeUtil.getDateTime(source.getStartDate());
+        LocalDateTime endDate = DateTimeUtil.getDateTime(source.getEndDate());
 
         destination.setStartDate(starDate.toLocalDate());
         destination.setStartTime(starDate.toLocalTime());

@@ -9,13 +9,18 @@ import ch.bfh.bti7081.s2019.blue.server.persistence.model.MissionSeries;
 import ch.bfh.bti7081.s2019.blue.server.service.DateRange;
 import ch.bfh.bti7081.s2019.blue.server.service.EntityWrapper;
 import ch.bfh.bti7081.s2019.blue.server.service.MissionGenerator;
+import ch.bfh.bti7081.s2019.blue.server.utils.DateTimeUtil;
 import com.google.common.annotations.VisibleForTesting;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Example;
 import org.springframework.stereotype.Component;
 
 import javax.annotation.Nonnull;
+import java.time.LocalDate;
+import java.time.LocalTime;
+import java.time.ZoneId;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 import java.util.Optional;
 
@@ -42,6 +47,7 @@ public class MissionSeriesValidator implements IsValidator<EntityWrapper<Mission
 
         validateNoMissionsAfterEndDate(entity.getModified()).ifPresent(errors::add);
         validateMissionSeriesOverlappingWithMission(entity.getModified()).ifPresent(errors::add);
+        validateDateTimeRange(entity.getOriginal(), entity.getModified()).ifPresent(errors::add);
 
         return errors;
     }
@@ -87,6 +93,30 @@ public class MissionSeriesValidator implements IsValidator<EntityWrapper<Mission
                 }
             }
         }
+        return Optional.empty();
+    }
+
+    @VisibleForTesting
+    Optional<String> validateDateTimeRange(MissionSeries original, MissionSeries modified) {
+
+        LocalDate startDate = DateTimeUtil.getDate(modified.getStartDate());
+        LocalDate endDate = DateTimeUtil.getDate(modified.getEndDate());
+
+        if(!endDate.isEqual(startDate) && endDate.isBefore(startDate)) {
+            return Optional.of(constants.invalidMissionSeriesDateInterval());
+        }
+
+        LocalTime startTime = DateTimeUtil.getTime(modified.getStartDate());
+        LocalTime endTime = DateTimeUtil.getTime(modified.getEndDate());
+
+        if(endTime.isBefore(startTime) || endTime.equals(startTime)) {
+            return Optional.of(constants.invalidMissionSeriesTimeInterval());
+        }
+
+        if(original == null && modified.getStartDate().before(new Date())) {
+            return Optional.of(constants.missionSeriesStartDateInThePast());
+        }
+
         return Optional.empty();
     }
 }
