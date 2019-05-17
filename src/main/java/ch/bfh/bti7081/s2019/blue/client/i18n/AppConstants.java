@@ -14,7 +14,9 @@ public enum AppConstants {
     MISSION_CREATE_END_TIME("mission.create.end.time"),
     MISSION_CREATE_REPETITION_TYPE("mission.create.repetition.type"),
     MISSION_EDIT_END_DATE("mission.edit.end.date"),
-    PATIENT_PLANNER_NO_SELECTED_MISSION("patient.planner.no.selected.mission");
+    PATIENT_PLANNER_NO_SELECTED_MISSION("patient.planner.no.selected.mission"),
+    COLOR_RED_LEGEND( "legend.color.red"),
+    COLOR_BLUE_LEGEND( "legend.color.blue");
 
     private final String key;
 

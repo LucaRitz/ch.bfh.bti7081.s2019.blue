@@ -56,6 +56,8 @@ public class PatientPlannerViewImpl extends BaseViewImpl<PatientPlannerViewModel
 
         this.patients.setItemLabelGenerator((ItemLabelGenerator<PatientRefDto>) PatientRefDto::getDisplayName);
         setText(getModel().getText()::setTitle, AppConstants.MENU_PATIENTPLANNER);
+        setText(getModel().getText()::setColorRedLegend, AppConstants.COLOR_RED_LEGEND);
+        setText(getModel().getText()::setColorBlueLegend, AppConstants.COLOR_BLUE_LEGEND);
 
         calendar.changeView(CalendarViewImpl.AGENDA_WEEK);
         calendar.setOption("allDaySlot", false);
