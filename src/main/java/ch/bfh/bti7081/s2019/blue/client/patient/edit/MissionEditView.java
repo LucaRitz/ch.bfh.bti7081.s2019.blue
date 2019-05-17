@@ -11,8 +11,6 @@ public interface MissionEditView extends IsView {
 
     void edit(MissionSeriesDto missionSeriesDto);
 
-    void showErrors(List<String> errors);
-
     interface Presenter {
 
         void onSaveClicked(MissionSeriesDto dto);
