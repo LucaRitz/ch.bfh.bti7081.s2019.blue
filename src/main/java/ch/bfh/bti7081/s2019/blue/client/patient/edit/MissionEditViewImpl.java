@@ -58,13 +58,6 @@ public class MissionEditViewImpl extends BaseViewImpl<MissionEditViewModel> impl
         binder.setBean(missionSeriesDto);
     }
 
-    @Override
-    public void showErrors(List<String> errors) {
-        for (String error : errors) {
-            new Notification(error,10000).open();
-        }
-    }
-
     @EventHandler
     private void saveButtonPressed() {
         BinderValidationStatus<MissionSeriesDto> status = binder.validate();

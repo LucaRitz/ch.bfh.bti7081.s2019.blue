@@ -69,7 +69,7 @@ public class MissionCreateDialog extends BaseActivity implements MissionCreateVi
 
         ResponseDto<Void> response = missionSeriesService.create(dto);
         if (response.hasErrors()) {
-            view.showErrors(response.getErrors());
+            view.showTranslatedNotification(response.getErrors());
         } else {
             if(createdMissionSeriesConsumer != null) {
                 createdMissionSeriesConsumer.accept(dto);
