@@ -3,7 +3,6 @@ package ch.bfh.bti7081.s2019.blue.server.validator;
 import ch.bfh.bti7081.s2019.blue.server.i18n.ServerConstants;
 import ch.bfh.bti7081.s2019.blue.server.persistence.MissionRepository;
 import ch.bfh.bti7081.s2019.blue.server.persistence.MissionSeriesRepository;
-import ch.bfh.bti7081.s2019.blue.server.persistence.builder.MissionBuilder;
 import ch.bfh.bti7081.s2019.blue.server.persistence.model.Mission;
 import ch.bfh.bti7081.s2019.blue.server.persistence.model.MissionSeries;
 import ch.bfh.bti7081.s2019.blue.server.service.DateRange;
@@ -12,13 +11,11 @@ import ch.bfh.bti7081.s2019.blue.server.service.MissionGenerator;
 import ch.bfh.bti7081.s2019.blue.server.utils.DateTimeUtil;
 import com.google.common.annotations.VisibleForTesting;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.data.domain.Example;
 import org.springframework.stereotype.Component;
 
 import javax.annotation.Nonnull;
 import java.time.LocalDate;
 import java.time.LocalTime;
-import java.time.ZoneId;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
@@ -84,10 +81,17 @@ public class MissionSeriesValidator implements IsValidator<EntityWrapper<Mission
                 entity.getStartDate(), entity.getEndDate()));
 
         for (Mission newMission : temporaryMissions) {
+
+            Date startDate1 = newMission.getStartDate();
+            Date endDate1 = newMission.getEndDate();
+
             for (Mission existingMission : existingTemporaryMissions) {
 
-                if (newMission.getStartDate().before(existingMission.getEndDate())
-                        && newMission.getEndDate().after((existingMission.getStartDate()))) {
+                Date startDate2 = existingMission.getStartDate();
+                Date endDate2 = existingMission.getEndDate();
+
+                if ((startDate1.equals(startDate2) && endDate1.equals(endDate2))
+                        || (startDate1.before(endDate2) && endDate1.after(startDate2))) {
 
                     return Optional.of(constants.missionSeriesIsOverlappingWithMission());
                 }
@@ -102,18 +106,18 @@ public class MissionSeriesValidator implements IsValidator<EntityWrapper<Mission
         LocalDate startDate = DateTimeUtil.getDate(modified.getStartDate());
         LocalDate endDate = DateTimeUtil.getDate(modified.getEndDate());
 
-        if(!endDate.isEqual(startDate) && endDate.isBefore(startDate)) {
+        if (!endDate.isEqual(startDate) && endDate.isBefore(startDate)) {
             return Optional.of(constants.invalidMissionSeriesDateInterval());
         }
 
         LocalTime startTime = DateTimeUtil.getTime(modified.getStartDate());
         LocalTime endTime = DateTimeUtil.getTime(modified.getEndDate());
 
-        if(endTime.isBefore(startTime) || endTime.equals(startTime)) {
+        if (endTime.isBefore(startTime) || endTime.equals(startTime)) {
             return Optional.of(constants.invalidMissionSeriesTimeInterval());
         }
 
-        if(original == null && modified.getStartDate().before(new Date())) {
+        if (original == null && modified.getStartDate().before(new Date())) {
             return Optional.of(constants.missionSeriesStartDateInThePast());
         }
 

@@ -43,12 +43,6 @@ public class MissionSeriesServiceImpl implements MissionSeriesService {
         MissionSeries entity = mapper.map(dto, MissionSeries.class);
         List<String> errors = validator.validate(new EntityWrapper<>(null, entity));
 
-        System.out.println(dto.getStartDate());
-        System.out.println(dto.getStartTime());
-        System.out.println(dto.getEndDate());
-        System.out.println(dto.getEndTime());
-        System.out.println(dto.getRepetitionType());
-
         if (errors.isEmpty()) {
             repository.save(entity);
         }

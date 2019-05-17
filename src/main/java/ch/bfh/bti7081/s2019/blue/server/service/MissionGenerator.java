@@ -72,7 +72,6 @@ public class MissionGenerator {
             case ONCE:
                 return null;
             case DAILY:
-                System.out.println("DAILY: " + date);
                 cal.add(Calendar.DAY_OF_MONTH, 1);
                 break;
             case WEEKLY:
