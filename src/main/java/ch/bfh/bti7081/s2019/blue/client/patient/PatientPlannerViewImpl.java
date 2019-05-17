@@ -17,6 +17,7 @@ import com.vaadin.flow.spring.annotation.UIScope;
 import org.springframework.stereotype.Component;
 import org.vaadin.stefan.fullcalendar.*;
 
+import javax.inject.Inject;
 import java.time.DayOfWeek;
 import java.time.LocalDate;
 import java.time.LocalDateTime;
@@ -31,6 +32,8 @@ import java.util.stream.Collectors;
 @Component
 @UIScope
 public class PatientPlannerViewImpl extends BaseViewImpl<PatientPlannerViewModel> implements PatientPlannerView {
+
+    private final MissionIdGenerator missionIdGenerator;
 
     @Id
     private ComboBox<PatientRefDto> patients;
@@ -47,7 +50,10 @@ public class PatientPlannerViewImpl extends BaseViewImpl<PatientPlannerViewModel
     private List<MissionDto> missions;
     private MissionSeriesDto selectedMissionSeries;
 
-    public PatientPlannerViewImpl() {
+    @Inject
+    public PatientPlannerViewImpl(MissionIdGenerator missionIdGenerator) {
+        this.missionIdGenerator = missionIdGenerator;
+
         this.patients.setItemLabelGenerator((ItemLabelGenerator<PatientRefDto>) PatientRefDto::getDisplayName);
         setText(getModel().getText()::setTitle, AppConstants.MENU_PATIENTPLANNER);
 
@@ -70,9 +76,8 @@ public class PatientPlannerViewImpl extends BaseViewImpl<PatientPlannerViewModel
                 return;
             }
 
-            Integer id = Integer.parseInt(entry.getId());
-            String type = id >= 0 ? "Booked" : "Temporary";
-            Notification notification = new Notification("Click on " + type + " Mission with id=" + id + " was registered\n" +
+            MissionId id = missionIdGenerator.parse(entry.getId());
+            Notification notification = new Notification("Click on " + id.getType() + " Mission with id=" + id + " was registered\n" +
                     "Start: " + entry.getStart().toString() + " End: " + entry.getEnd(), 3000);
             notification.open();
             this.selectedMissionSeries = getMissionSeriesById(id);
@@ -152,8 +157,7 @@ public class PatientPlannerViewImpl extends BaseViewImpl<PatientPlannerViewModel
     private Entry toEntry(MissionDto missionDto) {
         EmployeeDto healthVisitor = missionDto.getHealthVisitor();
 
-        Integer id = healthVisitor != null ? missionDto.getId() : missionDto.getMissionSeries().getId() * -1;
-        String seriesId = String.valueOf(id);
+        MissionId id = missionIdGenerator.generate(missionDto);
 
         String title = healthVisitor != null ? healthVisitor.getDisplayName() : null;
 
@@ -167,22 +171,28 @@ public class PatientPlannerViewImpl extends BaseViewImpl<PatientPlannerViewModel
 
         String color = healthVisitor != null ? "#3333ff" : "#ff3333";
 
-        return new Entry(seriesId, title, startDate, endDate, false, false, color, null);
+        return new Entry(id.toString(), title, startDate, endDate, false, false, color, null);
     }
 
-    private MissionSeriesDto getMissionSeriesById(int id) {
-        if (id <= 0) {
+    private MissionSeriesDto getMissionSeriesById(MissionId id) {
+
+        if (MissionId.Type.MISSION_SERIES.equals(id.getType())) {
+
             return this.missions.stream()
-                    .map(mission -> mission.getMissionSeries())
-                    .filter(series -> series.getId().equals(id*(-1)))
+                    .map(MissionDto::getMissionSeries)
+                    .filter(series -> series.getId().equals(id.getSeriesId()))
+                    .findFirst()
+                    .orElse(null);
+
+        } else if (MissionId.Type.MISSION.equals(id.getType())) {
+
+            return this.missions.stream()
+                    .filter(mission -> mission.getId().equals(id.getMissionId()))
+                    .map(MissionDto::getMissionSeries)
                     .findFirst()
                     .orElse(null);
         } else {
-            return this.missions.stream()
-                    .filter(mission -> mission.getId().equals(id))
-                    .map(mission -> mission.getMissionSeries())
-                    .findFirst()
-                    .orElse(null);
+            return null;
         }
     }
 }
