@@ -6,4 +6,10 @@ public interface ServerConstants {
     String missionOutOfMissionSeriesFound();
 
     String missionSeriesIsOverlappingWithMission();
+
+    String invalidMissionSeriesDateInterval();
+
+    String invalidMissionSeriesTimeInterval();
+
+    String missionSeriesStartDateInThePast();
 }
