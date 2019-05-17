@@ -8,5 +8,9 @@ public interface PatientPlannerViewModel extends TemplateModel {
 
     interface Text {
         void setTitle(String title);
+
+        void setColorRedLegend(String s);
+
+        void setColorBlueLegend(String s);
     }
 }
