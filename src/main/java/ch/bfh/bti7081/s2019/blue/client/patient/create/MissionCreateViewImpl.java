@@ -8,7 +8,6 @@ import com.vaadin.flow.component.Tag;
 import com.vaadin.flow.component.button.Button;
 import com.vaadin.flow.component.datepicker.DatePicker;
 import com.vaadin.flow.component.dependency.HtmlImport;
-import com.vaadin.flow.component.notification.Notification;
 import com.vaadin.flow.component.polymertemplate.EventHandler;
 import com.vaadin.flow.component.polymertemplate.Id;
 import com.vaadin.flow.component.radiobutton.RadioButtonGroup;
@@ -22,7 +21,6 @@ import org.springframework.stereotype.Component;
 
 import java.util.Arrays;
 import java.util.List;
-import java.util.Locale;
 
 @HtmlImport("src/MissionCreateDialogViewImpl.html")
 @Tag("mission-create-dialog")
@@ -85,13 +83,6 @@ public class MissionCreateViewImpl extends BaseViewImpl<MissionCreateViewModel> 
     @Override
     public void edit(MissionSeriesDto missionSeriesDto) {
         binder.setBean(missionSeriesDto);
-    }
-
-    @Override
-    public void showErrors(List<String> errors) {
-        for (String error : errors) {
-            new Notification(error,10000).open();
-        }
     }
 
     @EventHandler

@@ -69,7 +69,7 @@ public class PatientPlannerActivity extends BaseActivity implements PatientPlann
         MissionSeriesDto dto = view.getSelectedMissionSeries();
 
         if(dto == null) {
-            view.showNotification("Please select a mission first",3000); // TODO translation
+            view.showNotification("patient.planner.no.selected.mission",3000); // TODO translation
             return;
         }
 
