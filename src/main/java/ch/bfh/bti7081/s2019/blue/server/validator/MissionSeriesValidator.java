@@ -34,7 +34,6 @@ public class MissionSeriesValidator implements IsValidator<EntityWrapper<Mission
         this.seriesRepository = seriesRepository;
         this.repository = repository;
         this.generator = generator;
-
     }
 
     @Override
@@ -49,11 +48,13 @@ public class MissionSeriesValidator implements IsValidator<EntityWrapper<Mission
 
     @VisibleForTesting
     Optional<String> validateNoMissionsAfterEndDate(MissionSeries entity) {
-        Example<Mission> statement = new MissionBuilder().setMissionSeries(entity).build();
-        List<Mission> missions = repository.findAll(statement);
+
+        List<Mission> missions = repository.findByMissionSeriesId(entity.getId());
+
         for (Mission mission : missions) {
-            if ((mission.getStartDate().compareTo(entity.getEndDate()) > 0) ||
-                    (mission.getEndDate().compareTo(entity.getEndDate()) > 0)) {
+
+            if (mission.getStartDate().after(entity.getEndDate())
+                    || mission.getEndDate().after(entity.getEndDate())) {
 
                 return Optional.of(constants.missionOutOfMissionSeriesFound());
             }
@@ -64,11 +65,13 @@ public class MissionSeriesValidator implements IsValidator<EntityWrapper<Mission
 
     @VisibleForTesting
     Optional<String> validateMissionSeriesOverlappingWithMission(MissionSeries entity) {
+
         List<Mission> temporaryMissions = generator.generateMissionsFromSeries(
                 entity, new DateRange(entity.getStartDate(), entity.getEndDate()));
 
         List<MissionSeries> series = new ArrayList<>(seriesRepository.findByPatientNumberAndIntersectingDateRange(
                 entity.getPatient().getNumber(), entity.getStartDate(), entity.getEndDate()));
+
         // Remove same series in case of update
         series.removeIf(seriesItem -> seriesItem.getId().equals(entity.getId()));
         List<Mission> existingTemporaryMissions = generator.generateMissionsFromSeries(series, new DateRange(
@@ -76,9 +79,10 @@ public class MissionSeriesValidator implements IsValidator<EntityWrapper<Mission
 
         for (Mission newMission : temporaryMissions) {
             for (Mission existingMission : existingTemporaryMissions) {
-                if(newMission.getStartDate().compareTo((existingMission.getEndDate()))<=0 &&
-                        newMission.getEndDate().compareTo((existingMission.getStartDate()))>=0)
-                {
+
+                if (newMission.getStartDate().before(existingMission.getEndDate())
+                        && newMission.getEndDate().after((existingMission.getStartDate()))) {
+
                     return Optional.of(constants.missionSeriesIsOverlappingWithMission());
                 }
             }

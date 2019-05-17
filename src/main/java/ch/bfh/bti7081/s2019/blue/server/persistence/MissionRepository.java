@@ -32,4 +32,9 @@ public interface MissionRepository extends JpaRepository<Mission, Long> {
             @Param("startDate") Date startDate,
             @Param("endDate") Date endDate);
 
+    @Query("SELECT m FROM Mission m"
+            + " JOIN MissionSeries ms ON m.missionSeries = ms"
+            + " WHERE ms.id = :seriesId")
+    List<Mission> findByMissionSeriesId(@Param("seriesId") Integer missionSeriesId);
+
 }
