@@ -28,7 +28,7 @@ public class MissionGenerator {
 
         while (date != null && date.before(viewRange.getEndDate())) {
 
-            if (viewRange.contains(date)) {
+            if (viewRange.contains(date) && missionSeries.getEndDate().after(date)) {
                 missions.add(generateMission(missionSeries, date));
             }
 
@@ -72,6 +72,7 @@ public class MissionGenerator {
             case ONCE:
                 return null;
             case DAILY:
+                System.out.println("DAILY: " + date);
                 cal.add(Calendar.DAY_OF_MONTH, 1);
                 break;
             case WEEKLY:
