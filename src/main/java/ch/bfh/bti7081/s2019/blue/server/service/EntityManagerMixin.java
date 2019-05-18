@@ -1,9 +1,10 @@
 package ch.bfh.bti7081.s2019.blue.server.service;
 
+import ch.bfh.bti7081.s2019.blue.server.utils.EntityWrapper;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Component;
 
-import javax.inject.Inject;
 import javax.persistence.EntityManager;
 import java.util.Optional;
 
@@ -12,7 +13,7 @@ public class EntityManagerMixin {
 
     private final EntityManager em;
 
-    @Inject
+    @Autowired
     public EntityManagerMixin(EntityManager em) {
         this.em = em;
     }

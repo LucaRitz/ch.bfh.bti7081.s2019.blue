@@ -2,13 +2,13 @@ package ch.bfh.bti7081.s2019.blue.server.mapper;
 
 import org.dozer.CustomConverter;
 import org.dozer.DozerBeanMapper;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
 import javax.annotation.PostConstruct;
 import javax.annotation.security.PermitAll;
 import javax.ejb.Singleton;
 import javax.ejb.Startup;
-import javax.inject.Inject;
 import javax.persistence.EntityManager;
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -23,7 +23,7 @@ public class Mapper {
 
     private final DozerBeanMapper mapper = new DozerBeanMapper();
 
-    @Inject
+    @Autowired
     private EntityManager em;
 
     @PostConstruct

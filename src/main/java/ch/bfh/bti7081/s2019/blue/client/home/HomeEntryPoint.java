@@ -6,16 +6,16 @@ import com.vaadin.flow.component.html.Div;
 import com.vaadin.flow.router.Route;
 import com.vaadin.flow.server.PWA;
 import com.vaadin.flow.spring.annotation.UIScope;
+import org.springframework.beans.factory.annotation.Autowired;
 
 import javax.annotation.PostConstruct;
-import javax.inject.Inject;
 
 @Route(value = Navigation.HOME, layout = Layout.class)
 @PWA(name = "Project Base for Vaadin Flow", shortName = "Project Base")
 @UIScope
 public class HomeEntryPoint extends Div {
 
-    @Inject
+    @Autowired
     private HomeActivity presenter;
 
     @PostConstruct

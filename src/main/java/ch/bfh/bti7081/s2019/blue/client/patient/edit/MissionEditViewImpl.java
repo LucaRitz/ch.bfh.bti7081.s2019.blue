@@ -7,18 +7,12 @@ import com.vaadin.flow.component.Tag;
 import com.vaadin.flow.component.button.Button;
 import com.vaadin.flow.component.datepicker.DatePicker;
 import com.vaadin.flow.component.dependency.HtmlImport;
-import com.vaadin.flow.component.dialog.Dialog;
-import com.vaadin.flow.component.notification.Notification;
 import com.vaadin.flow.component.polymertemplate.EventHandler;
 import com.vaadin.flow.component.polymertemplate.Id;
 import com.vaadin.flow.data.binder.BeanValidationBinder;
 import com.vaadin.flow.data.binder.BinderValidationStatus;
-import com.vaadin.flow.data.converter.LocalDateToDateConverter;
 import com.vaadin.flow.spring.annotation.UIScope;
-import com.vaadin.flow.templatemodel.TemplateModel;
 import org.springframework.stereotype.Component;
-
-import java.util.List;
 
 @HtmlImport("src/MissionEditDialogViewImpl.html")
 @Tag("mission-edit-dialog")
@@ -56,6 +50,7 @@ public class MissionEditViewImpl extends BaseViewImpl<MissionEditViewModel> impl
     @Override
     public void edit(MissionSeriesDto missionSeriesDto) {
         binder.setBean(missionSeriesDto);
+        endDate.setLocale(getLocale());
     }
 
     @EventHandler

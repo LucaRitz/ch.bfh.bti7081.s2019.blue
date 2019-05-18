@@ -8,9 +8,9 @@ import ch.bfh.bti7081.s2019.blue.shared.service.EmployeeService;
 import ch.bfh.bti7081.s2019.blue.shared.service.MissionService;
 import com.google.common.annotations.VisibleForTesting;
 import com.vaadin.flow.spring.annotation.UIScope;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
-import javax.inject.Inject;
 import java.util.Date;
 import java.util.List;
 
@@ -22,9 +22,8 @@ public class EmployeePlannerActivity extends BaseActivity implements EmployeePla
     private final EmployeeService employeeService;
     private final MissionService missionService;
 
-    @Inject
-    public EmployeePlannerActivity(EmployeePlannerView view,
-                                   EmployeeService employeeService,
+    @Autowired
+    public EmployeePlannerActivity(EmployeePlannerView view, EmployeeService employeeService,
                                    MissionService missionService) {
         this.view = view;
         this.view.setPresenter(this);
