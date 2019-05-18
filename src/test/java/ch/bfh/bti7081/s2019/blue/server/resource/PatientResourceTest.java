@@ -32,7 +32,7 @@ class PatientResourceTest {
     }
 
     @Test
-    void findAll_getExpected() {
+    void get_getExpected() {
         PatientRefDto expectedDto = new PatientRefDto();
         Patient entity = new Patient();
         when(repository.findAll()).thenReturn(Collections.singletonList(entity));
