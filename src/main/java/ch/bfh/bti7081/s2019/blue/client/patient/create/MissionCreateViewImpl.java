@@ -2,13 +2,13 @@ package ch.bfh.bti7081.s2019.blue.client.patient.create;
 
 import ch.bfh.bti7081.s2019.blue.client.base.BaseViewImpl;
 import ch.bfh.bti7081.s2019.blue.client.i18n.AppConstants;
+import ch.bfh.bti7081.s2019.blue.client.widget.EnumRenderer;
 import ch.bfh.bti7081.s2019.blue.shared.dto.MissionSeriesDto;
 import ch.bfh.bti7081.s2019.blue.shared.dto.RepetitionType;
 import com.vaadin.flow.component.Tag;
 import com.vaadin.flow.component.button.Button;
 import com.vaadin.flow.component.datepicker.DatePicker;
 import com.vaadin.flow.component.dependency.HtmlImport;
-import com.vaadin.flow.component.notification.Notification;
 import com.vaadin.flow.component.polymertemplate.EventHandler;
 import com.vaadin.flow.component.polymertemplate.Id;
 import com.vaadin.flow.component.radiobutton.RadioButtonGroup;
@@ -16,13 +16,11 @@ import com.vaadin.flow.component.timepicker.TimePicker;
 import com.vaadin.flow.data.binder.BeanValidationBinder;
 import com.vaadin.flow.data.binder.BinderValidationStatus;
 import com.vaadin.flow.data.provider.DataProvider;
-import com.vaadin.flow.data.renderer.TextRenderer;
 import com.vaadin.flow.spring.annotation.UIScope;
 import org.springframework.stereotype.Component;
 
 import java.util.Arrays;
 import java.util.List;
-import java.util.Locale;
 
 @HtmlImport("src/MissionCreateDialogViewImpl.html")
 @Tag("mission-create-dialog")
@@ -65,7 +63,7 @@ public class MissionCreateViewImpl extends BaseViewImpl<MissionCreateViewModel> 
 
         List<RepetitionType> repetitionTypes = Arrays.asList(RepetitionType.values());
         repetitionType.setDataProvider(DataProvider.ofCollection(repetitionTypes));
-        repetitionType.setRenderer(new TextRenderer<>(item -> getTranslation("RepetitionType_" + item.name())));
+        repetitionType.setRenderer(new EnumRenderer<>(RepetitionType.class, this::getTranslation).asRenderer());
 
         setText(getModel().getText()::setStartDate, AppConstants.MISSION_CREATE_START_DATE);
         setText(getModel().getText()::setStartTime, AppConstants.MISSION_CREATE_START_TIME);
@@ -85,6 +83,10 @@ public class MissionCreateViewImpl extends BaseViewImpl<MissionCreateViewModel> 
     @Override
     public void edit(MissionSeriesDto missionSeriesDto) {
         binder.setBean(missionSeriesDto);
+        startDate.setLocale(getLocale());
+        endDate.setLocale(getLocale());
+        startTime.setLocale(getLocale());
+        endTime.setLocale(getLocale());
     }
 
     @EventHandler

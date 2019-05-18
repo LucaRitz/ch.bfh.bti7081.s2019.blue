@@ -5,15 +5,15 @@ import ch.bfh.bti7081.s2019.blue.client.base.Navigation;
 import com.vaadin.flow.component.html.Div;
 import com.vaadin.flow.router.Route;
 import com.vaadin.flow.spring.annotation.UIScope;
+import org.springframework.beans.factory.annotation.Autowired;
 
 import javax.annotation.PostConstruct;
-import javax.inject.Inject;
 
 @Route(value = Navigation.EMPLOYEE_PLANNER, layout = Layout.class)
 @UIScope
 public class EmployeePlannerEntryPoint extends Div {
 
-    @Inject
+    @Autowired
     private EmployeePlannerActivity presenter;
 
     @PostConstruct

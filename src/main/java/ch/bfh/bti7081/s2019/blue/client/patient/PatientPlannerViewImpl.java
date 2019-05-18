@@ -14,10 +14,10 @@ import com.vaadin.flow.component.notification.Notification;
 import com.vaadin.flow.component.polymertemplate.EventHandler;
 import com.vaadin.flow.component.polymertemplate.Id;
 import com.vaadin.flow.spring.annotation.UIScope;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 import org.vaadin.stefan.fullcalendar.*;
 
-import javax.inject.Inject;
 import java.time.DayOfWeek;
 import java.time.LocalDate;
 import java.time.LocalDateTime;
@@ -50,7 +50,7 @@ public class PatientPlannerViewImpl extends BaseViewImpl<PatientPlannerViewModel
     private List<MissionDto> missions;
     private MissionSeriesDto selectedMissionSeries;
 
-    @Inject
+    @Autowired
     public PatientPlannerViewImpl(MissionIdGenerator missionIdGenerator) {
         this.missionIdGenerator = missionIdGenerator;
 

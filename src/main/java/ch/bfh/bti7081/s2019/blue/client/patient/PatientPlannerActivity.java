@@ -11,12 +11,10 @@ import ch.bfh.bti7081.s2019.blue.shared.dto.PatientRefDto;
 import ch.bfh.bti7081.s2019.blue.shared.service.MissionService;
 import ch.bfh.bti7081.s2019.blue.shared.service.PatientService;
 import com.google.common.annotations.VisibleForTesting;
-import com.vaadin.flow.component.dialog.Dialog;
-import com.vaadin.flow.component.notification.Notification;
 import com.vaadin.flow.spring.annotation.UIScope;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
-import javax.inject.Inject;
 import java.util.Date;
 import java.util.List;
 
@@ -30,7 +28,7 @@ public class PatientPlannerActivity extends BaseActivity implements PatientPlann
     private final MissionCreateDialog createDialog;
     private final MissionEditDialog editDialog;
 
-    @Inject
+    @Autowired
     public PatientPlannerActivity(PatientPlannerView view, PatientService patientService, MissionService missionService,
                                   MissionCreateDialog createDialog, MissionEditDialog editDialog) {
         this.view = view;
@@ -51,17 +49,11 @@ public class PatientPlannerActivity extends BaseActivity implements PatientPlann
         loadMasterdata();
     }
 
-    @VisibleForTesting
-    void loadMasterdata() {
-        List<PatientRefDto> list = patientService.findAll();
-        view.setPatients(list);
-    }
-
     @Override
     public void onCreateClicked() {
-        createDialog.open(createdMissionSeries -> {
-            view.reload();
-        }, view.getPatient());
+        createDialog.setProperties(view.getPatient());
+        createDialog.setListener(view::reload);
+        createDialog.start();
     }
 
     @Override
@@ -73,14 +65,20 @@ public class PatientPlannerActivity extends BaseActivity implements PatientPlann
             return;
         }
 
-        editDialog.open(dto, editedMissionSeries -> {
-            view.reload();
-        });
+        editDialog.setProperties(dto);
+        editDialog.setListener(view::reload);
+        editDialog.start();
     }
 
     @Override
     public void onSelectionChange(PatientRefDto patient, Date startDate, Date endDate) {
         List<MissionDto> list = missionService.findMissions(patient.getNumber(), startDate, endDate);
         view.setMissions(list);
+    }
+
+    @VisibleForTesting
+    void loadMasterdata() {
+        List<PatientRefDto> list = patientService.findAll();
+        view.setPatients(list);
     }
 }

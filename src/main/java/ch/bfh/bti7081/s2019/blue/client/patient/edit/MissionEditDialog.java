@@ -1,22 +1,22 @@
 package ch.bfh.bti7081.s2019.blue.client.patient.edit;
 
 import ch.bfh.bti7081.s2019.blue.client.base.BaseActivity;
+import ch.bfh.bti7081.s2019.blue.client.base.DialogFactory;
+import ch.bfh.bti7081.s2019.blue.client.base.IsDialog;
 import ch.bfh.bti7081.s2019.blue.client.base.IsView;
 import ch.bfh.bti7081.s2019.blue.shared.dto.MissionSeriesDto;
 import ch.bfh.bti7081.s2019.blue.shared.dto.ResponseDto;
 import ch.bfh.bti7081.s2019.blue.shared.service.MissionSeriesService;
-import ch.bfh.bti7081.s2019.blue.shared.service.PatientService;
 import com.google.common.annotations.VisibleForTesting;
-import com.vaadin.flow.component.dialog.Dialog;
-import com.vaadin.flow.component.notification.Notification;
 import com.vaadin.flow.spring.annotation.UIScope;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
-import javax.inject.Inject;
+import java.time.LocalDate;
 import java.time.LocalDateTime;
+import java.time.LocalTime;
 import java.time.ZoneId;
 import java.util.Date;
-import java.util.function.Consumer;
 
 @Component
 @UIScope
@@ -24,14 +24,21 @@ public class MissionEditDialog extends BaseActivity implements MissionEditView.P
 
     private final MissionEditView view;
     private final MissionSeriesService missionSeriesService;
-    private Dialog dialog;
-    private Consumer<MissionSeriesDto> editedMissionSeriesConsumer = null;
+    private final DialogFactory dialogFactory;
 
-    @Inject
-    public MissionEditDialog(MissionEditView view, MissionSeriesService missionSeriesService) {
+    @VisibleForTesting
+    IsDialog dialog;
+
+    private Listener listener;
+    private MissionSeriesDto missionSeriesDto;
+
+    @Autowired
+    public MissionEditDialog(MissionEditView view, MissionSeriesService missionSeriesService,
+                             DialogFactory dialogFactory) {
         this.view = view;
         this.view.setPresenter(this);
         this.missionSeriesService = missionSeriesService;
+        this.dialogFactory = dialogFactory;
     }
 
     @Override
@@ -41,34 +48,20 @@ public class MissionEditDialog extends BaseActivity implements MissionEditView.P
 
     @Override
     public void start() {
-        loadMasterdata();
-    }
-
-    @VisibleForTesting
-    void loadMasterdata() {
-    }
-
-    public void open(MissionSeriesDto dto, Consumer<MissionSeriesDto> editedMissionSeriesConsumer) {
-        this.editedMissionSeriesConsumer = editedMissionSeriesConsumer;
-        view.edit(dto);
-        dialog = new Dialog(getView().asComponent());
-        dialog.open();
+        view.edit(missionSeriesDto);
+        dialog = dialogFactory.show(view);
     }
 
     @Override
     public void onSaveClicked(MissionSeriesDto dto) {
-
-        Date endDate = Date.from(
-                LocalDateTime.of(dto.getEndDate(), dto.getEndTime())
-                        .atZone(ZoneId.systemDefault())
-                        .toInstant());
+        Date endDate = mergeDateTime(dto.getEndDate(), dto.getEndTime());
 
         ResponseDto<Void> response = missionSeriesService.updateEndDate(endDate, dto.getId());
         if (response.hasErrors()) {
             view.showTranslatedNotification(response.getErrors());
         } else {
-            if (editedMissionSeriesConsumer != null) {
-                editedMissionSeriesConsumer.accept(dto);
+            if (listener != null) {
+                listener.onSaved();
             }
             dialog.close();
         }
@@ -79,5 +72,25 @@ public class MissionEditDialog extends BaseActivity implements MissionEditView.P
         if(dialog != null) {
             dialog.close();
         }
+    }
+
+    public void setProperties(MissionSeriesDto missionSeriesDto) {
+        this.missionSeriesDto = missionSeriesDto;
+    }
+
+    public void setListener(Listener listener) {
+        this.listener = listener;
+    }
+
+    @VisibleForTesting
+    Date mergeDateTime(LocalDate date, LocalTime time) {
+        return Date.from(
+                LocalDateTime.of(date, time)
+                        .atZone(ZoneId.systemDefault())
+                        .toInstant());
+    }
+
+    public interface Listener {
+        void onSaved();
     }
 }

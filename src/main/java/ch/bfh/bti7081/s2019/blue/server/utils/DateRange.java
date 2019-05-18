@@ -1,4 +1,4 @@
-package ch.bfh.bti7081.s2019.blue.server.service;
+package ch.bfh.bti7081.s2019.blue.server.utils;
 
 import java.util.Date;
 

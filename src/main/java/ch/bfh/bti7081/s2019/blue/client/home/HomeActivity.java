@@ -7,9 +7,8 @@ import ch.bfh.bti7081.s2019.blue.shared.service.HomeService;
 import com.google.common.annotations.VisibleForTesting;
 import com.vaadin.flow.component.notification.Notification;
 import com.vaadin.flow.spring.annotation.UIScope;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
-
-import javax.inject.Inject;
 
 @Component
 @UIScope
@@ -19,7 +18,7 @@ public class HomeActivity extends BaseActivity implements HomeView.Presenter {
     private final HomeService homeService;
 
 
-    @Inject
+    @Autowired
     public HomeActivity(HomeView view, HomeService homeService) {
         this.view = view;
         this.view.setPresenter(this);

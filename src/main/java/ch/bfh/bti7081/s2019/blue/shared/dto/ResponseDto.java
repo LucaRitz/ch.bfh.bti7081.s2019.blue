@@ -7,6 +7,10 @@ public class ResponseDto<D> {
     private final D dto;
     private final List<String> errors;
 
+    public ResponseDto() {
+        this(null, Collections.emptyList());
+    }
+
     public ResponseDto(String error) {
         this(Collections.singletonList(error));
     }
