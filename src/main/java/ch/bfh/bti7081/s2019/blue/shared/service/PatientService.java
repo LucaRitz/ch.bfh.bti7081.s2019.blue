@@ -6,5 +6,5 @@ import java.util.List;
 
 public interface PatientService {
 
-    List<PatientRefDto> findAll();
+    List<PatientRefDto> get();
 }

@@ -1,4 +1,4 @@
-package ch.bfh.bti7081.s2019.blue.server.service;
+package ch.bfh.bti7081.s2019.blue.server.resource;
 
 import ch.bfh.bti7081.s2019.blue.server.i18n.ServerConstants;
 import ch.bfh.bti7081.s2019.blue.server.mapper.Mapper;
@@ -10,16 +10,19 @@ import ch.bfh.bti7081.s2019.blue.shared.dto.MissionSeriesDto;
 import ch.bfh.bti7081.s2019.blue.shared.dto.ResponseDto;
 import ch.bfh.bti7081.s2019.blue.shared.service.MissionSeriesService;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.stereotype.Component;
+import org.springframework.format.annotation.DateTimeFormat;
+import org.springframework.web.bind.annotation.*;
 
 import javax.persistence.EntityManager;
 import javax.transaction.Transactional;
+import javax.ws.rs.core.MediaType;
 import java.util.Date;
 import java.util.List;
 
-@Component
+@RestController
+@RequestMapping("rest/missionseries")
 @Transactional
-public class MissionSeriesServiceImpl implements MissionSeriesService {
+public class MissionSeriesResource implements MissionSeriesService {
 
     private final MissionSeriesRepository repository;
     private final Mapper mapper;
@@ -29,8 +32,8 @@ public class MissionSeriesServiceImpl implements MissionSeriesService {
     private final EntityManagerMixin emm;
 
     @Autowired
-    public MissionSeriesServiceImpl(MissionSeriesRepository repository, Mapper mapper, MissionSeriesValidator validator,
-                                    EntityManager em, ServerConstants messages, EntityManagerMixin emm) {
+    public MissionSeriesResource(MissionSeriesRepository repository, Mapper mapper, MissionSeriesValidator validator,
+                                 EntityManager em, ServerConstants messages, EntityManagerMixin emm) {
         this.repository = repository;
         this.mapper = mapper;
         this.validator = validator;
@@ -40,6 +43,7 @@ public class MissionSeriesServiceImpl implements MissionSeriesService {
     }
 
     @Override
+    @PostMapping(produces = MediaType.APPLICATION_JSON, consumes = MediaType.APPLICATION_JSON)
     public ResponseDto<Void> create(MissionSeriesDto dto) {
         MissionSeries entity = mapper.map(dto, MissionSeries.class);
         List<String> errors = validator.validate(new EntityWrapper<>(null, entity));
@@ -53,12 +57,15 @@ public class MissionSeriesServiceImpl implements MissionSeriesService {
     }
 
     @Override
+    @DeleteMapping
     public void delete(int id) {
         repository.deleteById(id);
     }
 
     @Override
-    public ResponseDto<Void> updateEndDate(Date endDate, int id) {
+    @PatchMapping(produces = MediaType.APPLICATION_JSON, path = "/{id}")
+    public ResponseDto<Void> updateEndDate(@PathVariable int id,
+                                           @RequestParam  @DateTimeFormat(iso = DateTimeFormat.ISO.DATE) Date endDate) {
 
         EntityWrapper<MissionSeries> wrapper = emm.get(id, repository);
 

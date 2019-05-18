@@ -10,5 +10,5 @@ public interface MissionSeriesService {
 
     void delete(int id);
 
-    ResponseDto<Void> updateEndDate(Date endDate, int id);
+    ResponseDto<Void> updateEndDate(int id, Date endDate);
 }

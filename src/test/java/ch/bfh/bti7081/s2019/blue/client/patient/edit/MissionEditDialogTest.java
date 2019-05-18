@@ -83,13 +83,13 @@ class MissionEditDialogTest {
         dialog.onSaveClicked(dto);
 
         // Assert
-        verify(service).updateEndDate(expectedDate, expectedId);
+        verify(service).updateEndDate(expectedId, expectedDate);
     }
 
     @Test
     void onSaveClicked_hasErrors_showErrors() {
         String expectedError = String.valueOf(RAND.nextLong());
-        when(service.updateEndDate(any(), anyInt())).thenReturn(new ResponseDto<>(expectedError));
+        when(service.updateEndDate(anyInt(), any())).thenReturn(new ResponseDto<>(expectedError));
 
         dialog = spy(dialog);
         doReturn(new Date()).when(dialog).mergeDateTime(any(), any());
@@ -105,7 +105,7 @@ class MissionEditDialogTest {
 
     @Test
     void onSaveClicked_noErrors_callListenerAndClose() {
-        when(service.updateEndDate(any(), anyInt())).thenReturn(new ResponseDto<>());
+        when(service.updateEndDate(anyInt(), any())).thenReturn(new ResponseDto<>());
         dialog.dialog = mock(IsDialog.class);
         MissionEditDialog.Listener listener = mock(MissionEditDialog.Listener.class);
         dialog.setListener(listener);

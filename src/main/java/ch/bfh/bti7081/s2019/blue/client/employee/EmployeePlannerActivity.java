@@ -2,10 +2,11 @@ package ch.bfh.bti7081.s2019.blue.client.employee;
 
 import ch.bfh.bti7081.s2019.blue.client.base.BaseActivity;
 import ch.bfh.bti7081.s2019.blue.client.base.IsView;
+import ch.bfh.bti7081.s2019.blue.server.persistence.model.EmployeeRole;
 import ch.bfh.bti7081.s2019.blue.shared.dto.EmployeeDto;
 import ch.bfh.bti7081.s2019.blue.shared.dto.MissionDto;
+import ch.bfh.bti7081.s2019.blue.shared.service.EmployeeMissionSubService;
 import ch.bfh.bti7081.s2019.blue.shared.service.EmployeeService;
-import ch.bfh.bti7081.s2019.blue.shared.service.MissionService;
 import com.google.common.annotations.VisibleForTesting;
 import com.vaadin.flow.spring.annotation.UIScope;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -20,15 +21,15 @@ public class EmployeePlannerActivity extends BaseActivity implements EmployeePla
 
     private final EmployeePlannerView view;
     private final EmployeeService employeeService;
-    private final MissionService missionService;
+    private final EmployeeMissionSubService employeeMissionSubService;
 
     @Autowired
     public EmployeePlannerActivity(EmployeePlannerView view, EmployeeService employeeService,
-                                   MissionService missionService) {
+                                   EmployeeMissionSubService employeeMissionSubService) {
         this.view = view;
         this.view.setPresenter(this);
         this.employeeService = employeeService;
-        this.missionService = missionService;
+        this.employeeMissionSubService = employeeMissionSubService;
     }
 
     @Override
@@ -43,13 +44,13 @@ public class EmployeePlannerActivity extends BaseActivity implements EmployeePla
 
     @VisibleForTesting
     void loadMasterdata() {
-        List<EmployeeDto> list = employeeService.findAllHealthVisitors();
+        List<EmployeeDto> list = employeeService.find(EmployeeRole.HEALTH_VISITOR);
         view.setEmployees(list);
     }
 
     @Override
     public void onSelectionChange(EmployeeDto employee, Date startDate, Date endDate) {
-        List<MissionDto> list = missionService.findMissionsForEmployee(employee.getId(), startDate, endDate);
+        List<MissionDto> list = employeeMissionSubService.find(employee.getId(), startDate, endDate);
         view.setMissions(list);
     }
 }

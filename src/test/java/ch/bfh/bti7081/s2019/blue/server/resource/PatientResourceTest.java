@@ -1,4 +1,4 @@
-package ch.bfh.bti7081.s2019.blue.server.service;
+package ch.bfh.bti7081.s2019.blue.server.resource;
 
 import ch.bfh.bti7081.s2019.blue.server.mapper.Mapper;
 import ch.bfh.bti7081.s2019.blue.server.persistence.PatientRepository;
@@ -17,9 +17,9 @@ import static org.junit.jupiter.api.Assertions.assertTrue;
 import static org.mockito.Mockito.when;
 
 @ExtendWith(MockitoExtension.class)
-class PatientServiceImplTest {
+class PatientResourceTest {
 
-    private PatientServiceImpl service;
+    private PatientResource resource;
 
     @Mock
     private PatientRepository repository;
@@ -28,7 +28,7 @@ class PatientServiceImplTest {
 
     @BeforeEach
     void setUp() {
-        service = new PatientServiceImpl(repository, mapper);
+        resource = new PatientResource(repository, mapper);
     }
 
     @Test
@@ -40,7 +40,7 @@ class PatientServiceImplTest {
                 .thenReturn(Collections.singletonList(expectedDto));
 
         // Act
-        List<PatientRefDto> results = service.findAll();
+        List<PatientRefDto> results = resource.get();
 
         // Assert
         assertTrue(results.contains(expectedDto));
