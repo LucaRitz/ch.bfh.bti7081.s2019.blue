@@ -80,7 +80,7 @@ class MissionSeriesResourceTest {
         when(emm.get(expectedId,repository)).thenReturn(new EntityWrapper<>());
 
         // Act
-        ResponseDto<Void> responseDto =  resource.updateEndDate(expectedId, new Date());
+        ResponseDto<Void> responseDto = resource.updateEndDate(expectedId, new Date());
 
         // Assert
         assertTrue(responseDto.getErrors().contains(expectedMessage));

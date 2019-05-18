@@ -26,13 +26,12 @@ public class EmployeeMissionSubResource implements EmployeeMissionSubService {
         this.missionRepository = missionRepository;
     }
 
-    @GetMapping(path = "/{employeeId}", produces = MediaType.APPLICATION_JSON)
     @Override
+    @GetMapping(path = "/{employeeId}", produces = MediaType.APPLICATION_JSON)
     public List<MissionDto> find(@PathVariable Integer employeeId,
                                  @RequestParam @DateTimeFormat(iso = DateTimeFormat.ISO.DATE) Date start,
                                  @RequestParam @DateTimeFormat(iso = DateTimeFormat.ISO.DATE) Date end) {
         List<Mission> missions = missionRepository.findByHealthVisitorAndIntersectingDateRange(employeeId, start, end);
         return mapper.map(missions, MissionDto.class);
     }
-
 }
