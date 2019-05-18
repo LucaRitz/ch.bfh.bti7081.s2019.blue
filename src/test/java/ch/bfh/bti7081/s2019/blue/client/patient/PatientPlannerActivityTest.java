@@ -109,14 +109,14 @@ class PatientPlannerActivityTest {
         activity.onSelectionChange(patientRefDto, expectedStartDate, expectedEndDate);
 
         // Assert
-        verify(missionService).findMissions(expectedPatientNumber, expectedStartDate, expectedEndDate);
+        verify(missionService).find(expectedPatientNumber, expectedStartDate, expectedEndDate);
     }
 
     @Test
     void onSelectionChange_updateMissionsOnView() {
         List<MissionDto> expectedMissions = Collections.singletonList(new MissionDto());
 
-        when(missionService.findMissions(any(), any(), any())).thenReturn(expectedMissions);
+        when(missionService.find(any(), any(), any())).thenReturn(expectedMissions);
 
         // Act
         activity.onSelectionChange(new PatientRefDto(), new Date(), new Date());
@@ -128,7 +128,7 @@ class PatientPlannerActivityTest {
     @Test
     void loadMasterdata_updatePatientsOnView() {
         List<PatientRefDto> expectedPatients = Collections.singletonList(new PatientRefDto());
-        when(patientService.findAll()).thenReturn(expectedPatients);
+        when(patientService.get()).thenReturn(expectedPatients);
 
         // Act
         activity.loadMasterdata();

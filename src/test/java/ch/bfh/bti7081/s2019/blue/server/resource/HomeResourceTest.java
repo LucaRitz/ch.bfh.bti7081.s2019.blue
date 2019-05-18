@@ -1,4 +1,4 @@
-package ch.bfh.bti7081.s2019.blue.server.service;
+package ch.bfh.bti7081.s2019.blue.server.resource;
 
 import ch.bfh.bti7081.s2019.blue.server.mapper.Mapper;
 import ch.bfh.bti7081.s2019.blue.server.persistence.HomeRepository;
@@ -9,7 +9,6 @@ import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
 import org.mockito.Mock;
 import org.mockito.junit.jupiter.MockitoExtension;
-import org.springframework.data.domain.Example;
 
 import java.util.Optional;
 
@@ -18,9 +17,9 @@ import static org.mockito.ArgumentMatchers.any;
 import static org.mockito.Mockito.when;
 
 @ExtendWith(MockitoExtension.class)
-class HomeServiceImplTest {
+class HomeResourceTest {
 
-    private HomeServiceImpl service;
+    private HomeResource resource;
 
     @Mock
     private HomeRepository repository;
@@ -29,15 +28,15 @@ class HomeServiceImplTest {
 
     @BeforeEach
     void setUp() {
-        service = new HomeServiceImpl(repository, mapper);
+        resource = new HomeResource(repository, mapper);
     }
 
     @Test
     void get_homeNotFound_getEmpty() {
-        when(repository.findOne(any(Example.class))).thenReturn(Optional.empty());
+        when(repository.findOne(any())).thenReturn(Optional.empty());
 
         // Act
-        HomeDto result = service.get();
+        HomeDto result = resource.get();
 
         // Assert
         assertNotNull(result);
@@ -53,7 +52,7 @@ class HomeServiceImplTest {
         when(mapper.map(entity, HomeDto.class)).thenReturn(expectedDto);
 
         // Act
-        HomeDto result = service.get();
+        HomeDto result = resource.get();
 
         // Assert
         assertSame(expectedDto, result);

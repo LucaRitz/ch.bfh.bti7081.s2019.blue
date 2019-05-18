@@ -56,7 +56,7 @@ public class MissionEditDialog extends BaseActivity implements MissionEditView.P
     public void onSaveClicked(MissionSeriesDto dto) {
         Date endDate = mergeDateTime(dto.getEndDate(), dto.getEndTime());
 
-        ResponseDto<Void> response = missionSeriesService.updateEndDate(endDate, dto.getId());
+        ResponseDto<Void> response = missionSeriesService.updateEndDate(dto.getId(), endDate);
         if (response.hasErrors()) {
             view.showTranslatedNotification(response.getErrors());
         } else {

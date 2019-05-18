@@ -1,4 +1,4 @@
-package ch.bfh.bti7081.s2019.blue.server.service;
+package ch.bfh.bti7081.s2019.blue.server.resource;
 
 import ch.bfh.bti7081.s2019.blue.server.i18n.ServerConstants;
 import ch.bfh.bti7081.s2019.blue.server.mapper.Mapper;
@@ -23,10 +23,10 @@ import static org.mockito.Mockito.verify;
 import static org.mockito.Mockito.when;
 
 @ExtendWith(MockitoExtension.class)
-class MissionSeriesServiceImplTest {
+class MissionSeriesResourceTest {
     private static final Random RAND = new Random();
 
-    private MissionSeriesServiceImpl service;
+    private MissionSeriesResource resource;
 
     @Mock
     private MissionSeriesRepository repository;
@@ -43,7 +43,7 @@ class MissionSeriesServiceImplTest {
 
     @BeforeEach
     void setUp(){
-        service = new MissionSeriesServiceImpl(repository, mapper, validator, em ,messages,emm);
+        resource = new MissionSeriesResource(repository, mapper, validator, em ,messages,emm);
     }
 
     @Test
@@ -54,7 +54,7 @@ class MissionSeriesServiceImplTest {
         when(mapper.map(dto, MissionSeries.class)).thenReturn(expectedEntity);
 
         // Act
-        service.create(dto);
+        resource.create(dto);
 
         // Assert
         verify(repository).save(expectedEntity);
@@ -65,7 +65,7 @@ class MissionSeriesServiceImplTest {
         int expectedId = RAND.nextInt();
 
         // Act
-        service.delete(expectedId);
+        resource.delete(expectedId);
 
         // Assert
         verify(repository).deleteById(expectedId);
@@ -80,7 +80,7 @@ class MissionSeriesServiceImplTest {
         when(emm.get(expectedId,repository)).thenReturn(new EntityWrapper<>());
 
         // Act
-        ResponseDto<Void> responseDto =  service.updateEndDate(new Date(), expectedId);
+        ResponseDto<Void> responseDto =  resource.updateEndDate(expectedId, new Date());
 
         // Assert
         assertTrue(responseDto.getErrors().contains(expectedMessage));

@@ -1,4 +1,4 @@
-package ch.bfh.bti7081.s2019.blue.server.service;
+package ch.bfh.bti7081.s2019.blue.server.resource;
 
 import ch.bfh.bti7081.s2019.blue.server.mapper.Mapper;
 import ch.bfh.bti7081.s2019.blue.server.persistence.MissionRepository;
@@ -10,14 +10,20 @@ import ch.bfh.bti7081.s2019.blue.server.utils.MissionGenerator;
 import ch.bfh.bti7081.s2019.blue.shared.dto.MissionDto;
 import ch.bfh.bti7081.s2019.blue.shared.service.MissionService;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.stereotype.Component;
+import org.springframework.format.annotation.DateTimeFormat;
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.RestController;
 
+import javax.ws.rs.core.MediaType;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 
-@Component
-public class MissionServiceImpl implements MissionService {
+@RestController
+@RequestMapping("rest/missions")
+public class MissionResource implements MissionService {
 
     private final MissionRepository missionRepository;
     private final MissionSeriesRepository missionSeriesRepository;
@@ -25,7 +31,7 @@ public class MissionServiceImpl implements MissionService {
     private final Mapper mapper;
 
     @Autowired
-    public MissionServiceImpl(MissionRepository missionRepository, MissionSeriesRepository missionSeriesRepository, MissionGenerator generator, Mapper mapper) {
+    public MissionResource(MissionRepository missionRepository, MissionSeriesRepository missionSeriesRepository, MissionGenerator generator, Mapper mapper) {
         this.missionRepository = missionRepository;
         this.missionSeriesRepository = missionSeriesRepository;
         this.generator = generator;
@@ -33,7 +39,10 @@ public class MissionServiceImpl implements MissionService {
     }
 
     @Override
-    public List<MissionDto> findMissions(Integer patientNumber, Date startDate, Date endDate) {
+    @GetMapping(produces = MediaType.APPLICATION_JSON)
+    public List<MissionDto> find(@RequestParam Integer patientNumber,
+                                 @RequestParam  @DateTimeFormat(iso = DateTimeFormat.ISO.DATE) Date startDate,
+                                 @RequestParam  @DateTimeFormat(iso = DateTimeFormat.ISO.DATE) Date endDate) {
         List<Mission> missions = new ArrayList<>(missionRepository.findByPatientNumberAndIntersectingDateRange(patientNumber, startDate, endDate));
         List<MissionSeries> series = new ArrayList<>(missionSeriesRepository.findByPatientNumberAndIntersectingDateRange(patientNumber, startDate, endDate));
         List<Mission> temporaryMissions = generator.generateMissionsFromSeries(series, new DateRange(startDate, endDate));
@@ -63,12 +72,5 @@ public class MissionServiceImpl implements MissionService {
         }
 
         return mergedMissions;
-    }
-
-
-    @Override
-    public List<MissionDto> findMissionsForEmployee(Integer employeeId, Date start, Date end) {
-        List<Mission> missions = missionRepository.findByHealthVisitorAndIntersectingDateRange(employeeId, start, end);
-        return mapper.map(missions, MissionDto.class);
     }
 }

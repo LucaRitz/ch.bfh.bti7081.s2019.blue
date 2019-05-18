@@ -1,4 +1,4 @@
-package ch.bfh.bti7081.s2019.blue.server.service;
+package ch.bfh.bti7081.s2019.blue.server.resource;
 
 import ch.bfh.bti7081.s2019.blue.server.mapper.Mapper;
 import ch.bfh.bti7081.s2019.blue.server.persistence.EmployeeRepository;
@@ -9,25 +9,32 @@ import ch.bfh.bti7081.s2019.blue.shared.dto.EmployeeDto;
 import ch.bfh.bti7081.s2019.blue.shared.service.EmployeeService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Example;
-import org.springframework.stereotype.Component;
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.RestController;
 
+import javax.ws.rs.core.MediaType;
 import java.util.List;
 
-@Component
-public class EmployeeServiceImpl implements EmployeeService {
+@RestController
+@RequestMapping(EmployeeResource.PATH)
+public class EmployeeResource implements EmployeeService {
+
+    static final String PATH = "rest/employees";
 
     private final EmployeeRepository repository;
     private final Mapper mapper;
 
     @Autowired
-    public EmployeeServiceImpl(EmployeeRepository repository, Mapper mapper) {
+    public EmployeeResource(EmployeeRepository repository, Mapper mapper) {
         this.repository = repository;
         this.mapper = mapper;
     }
 
     @Override
-    public List<EmployeeDto> findAllHealthVisitors() {
-        EmployeeRole role = EmployeeRole.HEALTH_VISITOR;
+    @GetMapping(produces = MediaType.APPLICATION_JSON)
+    public List<EmployeeDto> find(@RequestParam EmployeeRole role) {
         Example<Employee> statement = new EmployeeBuilder().setRole(role).build();
 
         List<Employee> entities = repository.findAll(statement);

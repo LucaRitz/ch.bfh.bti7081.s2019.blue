@@ -1,9 +1,10 @@
 package ch.bfh.bti7081.s2019.blue.client.employee;
 
+import ch.bfh.bti7081.s2019.blue.server.persistence.model.EmployeeRole;
 import ch.bfh.bti7081.s2019.blue.shared.dto.EmployeeDto;
 import ch.bfh.bti7081.s2019.blue.shared.dto.MissionDto;
+import ch.bfh.bti7081.s2019.blue.shared.service.EmployeeMissionSubService;
 import ch.bfh.bti7081.s2019.blue.shared.service.EmployeeService;
-import ch.bfh.bti7081.s2019.blue.shared.service.MissionService;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
@@ -29,11 +30,11 @@ class EmployeePlannerActivityTest {
     @Mock
     private EmployeeService employeeService;
     @Mock
-    private MissionService missionService;
+    private EmployeeMissionSubService employeeMissionSubService;
 
     @BeforeEach
     void setUp() {
-        activity = new EmployeePlannerActivity(view, employeeService, missionService);
+        activity = new EmployeePlannerActivity(view, employeeService, employeeMissionSubService);
     }
 
     @Test
@@ -51,7 +52,7 @@ class EmployeePlannerActivityTest {
     void loadMasterdata_updateEmployeesOnView() {
         List<EmployeeDto> expectedEmployees = Collections.singletonList(new EmployeeDto());
 
-        when(employeeService.findAllHealthVisitors()).thenReturn(expectedEmployees);
+        when(employeeService.find(EmployeeRole.HEALTH_VISITOR)).thenReturn(expectedEmployees);
 
         // Act
         activity.loadMasterdata();
@@ -73,14 +74,14 @@ class EmployeePlannerActivityTest {
         activity.onSelectionChange(employeeDto, expectedStartDate, expectedEndDate);
 
         // Assert
-        verify(missionService).findMissionsForEmployee(expectedEmployeeId, expectedStartDate, expectedEndDate);
+        verify(employeeMissionSubService).find(expectedEmployeeId, expectedStartDate, expectedEndDate);
     }
 
     @Test
     void onSelectionChange_updateMissionsOnView() {
         List<MissionDto> expectedMissions = Collections.singletonList(new MissionDto());
 
-        when(missionService.findMissionsForEmployee(any(), any(), any())).thenReturn(expectedMissions);
+        when(employeeMissionSubService.find(any(), any(), any())).thenReturn(expectedMissions);
 
         // Act
         activity.onSelectionChange(new EmployeeDto(), new Date(), new Date());
