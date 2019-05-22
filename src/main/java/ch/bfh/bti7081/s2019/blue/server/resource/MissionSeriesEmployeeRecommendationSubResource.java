@@ -19,7 +19,7 @@ import java.util.List;
 import java.util.Optional;
 
 @RestController
-@RequestMapping(MissionSeriesResource.PATH + "/employeerecommendations")
+@RequestMapping(MissionSeriesResource.PATH + "/{missionSeriesId}/employeerecommendations")
 public class MissionSeriesEmployeeRecommendationSubResource {
 
     private final Mapper mapper;

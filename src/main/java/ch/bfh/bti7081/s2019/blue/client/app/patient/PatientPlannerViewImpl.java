@@ -49,6 +49,7 @@ public class PatientPlannerViewImpl extends BaseViewImpl<PatientPlannerViewModel
     private Date endDate = null;
     private List<MissionDto> missions;
     private MissionSeriesDto selectedMissionSeries;
+    private MissionDto selectedMission;
 
     @Autowired
     public PatientPlannerViewImpl(MissionIdGenerator missionIdGenerator) {
@@ -83,6 +84,7 @@ public class PatientPlannerViewImpl extends BaseViewImpl<PatientPlannerViewModel
                     "Start: " + entry.getStart().toString() + " End: " + entry.getEnd(), 3000);
             notification.open();
             this.selectedMissionSeries = getMissionSeriesById(id);
+            this.selectedMission = getNewMissionDtoById(id, entry);
 
 
         });
@@ -122,6 +124,9 @@ public class PatientPlannerViewImpl extends BaseViewImpl<PatientPlannerViewModel
     }
 
     @Override
+    public MissionDto getSelectedMissionToAssign() { return this.selectedMission; }
+
+    @Override
     public void setPresenter(Presenter presenter) {
         this.presenter = presenter;
     }
@@ -154,6 +159,11 @@ public class PatientPlannerViewImpl extends BaseViewImpl<PatientPlannerViewModel
     @EventHandler
     private void changeEndDateButtonPressed() {
         presenter.onEditClicked();
+    }
+
+    @EventHandler
+    private void assignButtonPressed() {
+        presenter.onAssignClicked();
     }
 
     private Entry toEntry(MissionDto missionDto) {
@@ -196,5 +206,17 @@ public class PatientPlannerViewImpl extends BaseViewImpl<PatientPlannerViewModel
         } else {
             return null;
         }
+    }
+
+    //Returns a new MissionDto out of the selected Appointment
+    private MissionDto getNewMissionDtoById(MissionId id, Entry entry) {
+
+        MissionDto dto = new MissionDto();
+        dto.setMissionSeries(getMissionSeriesById(id));
+        dto.setStartDate(java.sql.Timestamp.valueOf(entry.getStart()));
+        dto.setEndDate(java.sql.Timestamp.valueOf(entry.getEnd()));
+
+        return dto;
+
     }
 }

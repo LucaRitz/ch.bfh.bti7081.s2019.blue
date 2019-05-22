@@ -2,11 +2,13 @@ package ch.bfh.bti7081.s2019.blue.client.app.patient;
 
 import ch.bfh.bti7081.s2019.blue.client.app.base.BaseActivity;
 import ch.bfh.bti7081.s2019.blue.client.app.base.IsView;
+import ch.bfh.bti7081.s2019.blue.client.app.patient.assign.MissionAssignDialog;
 import ch.bfh.bti7081.s2019.blue.client.app.patient.create.MissionCreateDialog;
 import ch.bfh.bti7081.s2019.blue.client.app.patient.edit.MissionEditDialog;
 import ch.bfh.bti7081.s2019.blue.client.i18n.AppConstants;
 import ch.bfh.bti7081.s2019.blue.client.ws.MissionService;
 import ch.bfh.bti7081.s2019.blue.client.ws.PatientService;
+import ch.bfh.bti7081.s2019.blue.shared.dto.MissionDto;
 import ch.bfh.bti7081.s2019.blue.shared.dto.MissionSeriesDto;
 import ch.bfh.bti7081.s2019.blue.shared.dto.PatientRefDto;
 import com.google.common.annotations.VisibleForTesting;
@@ -25,16 +27,18 @@ public class PatientPlannerActivity extends BaseActivity implements PatientPlann
     private final MissionService missionService;
     private final MissionCreateDialog createDialog;
     private final MissionEditDialog editDialog;
+    private final MissionAssignDialog assignDialog;
 
     @Autowired
     public PatientPlannerActivity(PatientPlannerView view, PatientService patientService, MissionService missionService,
-                                  MissionCreateDialog createDialog, MissionEditDialog editDialog) {
+                                  MissionCreateDialog createDialog, MissionEditDialog editDialog, MissionAssignDialog assignDialog) {
         this.view = view;
         this.view.setPresenter(this);
         this.patientService = patientService;
         this.missionService = missionService;
         this.createDialog = createDialog;
         this.editDialog = editDialog;
+        this.assignDialog = assignDialog;
     }
 
     @Override
@@ -58,7 +62,7 @@ public class PatientPlannerActivity extends BaseActivity implements PatientPlann
     public void onEditClicked() {
         MissionSeriesDto dto = view.getSelectedMissionSeries();
 
-        if(dto == null) {
+        if (dto == null) {
             view.showNotification(AppConstants.PATIENT_PLANNER_NO_SELECTED_MISSION.getKey());
             return;
         }
@@ -66,6 +70,19 @@ public class PatientPlannerActivity extends BaseActivity implements PatientPlann
         editDialog.setProperties(dto);
         editDialog.setListener(view::reload);
         editDialog.start();
+    }
+
+    @Override
+    public void onAssignClicked() {
+        MissionDto dto = view.getSelectedMissionToAssign();
+        if (dto == null) {
+            view.showNotification(AppConstants.PATIENT_PLANNER_NO_SELECTED_MISSION.getKey());
+            return;
+        }
+
+        assignDialog.setProperties(dto);
+        assignDialog.setListener(view::reload);
+        assignDialog.start();
     }
 
     @Override
