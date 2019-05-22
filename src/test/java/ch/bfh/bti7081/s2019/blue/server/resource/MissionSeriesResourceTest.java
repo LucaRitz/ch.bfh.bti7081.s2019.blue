@@ -4,10 +4,9 @@ import ch.bfh.bti7081.s2019.blue.server.i18n.ServerConstants;
 import ch.bfh.bti7081.s2019.blue.server.mapper.Mapper;
 import ch.bfh.bti7081.s2019.blue.server.persistence.MissionSeriesRepository;
 import ch.bfh.bti7081.s2019.blue.server.persistence.model.MissionSeries;
-import ch.bfh.bti7081.s2019.blue.server.utils.EntityWrapper;
 import ch.bfh.bti7081.s2019.blue.server.validator.MissionSeriesValidator;
+import ch.bfh.bti7081.s2019.blue.server.validator.ValidationException;
 import ch.bfh.bti7081.s2019.blue.shared.dto.MissionSeriesDto;
-import ch.bfh.bti7081.s2019.blue.shared.dto.ResponseDto;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
@@ -18,7 +17,7 @@ import javax.persistence.EntityManager;
 import java.util.Date;
 import java.util.Random;
 
-import static org.junit.jupiter.api.Assertions.assertTrue;
+import static org.junit.jupiter.api.Assertions.assertThrows;
 import static org.mockito.Mockito.verify;
 import static org.mockito.Mockito.when;
 
@@ -38,12 +37,10 @@ class MissionSeriesResourceTest {
     private EntityManager em;
     @Mock
     private ServerConstants messages;
-    @Mock
-    private EntityManagerMixin emm;
 
     @BeforeEach
-    void setUp(){
-        resource = new MissionSeriesResource(repository, mapper, validator, em ,messages,emm);
+    void setUp() {
+        resource = new MissionSeriesResource(repository, mapper, validator, em, messages);
     }
 
     @Test
@@ -61,7 +58,7 @@ class MissionSeriesResourceTest {
     }
 
     @Test
-    void delete_deleteEntity(){
+    void delete_deleteEntity() {
         int expectedId = RAND.nextInt();
 
         // Act
@@ -72,17 +69,8 @@ class MissionSeriesResourceTest {
     }
 
     @Test
-    void updateEndDate_entityNotFound_getExpectedErrorMessage(){
-        int expectedId = RAND.nextInt();
-
-        String expectedMessage = String.valueOf(RAND.nextInt());
-        when(messages.entityNotFound(expectedId)).thenReturn(expectedMessage);
-        when(emm.get(expectedId,repository)).thenReturn(new EntityWrapper<>());
-
-        // Act
-        ResponseDto<Void> responseDto = resource.updateEndDate(expectedId, new Date());
-
-        // Assert
-        assertTrue(responseDto.getErrors().contains(expectedMessage));
+    void updateEndDate_entityNotFound_getExpectedErrorMessage() {
+        // Act/Assert
+        assertThrows(ValidationException.class, () -> resource.updateEndDate(RAND.nextInt(), new Date()));
     }
 }

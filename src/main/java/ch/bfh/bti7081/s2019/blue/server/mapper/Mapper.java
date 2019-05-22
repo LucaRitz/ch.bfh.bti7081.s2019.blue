@@ -3,11 +3,12 @@ package ch.bfh.bti7081.s2019.blue.server.mapper;
 import org.dozer.CustomConverter;
 import org.dozer.DozerBeanMapper;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.config.ConfigurableBeanFactory;
+import org.springframework.context.annotation.Scope;
 import org.springframework.stereotype.Component;
 
 import javax.annotation.PostConstruct;
 import javax.annotation.security.PermitAll;
-import javax.ejb.Singleton;
 import javax.ejb.Startup;
 import javax.persistence.EntityManager;
 import java.util.ArrayList;
@@ -16,7 +17,7 @@ import java.util.List;
 import java.util.Map;
 
 @Startup
-@Singleton
+@Scope(ConfigurableBeanFactory.SCOPE_SINGLETON)
 @PermitAll
 @Component
 public class Mapper {

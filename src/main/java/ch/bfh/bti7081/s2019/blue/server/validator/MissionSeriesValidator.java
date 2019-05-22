@@ -39,14 +39,14 @@ public class MissionSeriesValidator implements IsValidator<EntityWrapper<Mission
     }
 
     @Override
-    public List<String> validate(@Nonnull EntityWrapper<MissionSeries> entity) {
+    public void validate(@Nonnull EntityWrapper<MissionSeries> entity) {
         List<String> errors = new ArrayList<>();
 
         validateNoMissionsAfterEndDate(entity.getModified()).ifPresent(errors::add);
         validateMissionSeriesOverlappingWithMission(entity.getModified()).ifPresent(errors::add);
         validateDateTimeRange(entity.getOriginal(), entity.getModified()).ifPresent(errors::add);
 
-        return errors;
+        checkErrorsAndThrow(errors);
     }
 
     @VisibleForTesting
