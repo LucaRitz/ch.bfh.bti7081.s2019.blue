@@ -11,6 +11,9 @@ import java.util.concurrent.CompletableFuture;
 @Path("/rest/missionseries")
 public interface MissionSeriesService extends IsRestService {
 
+    @Path("/{missionSeriesId}")
+    MissionSeriesEmployeeRecommendationSubService employeeRecommendations(@PathVariable Integer missionSeriesId);
+
     @PostMapping
     CompletableFuture<Void> create(@RequestBody MissionSeriesDto dto);
 

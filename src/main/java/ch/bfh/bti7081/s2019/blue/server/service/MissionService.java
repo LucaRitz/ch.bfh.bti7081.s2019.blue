@@ -12,7 +12,6 @@ public class MissionService {
     public List<Mission> mergeExistingMissionsWithTemporaryOnes(List<Mission> missions, List<Mission> temporaryMissions) {
         List<Mission> mergedMissions = new ArrayList<>(missions);
 
-
         for (Mission temporaryMission : temporaryMissions) {
             boolean isAlreadyAnExistingMission =
                     missions

@@ -20,10 +20,14 @@ import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.Optional;
 
+import static ch.bfh.bti7081.s2019.blue.server.resource.MissionSeriesResource.PATH;
+
 @RestController
-@RequestMapping("rest/missionseries")
+@RequestMapping(PATH)
 @Transactional
 public class MissionSeriesResource {
+
+    static final String PATH = "rest/missionseries";
 
     private final MissionSeriesRepository repository;
     private final Mapper mapper;
