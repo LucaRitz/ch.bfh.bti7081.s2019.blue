@@ -1,5 +1,9 @@
 package ch.bfh.bti7081.s2019.blue.shared.dto;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.fasterxml.jackson.annotation.JsonSubTypes;
+
+@JsonSubTypes(@JsonSubTypes.Type(EmployeeDto.class))
 public abstract class AbstractPerson {
 
 
@@ -33,7 +37,7 @@ public abstract class AbstractPerson {
         return this.lastname;
     }
 
-
+    @JsonIgnore
     public String getDisplayName() {
         return getFirstname() + " " + getLastname();
     }

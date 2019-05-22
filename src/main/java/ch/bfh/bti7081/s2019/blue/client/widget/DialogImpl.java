@@ -1,7 +1,7 @@
 package ch.bfh.bti7081.s2019.blue.client.widget;
 
-import ch.bfh.bti7081.s2019.blue.client.base.IsDialog;
-import ch.bfh.bti7081.s2019.blue.client.base.IsView;
+import ch.bfh.bti7081.s2019.blue.client.app.base.IsDialog;
+import ch.bfh.bti7081.s2019.blue.client.app.base.IsView;
 import com.vaadin.flow.component.dialog.Dialog;
 
 public class DialogImpl implements IsDialog {

@@ -5,5 +5,11 @@ import java.util.List;
 
 public interface IsValidator<E> {
 
-    List<String> validate(@Nonnull E entity);
+    void validate(@Nonnull E entity);
+
+    default void checkErrorsAndThrow(List<String> errors) {
+        if (!errors.isEmpty()) {
+            throw new ValidationException(errors);
+        }
+    }
 }

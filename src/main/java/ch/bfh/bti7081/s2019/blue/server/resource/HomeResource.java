@@ -5,7 +5,6 @@ import ch.bfh.bti7081.s2019.blue.server.persistence.HomeRepository;
 import ch.bfh.bti7081.s2019.blue.server.persistence.builder.HomeBuilder;
 import ch.bfh.bti7081.s2019.blue.server.persistence.model.Home;
 import ch.bfh.bti7081.s2019.blue.shared.dto.HomeDto;
-import ch.bfh.bti7081.s2019.blue.shared.service.HomeService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Example;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -17,7 +16,7 @@ import java.util.Optional;
 
 @RestController
 @RequestMapping("rest/home")
-public class HomeResource implements HomeService {
+public class HomeResource {
 
     private final HomeRepository repository;
     private final Mapper mapper;
@@ -28,7 +27,6 @@ public class HomeResource implements HomeService {
         this.mapper = mapper;
     }
 
-    @Override
     @GetMapping(produces = MediaType.APPLICATION_JSON)
     public HomeDto get() {
         Example<Home> statement = new HomeBuilder().setReference(10L).build();
