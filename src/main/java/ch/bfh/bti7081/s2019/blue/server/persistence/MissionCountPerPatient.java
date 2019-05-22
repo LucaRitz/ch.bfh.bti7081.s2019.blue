@@ -3,6 +3,7 @@ package ch.bfh.bti7081.s2019.blue.server.persistence;
 import ch.bfh.bti7081.s2019.blue.server.persistence.model.Patient;
 
 public class MissionCountPerPatient {
+
     private Long count;
     private Patient patient;
 
