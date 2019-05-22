@@ -56,10 +56,11 @@ public class MissionGenerator {
 
         Calendar targetCal = Calendar.getInstance();
         targetCal.setTime(target);
-        targetCal.set(Calendar.HOUR, sourceCal.get(Calendar.HOUR));
+        targetCal.set(Calendar.HOUR_OF_DAY, sourceCal.get(Calendar.HOUR_OF_DAY));
         targetCal.set(Calendar.MINUTE, sourceCal.get(Calendar.MINUTE));
         targetCal.set(Calendar.SECOND, sourceCal.get(Calendar.SECOND));
         targetCal.set(Calendar.MILLISECOND, sourceCal.get(Calendar.MILLISECOND));
+
         return targetCal.getTime();
     }
 
