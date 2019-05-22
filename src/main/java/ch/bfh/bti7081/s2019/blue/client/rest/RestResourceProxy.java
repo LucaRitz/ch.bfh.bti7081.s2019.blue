@@ -145,13 +145,10 @@ public class RestResourceProxy implements InvocationHandler {
             httpMethod = HttpMethod.GET;
         } else if (method.isAnnotationPresent(PostMapping.class)) {
             httpMethod = HttpMethod.POST;
-            //entity = template.postForEntity(configuration.resourcePath, requestEntity, configuration.returnType, convertedParams);
         } else if (method.isAnnotationPresent(PutMapping.class)) {
             httpMethod = HttpMethod.PUT;
-            //template.put(configuration.resourcePath, requestEntity, convertedParams);
         } else if (method.isAnnotationPresent(DeleteMapping.class)) {
             httpMethod = HttpMethod.DELETE;
-            //template.delete(configuration.resourcePath, convertedParams);
         } else {
             throw new IllegalArgumentException("Mapping not implemented: " + method.getName());
         }
