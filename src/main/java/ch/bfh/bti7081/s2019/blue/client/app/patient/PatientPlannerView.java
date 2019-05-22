@@ -22,9 +22,12 @@ public interface PatientPlannerView extends IsView {
 
     MissionSeriesDto getSelectedMissionSeries();
 
+    MissionDto getSelectedMissionToAssign();
+
     interface Presenter {
         void onCreateClicked();
         void onEditClicked();
+        void onAssignClicked();
         void onSelectionChange(PatientRefDto patient, Date startDate, Date endDate);
     }
 }
