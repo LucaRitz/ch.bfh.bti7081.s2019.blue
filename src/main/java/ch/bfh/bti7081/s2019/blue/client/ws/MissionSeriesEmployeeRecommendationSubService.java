@@ -11,7 +11,7 @@ import java.util.Date;
 import java.util.List;
 import java.util.concurrent.CompletableFuture;
 
-@Path("/misssionrecommendationplaceholders")
+@Path("/employeerecommendations")
 public interface MissionSeriesEmployeeRecommendationSubService extends IsRestService {
 
     @GetMapping
