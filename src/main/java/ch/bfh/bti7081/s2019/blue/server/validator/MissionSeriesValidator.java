@@ -5,7 +5,7 @@ import ch.bfh.bti7081.s2019.blue.server.persistence.MissionRepository;
 import ch.bfh.bti7081.s2019.blue.server.persistence.MissionSeriesRepository;
 import ch.bfh.bti7081.s2019.blue.server.persistence.model.Mission;
 import ch.bfh.bti7081.s2019.blue.server.persistence.model.MissionSeries;
-import ch.bfh.bti7081.s2019.blue.server.utils.DateRange;
+import ch.bfh.bti7081.s2019.blue.shared.dto.DateRange;
 import ch.bfh.bti7081.s2019.blue.server.utils.EntityWrapper;
 import ch.bfh.bti7081.s2019.blue.server.utils.MissionGenerator;
 import ch.bfh.bti7081.s2019.blue.server.utils.DateTimeUtil;

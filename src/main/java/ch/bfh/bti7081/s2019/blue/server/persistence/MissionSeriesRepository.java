@@ -21,4 +21,11 @@ public interface MissionSeriesRepository extends JpaRepository<MissionSeries, In
             @Param("startDate") Date startDate,
             @Param("endDate") Date endDate);
 
+    @Query("SELECT ms FROM MissionSeries ms"
+            + " JOIN Patient p ON ms.patient = p"
+            + " WHERE ms.startDate <= :endDate and ms.endDate >= :startDate")
+    List<MissionSeries> findByIntersectingDateRange(
+            @Param("startDate") Date startDate,
+            @Param("endDate") Date endDate);
+
 }
