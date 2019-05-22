@@ -12,4 +12,10 @@ public interface ServerConstants {
     String invalidMissionSeriesTimeInterval();
 
     String missionSeriesStartDateInThePast();
+
+
+    String missionSeriesNotAvailable();
+    String missionSeriesHasNoPatient();
+    String missionAlreadyExists();
+    String missionHasNoHealthVisitor();
 }
