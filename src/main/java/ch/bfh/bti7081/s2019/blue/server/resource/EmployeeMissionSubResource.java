@@ -21,7 +21,8 @@ public class EmployeeMissionSubResource {
     private final MissionRepository missionRepository;
 
     @Autowired
-    public EmployeeMissionSubResource(Mapper mapper, MissionRepository missionRepository) {
+    public EmployeeMissionSubResource(Mapper mapper,
+                                      MissionRepository missionRepository) {
         this.mapper = mapper;
         this.missionRepository = missionRepository;
     }

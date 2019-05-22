@@ -18,6 +18,12 @@ public interface EmployeeService extends IsRestService {
     @Path("/{employeeId}")
     EmployeeMissionSubService missions(@PathVariable Integer employeeId);
 
+    @Path("/{employeeId}")
+    EmployeeMissionRecommendationsSubService missionRecommondations(@PathVariable Integer employeeId);
+
+    @Path("/{employeeId}")
+    EmployeeMissionRecommendationPlaceholderSubService missionRecommondationPlaceholders(@PathVariable Integer employeeId);
+
     @GetMapping
     @ReturnType(RestConverter.KEY_EMPLOYEE_DTO_LIST)
     CompletableFuture<List<EmployeeDto>> find(@RequestParam("role") EmployeeRole role);

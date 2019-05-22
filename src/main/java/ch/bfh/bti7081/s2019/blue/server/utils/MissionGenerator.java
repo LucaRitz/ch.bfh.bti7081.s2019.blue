@@ -3,6 +3,7 @@ package ch.bfh.bti7081.s2019.blue.server.utils;
 import ch.bfh.bti7081.s2019.blue.server.persistence.model.Mission;
 import ch.bfh.bti7081.s2019.blue.server.persistence.model.MissionSeries;
 import ch.bfh.bti7081.s2019.blue.server.persistence.model.RepetitionType;
+import ch.bfh.bti7081.s2019.blue.shared.dto.DateRange;
 import org.springframework.stereotype.Component;
 
 import java.util.ArrayList;

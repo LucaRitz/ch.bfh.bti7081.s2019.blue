@@ -1,4 +1,4 @@
-package ch.bfh.bti7081.s2019.blue.server.utils;
+package ch.bfh.bti7081.s2019.blue.shared.dto;
 
 import java.util.Date;
 
@@ -17,6 +17,11 @@ public class DateRange {
         return date != null
                 && (getStartDate().before(date) || getStartDate().equals(date))
                 && (getEndDate().after(date) || getEndDate().equals(date));
+    }
+
+    public boolean intersects(DateRange other) {
+        return (startDate.before(other.getEndDate()) || startDate.equals(other.getEndDate()))
+                && (endDate.after(other.getStartDate()) || endDate.equals(other.getStartDate()));
     }
 
     public Date getStartDate() {
