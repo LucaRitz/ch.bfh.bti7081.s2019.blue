@@ -1,5 +1,6 @@
 package ch.bfh.bti7081.s2019.blue.client.app.home;
 
+import ch.bfh.bti7081.s2019.blue.client.rest.Promises;
 import ch.bfh.bti7081.s2019.blue.client.ws.HomeService;
 import ch.bfh.bti7081.s2019.blue.shared.dto.HomeDto;
 import org.junit.jupiter.api.BeforeEach;
@@ -9,7 +10,6 @@ import org.mockito.Mock;
 import org.mockito.junit.jupiter.MockitoExtension;
 
 import java.util.Random;
-import java.util.concurrent.CompletableFuture;
 
 import static org.mockito.Mockito.verify;
 import static org.mockito.Mockito.when;
@@ -35,7 +35,7 @@ class HomeActivityTest {
     void loadMasterdata_updateView() {
         HomeDto expectedDto = new HomeDto();
 
-        when(service.get()).thenReturn(CompletableFuture.completedFuture(expectedDto));
+        when(service.get()).thenReturn(Promises.fulfill(expectedDto));
 
         // Act
         activity.loadMasterdata();

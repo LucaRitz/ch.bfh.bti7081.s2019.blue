@@ -44,11 +44,7 @@ public class MissionAssignDialog extends BaseActivity implements MissionAssignVi
         Integer missionSeriesId = missionDto.getMissionSeries().getId();
         missionSeriesService.employeeRecommendations(missionSeriesId)
                 .find(missionDto.getStartDate(), missionDto.getEndDate())
-                .whenComplete((employeeDtoList, exception) -> {
-                    if (employeeDtoList != null) {
-                        view.setEmployees(employeeDtoList);
-                    }
-                });
+                .done(view::setEmployees);
 
         dialog = dialogFactory.show(view);
     }
@@ -61,13 +57,11 @@ public class MissionAssignDialog extends BaseActivity implements MissionAssignVi
     @Override
     public void onSaveClicked(MissionDto dto) {
         missionService.create(dto)
-                .whenComplete((aVoid, exception) -> {
-                    if (exception == null) {
-                        if (listener != null) {
-                            listener.onSaved();
-                        }
-                        dialog.close();
+                .done(aVoid -> {
+                    if (listener != null) {
+                        listener.onSaved();
                     }
+                    dialog.close();
                 });
     }
 

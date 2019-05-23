@@ -2,6 +2,7 @@ package ch.bfh.bti7081.s2019.blue.client.app.patient.create;
 
 import ch.bfh.bti7081.s2019.blue.client.app.base.DialogFactory;
 import ch.bfh.bti7081.s2019.blue.client.app.base.IsDialog;
+import ch.bfh.bti7081.s2019.blue.client.rest.Promises;
 import ch.bfh.bti7081.s2019.blue.client.ws.MissionSeriesService;
 import ch.bfh.bti7081.s2019.blue.shared.dto.MissionSeriesDto;
 import ch.bfh.bti7081.s2019.blue.shared.dto.PatientRefDto;
@@ -14,7 +15,6 @@ import org.mockito.Mock;
 import org.mockito.junit.jupiter.MockitoExtension;
 
 import java.util.Random;
-import java.util.concurrent.CompletableFuture;
 
 import static org.junit.jupiter.api.Assertions.*;
 import static org.mockito.Mockito.*;
@@ -76,7 +76,7 @@ class MissionCreateDialogTest {
         dialog.dialog = mock(IsDialog.class);
 
         MissionSeriesDto dto = new MissionSeriesDto();
-        when(service.create(dto)).thenReturn(CompletableFuture.completedFuture(null));
+        when(service.create(dto)).thenReturn(Promises.fulfill(null));
 
         // Act
         dialog.onSaveClicked(dto);

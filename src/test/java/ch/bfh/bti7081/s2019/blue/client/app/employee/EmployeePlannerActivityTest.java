@@ -1,5 +1,6 @@
 package ch.bfh.bti7081.s2019.blue.client.app.employee;
 
+import ch.bfh.bti7081.s2019.blue.client.rest.Promises;
 import ch.bfh.bti7081.s2019.blue.client.ws.EmployeeService;
 import ch.bfh.bti7081.s2019.blue.server.persistence.model.EmployeeRole;
 import ch.bfh.bti7081.s2019.blue.shared.dto.EmployeeDto;
@@ -15,7 +16,6 @@ import java.util.Collections;
 import java.util.Date;
 import java.util.List;
 import java.util.Random;
-import java.util.concurrent.CompletableFuture;
 
 import static org.mockito.Mockito.*;
 
@@ -52,7 +52,7 @@ class EmployeePlannerActivityTest {
         List<EmployeeDto> expectedEmployees = Collections.singletonList(new EmployeeDto());
 
         when(employeeService.find(EmployeeRole.HEALTH_VISITOR))
-                .thenReturn(CompletableFuture.completedFuture(expectedEmployees));
+                .thenReturn(Promises.fulfill(expectedEmployees));
 
         // Act
         activity.loadMasterdata();
@@ -82,7 +82,7 @@ class EmployeePlannerActivityTest {
         List<MissionDto> expectedMissions = Collections.singletonList(new MissionDto());
 
         when(employeeService.missions(any()).find(any(), any()))
-                .thenReturn(CompletableFuture.completedFuture(expectedMissions));
+                .thenReturn(Promises.fulfill(expectedMissions));
 
         // Act
         activity.onSelectionChange(new EmployeeDto(), new Date(), new Date());

@@ -38,21 +38,15 @@ public class EmployeePlannerActivity extends BaseActivity implements EmployeePla
 
     @VisibleForTesting
     void loadMasterdata() {
-        employeeService.find(EmployeeRole.HEALTH_VISITOR).whenComplete((employees, exception) -> {
-            if (employees != null) {
-                view.setEmployees(employees);
-            }
-        });
+        employeeService.find(EmployeeRole.HEALTH_VISITOR)
+                .done(view::setEmployees);
     }
 
     @Override
     public void onSelectionChange(EmployeeDto employee, Date startDate, Date endDate) {
         if (startDate != null && endDate != null) {
-            employeeService.missions(employee.getId()).find(startDate, endDate).whenComplete((missions, exception) -> {
-                if (missions != null) {
-                    view.setMissions(missions);
-                }
-            });
+            employeeService.missions(employee.getId()).find(startDate, endDate)
+                    .done(view::setMissions);
         }
     }
 }

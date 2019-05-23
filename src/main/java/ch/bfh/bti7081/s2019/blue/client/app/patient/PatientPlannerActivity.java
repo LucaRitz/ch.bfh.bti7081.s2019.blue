@@ -87,19 +87,13 @@ public class PatientPlannerActivity extends BaseActivity implements PatientPlann
 
     @Override
     public void onSelectionChange(PatientRefDto patient, Date startDate, Date endDate) {
-        missionService.find(patient.getNumber(), startDate, endDate).whenComplete((missions, exception) -> {
-            if (missions != null) {
-                view.setMissions(missions);
-            }
-        });
+        missionService.find(patient.getNumber(), startDate, endDate)
+                .done(view::setMissions);
     }
 
     @VisibleForTesting
     void loadMasterdata() {
-        patientService.get().whenComplete((patients, exception) -> {
-            if (patients != null) {
-                view.setPatients(patients);
-            }
-        });
+        patientService.get()
+                .done(view::setPatients);
     }
 }
