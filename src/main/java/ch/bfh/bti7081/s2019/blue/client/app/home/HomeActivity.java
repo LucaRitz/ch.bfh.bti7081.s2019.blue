@@ -37,11 +37,8 @@ public class HomeActivity extends BaseActivity implements HomeView.Presenter {
 
     @VisibleForTesting
     void loadMasterdata() {
-        homeService.get().whenComplete((dto, exception) -> {
-            if (dto != null) {
-                view.setData(dto);
-            }
-        });
+        homeService.get()
+                .done(view::setData);
     }
 
     @Override

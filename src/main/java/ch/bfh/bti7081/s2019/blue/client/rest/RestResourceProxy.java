@@ -67,7 +67,7 @@ public class RestResourceProxy implements InvocationHandler {
 
     private Object doRequest(Method method, Object[] args) {
         Configuration configuration = configMapping.get(method.getName());
-        CompletableFuture<Object> future = new CompletableFuture<>();
+        RestPromise<Object> promise = new RestPromise<>();
 
         Object[] convertedParams = Arrays.stream(args)
                 .map(converter::convertParam)
@@ -92,13 +92,12 @@ public class RestResourceProxy implements InvocationHandler {
         }
 
         if (hasErrors(response)) {
-            future.completeExceptionally(new RequestException());
+            promise.reject(new RequestException());
         } else {
-
-            future.complete(response.getBody());
+            promise.fulfill(response.getBody());
         }
 
-        return future;
+        return promise;
     }
 
     private void initialize(Class<?> resource) {

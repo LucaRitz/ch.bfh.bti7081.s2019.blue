@@ -56,13 +56,11 @@ public class MissionEditDialog extends BaseActivity implements MissionEditView.P
         Date endDate = mergeDateTime(dto.getEndDate(), dto.getEndTime());
 
         missionSeriesService.updateEndDate(dto.getId(), endDate)
-                .whenComplete((aVoid, exception) -> {
-                    if (exception == null) {
-                        if (listener != null) {
-                            listener.onSaved();
-                        }
-                        dialog.close();
+                .done(aVoid -> {
+                    if (listener != null) {
+                        listener.onSaved();
                     }
+                    dialog.close();
                 });
     }
 

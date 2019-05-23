@@ -60,14 +60,13 @@ public class MissionCreateDialog extends BaseActivity implements MissionCreateVi
 
     @Override
     public void onSaveClicked(MissionSeriesDto dto) {
-        missionSeriesService.create(dto).whenComplete((aVoid, exception) -> {
-            if (exception == null) {
-                if (listener != null) {
-                    listener.onSaved();
-                }
-                dialog.close();
-            }
-        });
+        missionSeriesService.create(dto)
+                .done(aVoid -> {
+                    if (listener != null) {
+                        listener.onSaved();
+                    }
+                    dialog.close();
+                });
     }
 
     @Override
