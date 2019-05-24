@@ -3,6 +3,7 @@ package ch.bfh.bti7081.s2019.blue.server.utils;
 import ch.bfh.bti7081.s2019.blue.server.persistence.model.Mission;
 import ch.bfh.bti7081.s2019.blue.server.persistence.model.MissionSeries;
 import ch.bfh.bti7081.s2019.blue.server.persistence.model.RepetitionType;
+import ch.bfh.bti7081.s2019.blue.shared.dto.DateRange;
 import org.springframework.stereotype.Component;
 
 import java.util.ArrayList;
@@ -56,10 +57,11 @@ public class MissionGenerator {
 
         Calendar targetCal = Calendar.getInstance();
         targetCal.setTime(target);
-        targetCal.set(Calendar.HOUR, sourceCal.get(Calendar.HOUR));
+        targetCal.set(Calendar.HOUR_OF_DAY, sourceCal.get(Calendar.HOUR_OF_DAY));
         targetCal.set(Calendar.MINUTE, sourceCal.get(Calendar.MINUTE));
         targetCal.set(Calendar.SECOND, sourceCal.get(Calendar.SECOND));
         targetCal.set(Calendar.MILLISECOND, sourceCal.get(Calendar.MILLISECOND));
+
         return targetCal.getTime();
     }
 

@@ -14,6 +14,8 @@ public class MissionDto {
 
     private EmployeeDto healthVisitor;
 
+    private boolean recommendationsAvailable;
+
     public void setId(Integer id) {
         this.id = id;
     }
@@ -52,5 +54,13 @@ public class MissionDto {
 
     public void setMissionSeries(MissionSeriesDto missionSeries) {
         this.missionSeries = missionSeries;
+    }
+
+    public boolean isRecommendationsAvailable() {
+        return recommendationsAvailable;
+    }
+
+    public void setRecommendationsAvailable(boolean recommendationsAvailable) {
+        this.recommendationsAvailable = recommendationsAvailable;
     }
 }

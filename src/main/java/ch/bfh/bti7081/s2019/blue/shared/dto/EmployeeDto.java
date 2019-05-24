@@ -1,6 +1,10 @@
 package ch.bfh.bti7081.s2019.blue.shared.dto;
 
-public class EmployeeDto extends AbstractPerson {
+import com.fasterxml.jackson.annotation.JsonIgnore;
+
+import java.io.Serializable;
+
+public class EmployeeDto extends AbstractPerson implements Serializable {
 
     private String profession;
 
@@ -13,6 +17,7 @@ public class EmployeeDto extends AbstractPerson {
     }
 
     @Override
+    @JsonIgnore
     public String getDisplayName() {
         return super.getDisplayName() + ", " + this.getProfession();
     }

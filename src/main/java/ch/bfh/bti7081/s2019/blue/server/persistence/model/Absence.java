@@ -16,7 +16,7 @@ public class Absence {
     private String description;
 
     @Column(name = "from_date")
-    private Date fromDate;
+    private Date startDate;
 
     @Column(name = "end_date")
     private Date endDate;
@@ -41,12 +41,12 @@ public class Absence {
         return this.description;
     }
 
-    public void setFromDate(Date fromDate) {
-        this.fromDate = fromDate;
+    public void setStartDate(Date startDate) {
+        this.startDate = startDate;
     }
 
-    public Date getFromDate() {
-        return this.fromDate;
+    public Date getStartDate() {
+        return this.startDate;
     }
 
     public void setEndDate(Date endDate) {

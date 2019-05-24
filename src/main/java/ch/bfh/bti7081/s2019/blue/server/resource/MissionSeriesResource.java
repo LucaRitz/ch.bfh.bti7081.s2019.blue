@@ -6,9 +6,9 @@ import ch.bfh.bti7081.s2019.blue.server.persistence.MissionSeriesRepository;
 import ch.bfh.bti7081.s2019.blue.server.persistence.model.MissionSeries;
 import ch.bfh.bti7081.s2019.blue.server.utils.EntityWrapper;
 import ch.bfh.bti7081.s2019.blue.server.validator.MissionSeriesValidator;
+import ch.bfh.bti7081.s2019.blue.server.validator.ValidationException;
+import ch.bfh.bti7081.s2019.blue.shared.HttpUtil;
 import ch.bfh.bti7081.s2019.blue.shared.dto.MissionSeriesDto;
-import ch.bfh.bti7081.s2019.blue.shared.dto.ResponseDto;
-import ch.bfh.bti7081.s2019.blue.shared.service.MissionSeriesService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.format.annotation.DateTimeFormat;
 import org.springframework.web.bind.annotation.*;
@@ -16,70 +16,61 @@ import org.springframework.web.bind.annotation.*;
 import javax.persistence.EntityManager;
 import javax.transaction.Transactional;
 import javax.ws.rs.core.MediaType;
+import java.text.SimpleDateFormat;
 import java.util.Date;
-import java.util.List;
+import java.util.Optional;
+
+import static ch.bfh.bti7081.s2019.blue.server.resource.MissionSeriesResource.PATH;
 
 @RestController
-@RequestMapping("rest/missionseries")
+@RequestMapping(PATH)
 @Transactional
-public class MissionSeriesResource implements MissionSeriesService {
+public class MissionSeriesResource {
+
+    static final String PATH = "rest/missionseries";
 
     private final MissionSeriesRepository repository;
     private final Mapper mapper;
     private final MissionSeriesValidator validator;
     private final EntityManager em;
     private final ServerConstants messages;
-    private final EntityManagerMixin emm;
 
     @Autowired
     public MissionSeriesResource(MissionSeriesRepository repository, Mapper mapper, MissionSeriesValidator validator,
-                                 EntityManager em, ServerConstants messages, EntityManagerMixin emm) {
+                                 EntityManager em, ServerConstants messages) {
         this.repository = repository;
         this.mapper = mapper;
         this.validator = validator;
         this.em = em;
         this.messages = messages;
-        this.emm = emm;
     }
 
-    @Override
     @PostMapping(produces = MediaType.APPLICATION_JSON, consumes = MediaType.APPLICATION_JSON)
-    public ResponseDto<Void> create(MissionSeriesDto dto) {
+    public void create(@RequestBody MissionSeriesDto dto) {
         MissionSeries entity = mapper.map(dto, MissionSeries.class);
-        List<String> errors = validator.validate(new EntityWrapper<>(null, entity));
-
-        if (errors.isEmpty()) {
-            repository.save(entity);
-        }
-
-        return new ResponseDto<>(errors);
-
+        validator.validate(new EntityWrapper<>(null, entity));
+        repository.save(entity);
     }
 
-    @Override
     @DeleteMapping
     public void delete(int id) {
         repository.deleteById(id);
     }
 
-    @Override
-    @PatchMapping(produces = MediaType.APPLICATION_JSON, path = "/{id}")
-    public ResponseDto<Void> updateEndDate(@PathVariable int id,
-                                           @RequestParam  @DateTimeFormat(iso = DateTimeFormat.ISO.DATE) Date endDate) {
+    @PutMapping(path = "/{id}")
+    public void updateEndDate(@PathVariable int id,
+                                           @RequestParam  @DateTimeFormat(pattern = HttpUtil.DATE_TIME_FORMAT) Date endDate) {
+        Optional<MissionSeries> entityOpt = repository.findById(id);
 
-        EntityWrapper<MissionSeries> wrapper = emm.get(id, repository);
-
-        if (wrapper.isEmpty()) {
-            return new ResponseDto<>(messages.entityNotFound(id));
+        if (!entityOpt.isPresent()) {
+            throw new ValidationException(messages.entityNotFound(id));
         }
-        wrapper.getModified().setEndDate(endDate);
+        MissionSeries original = entityOpt.get();
+        em.detach(original);
 
-        List<String> errors = validator.validate(wrapper);
+        MissionSeries modified = repository.getOne(id);
+        modified.setEndDate(endDate);
 
-        if (errors.isEmpty()) {
-            em.merge(wrapper.getModified());
-        }
-
-        return new ResponseDto<>(errors);
+        validator.validate(new EntityWrapper<>(original, modified));
     }
 }

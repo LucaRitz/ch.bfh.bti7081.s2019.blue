@@ -5,7 +5,7 @@ import ch.bfh.bti7081.s2019.blue.server.persistence.MissionRepository;
 import ch.bfh.bti7081.s2019.blue.server.persistence.MissionSeriesRepository;
 import ch.bfh.bti7081.s2019.blue.server.persistence.model.Mission;
 import ch.bfh.bti7081.s2019.blue.server.persistence.model.MissionSeries;
-import ch.bfh.bti7081.s2019.blue.server.utils.DateRange;
+import ch.bfh.bti7081.s2019.blue.shared.dto.DateRange;
 import ch.bfh.bti7081.s2019.blue.server.utils.EntityWrapper;
 import ch.bfh.bti7081.s2019.blue.server.utils.MissionGenerator;
 import ch.bfh.bti7081.s2019.blue.server.utils.DateTimeUtil;
@@ -39,14 +39,14 @@ public class MissionSeriesValidator implements IsValidator<EntityWrapper<Mission
     }
 
     @Override
-    public List<String> validate(@Nonnull EntityWrapper<MissionSeries> entity) {
+    public void validate(@Nonnull EntityWrapper<MissionSeries> entity) {
         List<String> errors = new ArrayList<>();
 
         validateNoMissionsAfterEndDate(entity.getModified()).ifPresent(errors::add);
         validateMissionSeriesOverlappingWithMission(entity.getModified()).ifPresent(errors::add);
         validateDateTimeRange(entity.getOriginal(), entity.getModified()).ifPresent(errors::add);
 
-        return errors;
+        checkErrorsAndThrow(errors);
     }
 
     @VisibleForTesting
