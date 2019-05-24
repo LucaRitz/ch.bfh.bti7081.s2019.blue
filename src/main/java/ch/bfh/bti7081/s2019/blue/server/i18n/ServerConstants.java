@@ -18,4 +18,5 @@ public interface ServerConstants {
     String missionSeriesHasNoPatient();
     String missionAlreadyExists();
     String missionHasNoHealthVisitor();
+    String healthVisitorIsOccupied();
 }
