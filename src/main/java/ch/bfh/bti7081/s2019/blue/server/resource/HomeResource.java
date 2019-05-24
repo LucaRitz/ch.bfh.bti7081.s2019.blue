@@ -5,6 +5,8 @@ import ch.bfh.bti7081.s2019.blue.server.persistence.HomeRepository;
 import ch.bfh.bti7081.s2019.blue.server.persistence.builder.HomeBuilder;
 import ch.bfh.bti7081.s2019.blue.server.persistence.model.Home;
 import ch.bfh.bti7081.s2019.blue.shared.dto.HomeDto;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Example;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -18,6 +20,8 @@ import java.util.Optional;
 @RequestMapping("rest/home")
 public class HomeResource {
 
+    private static final Logger LOG = LoggerFactory.getLogger(HomeResource.class.getName());
+
     private final HomeRepository repository;
     private final Mapper mapper;
 
@@ -29,6 +33,7 @@ public class HomeResource {
 
     @GetMapping(produces = MediaType.APPLICATION_JSON)
     public HomeDto get() {
+        LOG.info("Custom Logging");
         Example<Home> statement = new HomeBuilder().setReference(10L).build();
         Optional<Home> home = repository.findOne(statement);
 

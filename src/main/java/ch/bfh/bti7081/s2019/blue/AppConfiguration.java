@@ -8,12 +8,14 @@ import ch.bfh.bti7081.s2019.blue.server.i18n.ServerConstantsProvider;
 import com.vaadin.flow.spring.annotation.EnableVaadin;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.beans.factory.config.ConfigurableBeanFactory;
+import org.springframework.boot.web.servlet.FilterRegistrationBean;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.ComponentScan;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.context.annotation.Scope;
 import org.springframework.data.jpa.repository.config.EnableJpaRepositories;
 import org.springframework.web.client.ResponseErrorHandler;
+import org.springframework.web.filter.CommonsRequestLoggingFilter;
 
 @Configuration
 @EnableVaadin
@@ -32,6 +34,25 @@ public class AppConfiguration {
     @Scope(ConfigurableBeanFactory.SCOPE_SINGLETON)
     public ServerConstants getServerConstants(ServerConstantsProvider provider) {
         return provider.get();
+    }
+
+    @Bean
+    public CommonsRequestLoggingFilter logFilter() {
+        CommonsRequestLoggingFilter filter
+                = new CommonsRequestLoggingFilter();
+        filter.setIncludeQueryString(true);
+        filter.setIncludePayload(true);
+        filter.setMaxPayloadLength(10000);
+        filter.setIncludeHeaders(false);
+        filter.setAfterMessagePrefix("REQUEST DATA : ");
+        return filter;
+    }
+
+    @Bean
+    public FilterRegistrationBean loggingFilterRegistration(CommonsRequestLoggingFilter loggingFilter) {
+        FilterRegistrationBean<CommonsRequestLoggingFilter> registration = new FilterRegistrationBean<>(loggingFilter);
+        registration.addUrlPatterns("/rest/*");
+        return registration;
     }
 
     // Rest Services
