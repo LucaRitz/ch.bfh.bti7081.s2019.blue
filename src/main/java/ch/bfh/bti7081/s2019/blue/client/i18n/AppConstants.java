@@ -5,6 +5,7 @@ public enum AppConstants {
     MENU_HOME("menu.home"),
     MENU_PATIENTPLANNER("menu.patientplanner"),
     MENU_EMPLOYEEPLANNER("menu.employeeplanner"),
+    MENU_EMPLOYEEDAILYOVERVIEW("menu.employeedailyoverview"),
     FOOTER_TEXT("footer.text"),
     ACTION_SAVE("action.save"),
     ACTION_CANCEL("action.cancel"),
