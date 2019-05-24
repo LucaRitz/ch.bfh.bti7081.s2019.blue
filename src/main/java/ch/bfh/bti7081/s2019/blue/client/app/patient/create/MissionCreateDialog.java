@@ -8,7 +8,6 @@ import ch.bfh.bti7081.s2019.blue.client.ws.MissionSeriesService;
 import ch.bfh.bti7081.s2019.blue.shared.dto.MissionSeriesDto;
 import ch.bfh.bti7081.s2019.blue.shared.dto.PatientRefDto;
 import ch.bfh.bti7081.s2019.blue.shared.dto.RepetitionType;
-import ch.bfh.bti7081.s2019.blue.shared.dto.ResponseDto;
 import com.google.common.annotations.VisibleForTesting;
 import com.vaadin.flow.spring.annotation.UIScope;
 import org.springframework.beans.factory.annotation.Autowired;

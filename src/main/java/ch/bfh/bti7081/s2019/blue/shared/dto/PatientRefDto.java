@@ -8,6 +8,8 @@ public class PatientRefDto extends AbstractPerson implements HasBirthdate {
 
     private Integer number;
 
+    private AddressRefDto address;
+
     public void setBirthdate(Date birthdate) {
         this.birthdate = birthdate;
     }
@@ -24,6 +26,13 @@ public class PatientRefDto extends AbstractPerson implements HasBirthdate {
         return this.number;
     }
 
+    public AddressRefDto getAddress() {
+        return address;
+    }
+
+    public void setAddress(AddressRefDto address) {
+        this.address = address;
+    }
 
     @Override
     public String getDisplayName() {
