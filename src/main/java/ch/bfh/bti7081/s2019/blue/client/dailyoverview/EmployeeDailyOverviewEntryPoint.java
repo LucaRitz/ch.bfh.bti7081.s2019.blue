@@ -1,8 +1,7 @@
 package ch.bfh.bti7081.s2019.blue.client.dailyoverview;
 
-import ch.bfh.bti7081.s2019.blue.client.base.Layout;
-import ch.bfh.bti7081.s2019.blue.client.base.Navigation;
-import ch.bfh.bti7081.s2019.blue.client.employee.EmployeePlannerActivity;
+import ch.bfh.bti7081.s2019.blue.client.app.base.Layout;
+import ch.bfh.bti7081.s2019.blue.client.app.base.Navigation;
 import com.vaadin.flow.component.html.Div;
 import com.vaadin.flow.router.Route;
 import com.vaadin.flow.spring.annotation.UIScope;

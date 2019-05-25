@@ -45,6 +45,13 @@
             <label slot="title">[[text.title]]</label>
             <div slot="content">
                 <vaadin-combo-box id="employees"></vaadin-combo-box>
+                <vaadin-button theme="icon" id="previousButton">
+                    <iron-icon icon="lumo:arrow-left"></iron-icon>
+                </vaadin-button>
+                <vaadin-button theme="icon" id="nextButton">
+                    <iron-icon icon="lumo:arrow-right"></iron-icon>
+                </vaadin-button>
+                <p id="date"></p>
                 <ul id="missionList" class="timeline"></ul>
             </div>
         </titled-content>
