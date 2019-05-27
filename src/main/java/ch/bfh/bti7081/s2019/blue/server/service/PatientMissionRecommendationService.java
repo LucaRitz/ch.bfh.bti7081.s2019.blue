@@ -58,24 +58,34 @@ public class PatientMissionRecommendationService {
                 .map(this::getDateRange)
                 .collect(Collectors.toList());
 
-        List<DateRange> dateRanges = new ArrayList<>();
-        List<DateRange> ignored = new ArrayList<>();
-        for (DateRange possibleMission : possibleMissions) {
+        return mergeOverlappingDateRanges(possibleMissions);
+    }
 
-            if (ignored.contains(possibleMission)) {
-                continue;
+    private List<DateRange> mergeOverlappingDateRanges(List<DateRange> intervals) {
+        if(intervals.size() == 0 || intervals.size() == 1){
+            return intervals;
+        }
+        intervals.sort(Comparator.comparing(DateRange::getStartDate));
+
+        DateRange first = intervals.get(0);
+        Date start = first.getStartDate();
+        Date end = first.getEndDate();
+
+        List<DateRange> result = new ArrayList<>();
+
+        for(int i = 1; i < intervals.size(); i++){
+            DateRange current = intervals.get(i);
+            if(current.getStartDate().before(end) || current.getStartDate().equals(end)){
+                end = current.getEndDate().after(end) ? current.getEndDate() : end;
+            }else{
+                result.add(new DateRange(start, end));
+                start = current.getStartDate();
+                end = current.getEndDate();
             }
-
-            List<DateRange> conflictingMissions = getConflicts(possibleMission, possibleMissions);
-
-            DateRange dateRange = getSpanningDateRange(conflictingMissions)
-                    .orElseGet(() -> new DateRange(possibleMission.getStartDate(), possibleMission.getEndDate()));
-
-            dateRanges.add(dateRange);
-            ignored.addAll(conflictingMissions);
         }
 
-        return dateRanges;
+        result.add(new DateRange(start, end));
+        return result;
     }
 
     private Optional<DateRange> getSpanningDateRange(List<DateRange> dateRanges) {
