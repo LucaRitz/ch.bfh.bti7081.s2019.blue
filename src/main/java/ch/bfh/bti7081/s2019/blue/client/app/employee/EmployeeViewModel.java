@@ -7,5 +7,9 @@ public interface EmployeeViewModel extends TemplateModel {
 
     interface Text {
         void setTitle(String title);
+
+        void setColorRecommendationLegend(String s);
+
+        void setColorBlueLegend(String s);
     }
 }

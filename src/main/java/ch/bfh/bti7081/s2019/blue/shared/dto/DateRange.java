@@ -8,6 +8,10 @@ public class DateRange {
 
     private Date endDate;
 
+    public DateRange() {
+
+    }
+
     public DateRange(Date startDate, Date endDate) {
         this.startDate = startDate;
         this.endDate = endDate;
