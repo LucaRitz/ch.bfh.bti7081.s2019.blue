@@ -2,6 +2,7 @@ package ch.bfh.bti7081.s2019.blue.client.app.employee;
 
 import ch.bfh.bti7081.s2019.blue.client.app.base.BaseViewImpl;
 import ch.bfh.bti7081.s2019.blue.client.i18n.AppConstants;
+import ch.bfh.bti7081.s2019.blue.shared.dto.DateRange;
 import ch.bfh.bti7081.s2019.blue.shared.dto.EmployeeDto;
 import ch.bfh.bti7081.s2019.blue.shared.dto.MissionDto;
 import ch.bfh.bti7081.s2019.blue.shared.dto.PatientRefDto;
@@ -21,6 +22,7 @@ import java.time.ZoneId;
 import java.util.Date;
 import java.util.List;
 import java.util.Locale;
+import java.util.UUID;
 import java.util.stream.Collectors;
 
 @HtmlImport("src/EmployeePlannerViewImpl.html")
@@ -42,11 +44,14 @@ public class EmployeePlannerViewImpl extends BaseViewImpl<EmployeeViewModel> imp
     private Date startDate = null;
     private Date endDate = null;
     private Integer selectedMissionId = null;
+    private DateRange selectedDateRange = null;
 
     public EmployeePlannerViewImpl() {
         this.employees.setItemLabelGenerator((ItemLabelGenerator<EmployeeDto>)
                 EmployeeDto::getDisplayName);
         setText(getModel().getText()::setTitle, AppConstants.MENU_EMPLOYEEPLANNER);
+        setText(getModel().getText()::setColorRecommendationLegend, AppConstants.RECOMMONDATION_AVAILABLE_LEGEND);
+        setText(getModel().getText()::setColorBlueLegend, AppConstants.ASSIGNED_TO_PATIENT_LEGEND);
 
         calendar.changeView(CalendarViewImpl.AGENDA_WEEK);
         calendar.setOption("allDaySlot", false);
@@ -64,7 +69,10 @@ public class EmployeePlannerViewImpl extends BaseViewImpl<EmployeeViewModel> imp
         calendar.addEntryClickedListener((ComponentEventListener<EntryClickedEvent>) event -> {
             Entry entry = event.getEntry();
             this.selectedMissionId = entry != null ? Integer.parseInt(entry.getId()) : null;
+            this.selectedDateRange = entry != null ? new DateRange(java.sql.Timestamp.valueOf(entry.getStart()), java.sql.Timestamp.valueOf(entry.getEnd())): null;
+
         });
+
 
         calendar.addViewRenderedListener((ComponentEventListener<ViewRenderedEvent>) event -> onDateRangeChange(event.getIntervalStart(), event.getIntervalEnd()));
 
@@ -119,6 +127,24 @@ public class EmployeePlannerViewImpl extends BaseViewImpl<EmployeeViewModel> imp
                 .collect(Collectors.toList()));
     }
 
+    @Override
+    public void setRecommendationEntries(List<DateRange> dateRanges)
+    {
+        calendar.addEntries(dateRanges.stream()
+                .map(this::toEntry)
+                .collect(Collectors.toList()));
+    }
+
+    @Override
+    public void reload() {
+
+    }
+
+    @Override
+    public DateRange getSelectedDateRange() {
+        return this.selectedDateRange;
+    }
+
     private Entry toEntry(MissionDto missionDto) {
 
         PatientRefDto patient = missionDto.getMissionSeries().getPatient();
@@ -136,6 +162,27 @@ public class EmployeePlannerViewImpl extends BaseViewImpl<EmployeeViewModel> imp
                 .toLocalDateTime();
 
         String color = "#3333ff";
+
+        return new Entry(missionId, title, startDate, endDate, false, false, color, null);
+    }
+
+    private Entry toEntry(DateRange dateRange) {
+
+        /*PatientRefDto patient = missionDto.getMissionSeries().getPatient();*/
+
+        String missionId = UUID.randomUUID().toString();
+
+        String title = "Vorschläge verfügbar.";
+
+        LocalDateTime startDate = dateRange.getStartDate().toInstant()
+                .atZone(ZoneId.systemDefault())
+                .toLocalDateTime();
+
+        LocalDateTime endDate = dateRange.getEndDate().toInstant()
+                .atZone(ZoneId.systemDefault())
+                .toLocalDateTime();
+
+        String color = "#0CFF4D";
 
         return new Entry(missionId, title, startDate, endDate, false, false, color, null);
     }
