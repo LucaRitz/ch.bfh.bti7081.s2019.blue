@@ -2,10 +2,7 @@ package ch.bfh.bti7081.s2019.blue.server.validator;
 
 import ch.bfh.bti7081.s2019.blue.server.i18n.ServerConstants;
 import ch.bfh.bti7081.s2019.blue.server.persistence.MissionRepository;
-import ch.bfh.bti7081.s2019.blue.server.persistence.model.Employee;
-import ch.bfh.bti7081.s2019.blue.server.persistence.model.Mission;
-import ch.bfh.bti7081.s2019.blue.server.persistence.model.MissionSeries;
-import ch.bfh.bti7081.s2019.blue.server.persistence.model.Patient;
+import ch.bfh.bti7081.s2019.blue.server.persistence.model.*;
 import ch.bfh.bti7081.s2019.blue.server.utils.EntityWrapper;
 import com.google.common.annotations.VisibleForTesting;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -15,6 +12,7 @@ import javax.annotation.Nonnull;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
+
 
 @Component
 public class MissionValidator implements IsValidator<EntityWrapper<Mission>> {
@@ -65,10 +63,20 @@ public class MissionValidator implements IsValidator<EntityWrapper<Mission>> {
             return Optional.of(constants.missionSeriesNotAvailable());
         }
 
-        if (modified.getStartDate().before(series.getStartDate())
-            || modified.getEndDate().after(series.getEndDate())) {
+        switch (series.getRepetitionType()) {
+            case DAILY:
+                if (!modified.getStartDate().equals(series.getStartDate())
+                        || !modified.getEndDate().equals(series.getEndDate())) {
+                    return Optional.of(constants.missionOutOfMissionSeriesFound());
+                }
+                break;
 
-            return Optional.of(constants.missionOutOfMissionSeriesFound());
+            default:
+                if (modified.getStartDate().before(series.getStartDate())
+                        || modified.getEndDate().after(series.getEndDate())) {
+                    return Optional.of(constants.missionOutOfMissionSeriesFound());
+                }
+                break;
         }
 
         return Optional.empty();
@@ -83,7 +91,7 @@ public class MissionValidator implements IsValidator<EntityWrapper<Mission>> {
         }
 
         List<Mission> missions = repository.findByHealthVisitorAndIntersectingDateRange(healthVisitor.getId(), modified.getStartDate(), modified.getEndDate());
-        if (missions == null || missions.size() > 0){
+        if (missions == null || missions.size() > 0) {
             return Optional.of(constants.healthVisitorIsOccupied());
         }
 
@@ -96,29 +104,12 @@ public class MissionValidator implements IsValidator<EntityWrapper<Mission>> {
         Integer missionSeriesId = modified.getMissionSeries().getId();
         List<Mission> existingMissions = repository.findByMissionSeriesId(missionSeriesId);
 
-        System.err.println("Already existing missions of that serie " + existingMissions.size());
-
-
-        if (existingMissions.size() > 0) {
-            for (Mission tmp : existingMissions) {
-                System.err.println("Already existing mission start" + tmp.getStartDate()); //2019-05-24 08:00:00.0
-                System.err.println("Already existing mission end" + tmp.getEndDate()); //2019-05-24 09:00:00.0
-            }
-        }
-
-        System.err.println("New mission start" + modified.getStartDate()); //Fri May 24 08:00:00 CEST 2019
-        System.err.println("New mission end" + modified.getEndDate()); //Fri May 24 09:00:00 CEST 2019
-
-
         Optional<Mission> existingMission =
                 existingMissions
-                .stream()
-                .filter(x -> x.getStartDate().equals(modified.getStartDate()) &&
-                        x.getEndDate().equals(modified.getEndDate()))
-                .findFirst();
-
-        System.err.println("Already existing missions of that series at the specified date " + existingMission.isPresent());
-
+                        .stream()
+                        .filter(x -> x.getStartDate().equals(modified.getStartDate()) &&
+                                x.getEndDate().equals(modified.getEndDate()))
+                        .findFirst();
 
         if (existingMission.isPresent()) {
             return Optional.of(constants.missionAlreadyExists());
