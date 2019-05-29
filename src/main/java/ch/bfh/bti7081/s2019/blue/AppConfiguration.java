@@ -57,34 +57,33 @@ public class AppConfiguration {
 
     // Rest Services
     @Bean
-    public HomeService getHomeRestClient(ResponseErrorHandler errorHandler, ProvidesConverter readConverter) {
-        return createProxy(HomeService.class, errorHandler, readConverter);
+    public HomeService getHomeRestClient(ResponseErrorHandler errorHandler, ProvidesConverter converter) {
+        return createProxy(HomeService.class, errorHandler, converter);
     }
 
     @Bean
-    public EmployeeService getEmployeeRestClient(ResponseErrorHandler errorHandler, ProvidesConverter readConverter) {
-        return createProxy(EmployeeService.class, errorHandler, readConverter);
+    public EmployeeService getEmployeeRestClient(ResponseErrorHandler errorHandler, ProvidesConverter converter) {
+        return createProxy(EmployeeService.class, errorHandler, converter);
     }
 
     @Bean
     public MissionSeriesService getMissionSeriesRestClient(ResponseErrorHandler errorHandler,
-                                                           ProvidesConverter readConverter) {
-        return createProxy(MissionSeriesService.class, errorHandler, readConverter);
+                                                           ProvidesConverter converter) {
+        return createProxy(MissionSeriesService.class, errorHandler, converter);
     }
 
     @Bean
-    public MissionService getMissionRestClient(ResponseErrorHandler errorHandler, ProvidesConverter readConverter) {
-        return createProxy(MissionService.class, errorHandler, readConverter);
+    public MissionService getMissionRestClient(ResponseErrorHandler errorHandler, ProvidesConverter converter) {
+        return createProxy(MissionService.class, errorHandler, converter);
     }
 
     @Bean
-    public PatientService getPatientRestClient(ResponseErrorHandler errorHandler, ProvidesConverter readConverter) {
-        return createProxy(PatientService.class, errorHandler, readConverter);
+    public PatientService getPatientRestClient(ResponseErrorHandler errorHandler, ProvidesConverter converter) {
+        return createProxy(PatientService.class, errorHandler, converter);
     }
 
-    private <T> T createProxy(Class<T> service, ResponseErrorHandler errorHandler, ProvidesConverter readConverter) {
+    private <T> T createProxy(Class<T> service, ResponseErrorHandler errorHandler, ProvidesConverter converter) {
         String host = "http://" + serverAddress + ":" + serverPort;
-        return (T) new RestResourceProxy(service, host, readConverter, errorHandler)
-                .getResourceProxy();
+        return new RestResourceProxy<>(service, host, converter, errorHandler).getResourceProxy();
     }
 }

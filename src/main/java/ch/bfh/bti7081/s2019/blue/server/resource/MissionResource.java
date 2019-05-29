@@ -7,7 +7,9 @@ import ch.bfh.bti7081.s2019.blue.server.persistence.model.Mission;
 import ch.bfh.bti7081.s2019.blue.server.persistence.model.MissionSeries;
 import ch.bfh.bti7081.s2019.blue.server.service.EmployeeRecommendationService;
 import ch.bfh.bti7081.s2019.blue.server.service.MissionService;
+import ch.bfh.bti7081.s2019.blue.server.utils.EntityWrapper;
 import ch.bfh.bti7081.s2019.blue.server.utils.MissionGenerator;
+import ch.bfh.bti7081.s2019.blue.server.validator.MissionValidator;
 import ch.bfh.bti7081.s2019.blue.shared.HttpUtil;
 import ch.bfh.bti7081.s2019.blue.shared.dto.DateRange;
 import ch.bfh.bti7081.s2019.blue.shared.dto.MissionDto;
@@ -28,6 +30,7 @@ public class MissionResource {
     private final MissionSeriesRepository missionSeriesRepository;
     private final MissionGenerator generator;
     private final Mapper mapper;
+    private final MissionValidator validator;
     private final EmployeeRecommendationService employeeRecommendationService;
     private final MissionService missionService;
 
@@ -36,12 +39,14 @@ public class MissionResource {
                            MissionSeriesRepository missionSeriesRepository,
                            MissionGenerator generator,
                            Mapper mapper,
+                           MissionValidator validator,
                            EmployeeRecommendationService employeeRecommendationService,
                            MissionService missionService) {
         this.missionRepository = missionRepository;
         this.missionSeriesRepository = missionSeriesRepository;
         this.generator = generator;
         this.mapper = mapper;
+        this.validator = validator;
         this.employeeRecommendationService = employeeRecommendationService;
         this.missionService = missionService;
     }
@@ -60,6 +65,14 @@ public class MissionResource {
         List<MissionDto> result = mapper.map(mergedMissions, MissionDto.class);
         employeeRecommendationService.addEmployeeRecommendationsAvailableFlag(result, new DateRange(startDate, endDate));
         return result;
+    }
+
+
+    @PostMapping(produces = MediaType.APPLICATION_JSON, consumes = MediaType.APPLICATION_JSON)
+    public void create(@RequestBody MissionDto dto) {
+        Mission entity = mapper.map(dto, Mission.class);
+        validator.validate(new EntityWrapper<>(null, entity));
+        missionRepository.save(entity);
     }
 
 }
