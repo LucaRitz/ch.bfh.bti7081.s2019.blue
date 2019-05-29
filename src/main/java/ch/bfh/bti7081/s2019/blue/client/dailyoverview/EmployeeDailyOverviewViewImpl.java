@@ -71,7 +71,7 @@ public class EmployeeDailyOverviewViewImpl extends BaseViewImpl<EmployeeDailyOve
     public void loadMissionEntries() {
 
         EmployeeDto selectedEmployee = employees.getValue();
-        DateFormat dateFormat = new SimpleDateFormat("EEEE, d.M.y");
+        DateFormat dateFormat = new SimpleDateFormat("EEEE, dd.MM.yyyy");
         this.date.setText(dateFormat.format(this.selectedDate));
         Date nextDay = Date.from(this.selectedDate.toInstant().plusSeconds(24*3600));
 
@@ -102,26 +102,8 @@ public class EmployeeDailyOverviewViewImpl extends BaseViewImpl<EmployeeDailyOve
             showNotification("employee.dailyoverview.nomissions");
         } else {
             for (MissionDto mission: list) {
-                PatientRefDto patient = mission.getMissionSeries().getPatient();
-                String firstname = patient.getFirstname();
-                String lastname = patient.getLastname();
 
-                AddressRefDto address = patient.getAddress();
-                String streetName = address.getStreetName();
-                String houseNumber = address.getHouseNr();
-                String postalCode = address.getPostalCode().toString();
-                String city = address.getCity();
-
-                DateFormat dateFormat = new SimpleDateFormat("hh:mm");
-                String startTime = dateFormat.format(mission.getStartDate());
-                String endTime = dateFormat.format(mission.getEndDate());
-
-                String detailsButtonId = mission.getId().toString();
-                String detailsButtonText = this.getTranslation("employee.dailyoverview.details");
-
-                MissionItem missionItem = new MissionItem(false, firstname, lastname, streetName, houseNumber,
-                                                            postalCode, city, startTime, endTime, detailsButtonId, detailsButtonText);
-
+                MissionItem missionItem = new MissionItem(false, mission);
                 missionList.add(missionItem);
             }
         }
