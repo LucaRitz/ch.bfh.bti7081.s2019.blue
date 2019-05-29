@@ -12,6 +12,7 @@ import java.lang.reflect.Method;
 import java.lang.reflect.Proxy;
 import java.text.MessageFormat;
 import java.util.Locale;
+import java.util.MissingResourceException;
 import java.util.ResourceBundle;
 import java.util.concurrent.TimeUnit;
 
@@ -44,7 +45,14 @@ public class ServerConstantsProvider implements InvocationHandler {
 
         final ResourceBundle bundle = bundleCache.getUnchecked(LocaleContextHolder.getLocale());
 
-        String value = bundle.getString(method.getName());
+        String key = method.getName();
+        String value;
+        try {
+            value = bundle.getString(key);
+        } catch (MissingResourceException mrx) {
+            value = "***" + key + "***";
+        }
+
         if (args != null && args.length > 0) {
             value = MessageFormat.format(value, args);
         }

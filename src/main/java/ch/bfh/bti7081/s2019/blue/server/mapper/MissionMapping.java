@@ -9,6 +9,6 @@ import static org.dozer.loader.api.TypeMappingOptions.oneWay;
 public class MissionMapping extends BeanMappingBuilder {
     @Override
     protected void configure() {
-        mapping(Mission.class, MissionDto.class, oneWay());
+        mapping(Mission.class, MissionDto.class);
     }
 }
