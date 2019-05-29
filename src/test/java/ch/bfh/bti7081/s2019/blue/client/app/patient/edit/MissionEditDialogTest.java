@@ -13,8 +13,8 @@ import org.mockito.Mock;
 import org.mockito.junit.jupiter.MockitoExtension;
 
 import java.time.LocalDate;
+import java.time.LocalDateTime;
 import java.time.LocalTime;
-import java.util.Date;
 import java.util.Random;
 
 import static org.mockito.Mockito.*;
@@ -61,20 +61,19 @@ class MissionEditDialogTest {
 
     @Test
     void onSaveClicked_callServiceCorrectly() {
-        Date expectedDate = new Date();
         int expectedId = RAND.nextInt();
         MissionSeriesDto dto = mock(MissionSeriesDto.class);
 
         LocalDate date = LocalDate.now();
         LocalTime time = LocalTime.now();
+
+        LocalDateTime expectedDate = LocalDateTime.of(date, time);
         when(dto.getEndDate()).thenReturn(date);
         when(dto.getEndTime()).thenReturn(time);
         when(dto.getId()).thenReturn(expectedId);
 
         dialog.dialog = mock(IsDialog.class);
 
-        dialog = spy(dialog);
-        doReturn(expectedDate).when(dialog).mergeDateTime(date, time);
 
         // Act
         dialog.onSaveClicked(dto);
@@ -85,16 +84,17 @@ class MissionEditDialogTest {
 
     @Test
     void onSaveClicked_noErrors_callListenerAndClose() {
+        MissionSeriesDto dto = mock(MissionSeriesDto.class);
+        when(dto.getEndDate()).thenReturn(LocalDate.now());
+        when(dto.getEndTime()).thenReturn(LocalTime.now());
+
         when(service.updateEndDate(anyInt(), any())).thenReturn(Promises.fulfill(null));
         dialog.dialog = mock(IsDialog.class);
         MissionEditDialog.Listener listener = mock(MissionEditDialog.Listener.class);
         dialog.setListener(listener);
 
-        dialog = spy(dialog);
-        doReturn(new Date()).when(dialog).mergeDateTime(any(), any());
-
         // Act
-        dialog.onSaveClicked(mock(MissionSeriesDto.class, RETURNS_DEEP_STUBS));
+        dialog.onSaveClicked(dto);
 
         // Assert
         verify(listener).onSaved();

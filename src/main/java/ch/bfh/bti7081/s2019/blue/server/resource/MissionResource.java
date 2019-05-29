@@ -18,6 +18,7 @@ import org.springframework.format.annotation.DateTimeFormat;
 import org.springframework.web.bind.annotation.*;
 
 import javax.ws.rs.core.MediaType;
+import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
@@ -54,8 +55,8 @@ public class MissionResource {
     @GetMapping(produces = MediaType.APPLICATION_JSON)
     public @ResponseBody
     List<MissionDto> find(@RequestParam Integer patientNumber,
-                          @RequestParam @DateTimeFormat(pattern = HttpUtil.DATE_TIME_FORMAT) Date startDate,
-                          @RequestParam @DateTimeFormat(pattern = HttpUtil.DATE_TIME_FORMAT) Date endDate) {
+                          @RequestParam @DateTimeFormat(pattern = HttpUtil.DATE_TIME_FORMAT) LocalDateTime startDate,
+                          @RequestParam @DateTimeFormat(pattern = HttpUtil.DATE_TIME_FORMAT) LocalDateTime endDate) {
         List<Mission> missions = new ArrayList<>(missionRepository.findByPatientNumberAndIntersectingDateRange(patientNumber, startDate, endDate));
         List<MissionSeries> series = new ArrayList<>(missionSeriesRepository.findByPatientNumberAndIntersectingDateRange(patientNumber, startDate, endDate));
         List<Mission> temporaryMissions = generator.generateMissionsFromSeries(series, new DateRange(startDate, endDate));

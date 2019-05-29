@@ -10,6 +10,7 @@ import ch.bfh.bti7081.s2019.blue.shared.dto.DateRange;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
+import java.time.LocalDateTime;
 import java.util.*;
 import java.util.stream.Collectors;
 
@@ -68,15 +69,15 @@ public class PatientMissionRecommendationService {
         intervals.sort(Comparator.comparing(DateRange::getStartDate));
 
         DateRange first = intervals.get(0);
-        Date start = first.getStartDate();
-        Date end = first.getEndDate();
+        LocalDateTime start = first.getStartDate();
+        LocalDateTime end = first.getEndDate();
 
         List<DateRange> result = new ArrayList<>();
 
         for(int i = 1; i < intervals.size(); i++){
             DateRange current = intervals.get(i);
-            if(current.getStartDate().before(end) || current.getStartDate().equals(end)){
-                end = current.getEndDate().after(end) ? current.getEndDate() : end;
+            if(current.getStartDate().isBefore(end) || current.getStartDate().equals(end)){
+                end = current.getEndDate().isAfter(end) ? current.getEndDate() : end;
             }else{
                 result.add(new DateRange(start, end));
                 start = current.getStartDate();
@@ -94,24 +95,17 @@ public class PatientMissionRecommendationService {
             return Optional.empty();
         }
 
-        Date startDate = dateRanges.stream()
+        LocalDateTime startDate = dateRanges.stream()
                 .map(DateRange::getStartDate)
                 .min(Comparator.naturalOrder())
                 .orElse(null);
 
-        Date endDate = dateRanges.stream()
+        LocalDateTime endDate = dateRanges.stream()
                 .map(DateRange::getEndDate)
                 .max(Comparator.naturalOrder())
                 .orElse(null);
 
         return Optional.of(new DateRange(startDate, endDate));
-    }
-
-    private List<DateRange> getConflicts(DateRange range, List<DateRange> ranges) {
-
-        return ranges.stream()
-                .filter(m -> m.intersects(range))
-                .collect(Collectors.toList());
     }
 
     private List<Mission> getPossibleMissions(Employee employee, EmployeeAvailability availability, DateRange planningDateRange) {

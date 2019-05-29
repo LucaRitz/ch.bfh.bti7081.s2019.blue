@@ -34,6 +34,7 @@ public class HomeResource {
     @GetMapping(produces = MediaType.APPLICATION_JSON)
     public HomeDto get() {
         LOG.info("Custom Logging");
+
         Example<Home> statement = new HomeBuilder().setReference(10L).build();
         Optional<Home> home = repository.findOne(statement);
 

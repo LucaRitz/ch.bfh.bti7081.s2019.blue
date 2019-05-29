@@ -12,6 +12,7 @@ import org.mockito.Answers;
 import org.mockito.Mock;
 import org.mockito.junit.jupiter.MockitoExtension;
 
+import java.time.LocalDateTime;
 import java.util.Collections;
 import java.util.Date;
 import java.util.List;
@@ -64,8 +65,8 @@ class EmployeePlannerActivityTest {
     @Test
     void onSelectionChange_callServiceCorrectly() {
         int expectedEmployeeId = RAND.nextInt();
-        Date expectedStartDate = new Date();
-        Date expectedEndDate = new Date();
+        LocalDateTime expectedStartDate = LocalDateTime.now();
+        LocalDateTime expectedEndDate = LocalDateTime.now();
 
         EmployeeDto employeeDto = mock(EmployeeDto.class);
         when(employeeDto.getId()).thenReturn(expectedEmployeeId);
@@ -85,7 +86,7 @@ class EmployeePlannerActivityTest {
                 .thenReturn(Promises.fulfill(expectedMissions));
 
         // Act
-        activity.onSelectionChange(new EmployeeDto(), new Date(), new Date());
+        activity.onSelectionChange(new EmployeeDto(), LocalDateTime.now(), LocalDateTime.now());
 
         // Assert
         verify(view).setMissions(expectedMissions);

@@ -10,6 +10,7 @@ import com.vaadin.flow.spring.annotation.UIScope;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
+import java.time.LocalDateTime;
 import java.util.Date;
 
 @Component
@@ -43,7 +44,7 @@ public class EmployeePlannerActivity extends BaseActivity implements EmployeePla
     }
 
     @Override
-    public void onSelectionChange(EmployeeDto employee, Date startDate, Date endDate) {
+    public void onSelectionChange(EmployeeDto employee, LocalDateTime startDate, LocalDateTime endDate) {
         if (startDate != null && endDate != null) {
             employeeService.missions(employee.getId()).find(startDate, endDate)
                     .done(view::setMissions);

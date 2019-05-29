@@ -39,8 +39,8 @@ public class EmployeePlannerViewImpl extends BaseViewImpl<EmployeeViewModel> imp
     private FullCalendar calendar;
 
     private Presenter presenter;
-    private Date startDate = null;
-    private Date endDate = null;
+    private LocalDateTime startDate = null;
+    private LocalDateTime endDate = null;
     private Integer selectedMissionId = null;
 
     public EmployeePlannerViewImpl() {
@@ -81,8 +81,8 @@ public class EmployeePlannerViewImpl extends BaseViewImpl<EmployeeViewModel> imp
     }
 
     private void onDateRangeChange(LocalDate intervalStart, LocalDate intervalEnd) {
-        this.startDate = Date.from(intervalStart.atStartOfDay(ZoneId.systemDefault()).toInstant());
-        this.endDate = Date.from(intervalEnd.plusDays(1).atStartOfDay(ZoneId.systemDefault()).toInstant());
+        this.startDate = intervalStart.atStartOfDay();
+        this.endDate = intervalEnd.plusDays(1).atStartOfDay();
 
         reloadEntries();
     }
@@ -127,13 +127,9 @@ public class EmployeePlannerViewImpl extends BaseViewImpl<EmployeeViewModel> imp
 
         String title = patient.getDisplayName();
 
-        LocalDateTime startDate = missionDto.getStartDate().toInstant()
-                .atZone(ZoneId.systemDefault())
-                .toLocalDateTime();
+        LocalDateTime startDate = missionDto.getStartDate();
 
-        LocalDateTime endDate = missionDto.getEndDate().toInstant()
-                .atZone(ZoneId.systemDefault())
-                .toLocalDateTime();
+        LocalDateTime endDate = missionDto.getEndDate();
 
         String color = "#3333ff";
 

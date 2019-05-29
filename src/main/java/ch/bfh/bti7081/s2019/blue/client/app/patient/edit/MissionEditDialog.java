@@ -11,11 +11,7 @@ import com.vaadin.flow.spring.annotation.UIScope;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
-import java.time.LocalDate;
 import java.time.LocalDateTime;
-import java.time.LocalTime;
-import java.time.ZoneId;
-import java.util.Date;
 
 @Component
 @UIScope
@@ -53,7 +49,7 @@ public class MissionEditDialog extends BaseActivity implements MissionEditView.P
 
     @Override
     public void onSaveClicked(MissionSeriesDto dto) {
-        Date endDate = mergeDateTime(dto.getEndDate(), dto.getEndTime());
+        LocalDateTime endDate = LocalDateTime.of(dto.getEndDate(), dto.getEndTime());
 
         missionSeriesService.updateEndDate(dto.getId(), endDate)
                 .done(aVoid -> {
@@ -77,14 +73,6 @@ public class MissionEditDialog extends BaseActivity implements MissionEditView.P
 
     public void setListener(Listener listener) {
         this.listener = listener;
-    }
-
-    @VisibleForTesting
-    Date mergeDateTime(LocalDate date, LocalTime time) {
-        return Date.from(
-                LocalDateTime.of(date, time)
-                        .atZone(ZoneId.systemDefault())
-                        .toInstant());
     }
 
     public interface Listener {

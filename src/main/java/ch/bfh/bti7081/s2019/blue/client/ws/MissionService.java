@@ -11,6 +11,7 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestParam;
 
 import javax.ws.rs.core.MediaType;
+import java.time.LocalDateTime;
 import java.util.Date;
 import java.util.List;
 
@@ -20,8 +21,8 @@ public interface MissionService extends IsRestService {
     @GetMapping(produces = MediaType.APPLICATION_JSON)
     @ReturnType(RestConverter.KEY_MISSION_DTO_LIST)
     RestPromise<List<MissionDto>> find(@RequestParam("patientNumber") Integer patientNumber,
-                                            @RequestParam("startDate") Date startDate,
-                                            @RequestParam("endDate") Date endDate);
+                                            @RequestParam("startDate") LocalDateTime startDate,
+                                            @RequestParam("endDate") LocalDateTime endDate);
 
     @PostMapping
     RestPromise<Void> create(@RequestBody MissionDto dto);

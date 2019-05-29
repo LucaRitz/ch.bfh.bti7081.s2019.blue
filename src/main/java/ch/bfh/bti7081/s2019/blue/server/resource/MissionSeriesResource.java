@@ -17,6 +17,7 @@ import javax.persistence.EntityManager;
 import javax.transaction.Transactional;
 import javax.ws.rs.core.MediaType;
 import java.text.SimpleDateFormat;
+import java.time.LocalDateTime;
 import java.util.Date;
 import java.util.Optional;
 
@@ -59,7 +60,7 @@ public class MissionSeriesResource {
 
     @PutMapping(path = "/{id}")
     public void updateEndDate(@PathVariable int id,
-                                           @RequestParam  @DateTimeFormat(pattern = HttpUtil.DATE_TIME_FORMAT) Date endDate) {
+                                           @RequestParam  @DateTimeFormat(pattern = HttpUtil.DATE_TIME_FORMAT) LocalDateTime endDate) {
         Optional<MissionSeries> entityOpt = repository.findById(id);
 
         if (!entityOpt.isPresent()) {

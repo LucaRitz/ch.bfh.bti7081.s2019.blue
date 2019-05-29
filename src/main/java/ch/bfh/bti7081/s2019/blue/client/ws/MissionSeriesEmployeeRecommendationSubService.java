@@ -8,6 +8,7 @@ import ch.bfh.bti7081.s2019.blue.shared.dto.EmployeeDto;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 
+import java.time.LocalDateTime;
 import java.util.Date;
 import java.util.List;
 
@@ -16,5 +17,5 @@ public interface MissionSeriesEmployeeRecommendationSubService extends IsRestSer
 
     @GetMapping
     @ReturnType(RestConverter.KEY_EMPLOYEE_DTO_LIST)
-    RestPromise<List<EmployeeDto>> find(@RequestParam("start") Date start, @RequestParam("end") Date end);
+    RestPromise<List<EmployeeDto>> find(@RequestParam("start") LocalDateTime start, @RequestParam("end") LocalDateTime end);
 }
