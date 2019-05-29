@@ -1,6 +1,7 @@
 package ch.bfh.bti7081.s2019.blue.client.app.patient;
 
 import ch.bfh.bti7081.s2019.blue.client.app.patient.assign.MissionAssignDialog;
+import ch.bfh.bti7081.s2019.blue.client.i18n.AppConstants;
 import ch.bfh.bti7081.s2019.blue.client.app.patient.create.MissionCreateDialog;
 import ch.bfh.bti7081.s2019.blue.client.app.patient.edit.MissionEditDialog;
 import ch.bfh.bti7081.s2019.blue.client.i18n.AppConstants;
@@ -42,12 +43,11 @@ class PatientPlannerActivityTest {
     @Mock
     private MissionEditDialog editDialog;
     @Mock
-    private MissionAssignDialog assignDialog;
+    private MissionAssignDialog missionAssignDialog;
 
     @BeforeEach
     void setUp() {
-        activity = new PatientPlannerActivity(view, patientService, missionService, createDialog, editDialog,
-                assignDialog);
+        activity = new PatientPlannerActivity(view, patientService, missionService, createDialog, editDialog, missionAssignDialog);
     }
 
     @Test
