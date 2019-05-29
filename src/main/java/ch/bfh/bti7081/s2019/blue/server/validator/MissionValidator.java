@@ -72,8 +72,8 @@ public class MissionValidator implements IsValidator<EntityWrapper<Mission>> {
                 break;
 
             default:
-                if (modified.getStartDate().before(series.getStartDate())
-                        || modified.getEndDate().after(series.getEndDate())) {
+                if (modified.getStartDate().isBefore(series.getStartDate())
+                        || modified.getEndDate().isAfter(series.getEndDate())) {
                     return Optional.of(constants.missionOutOfMissionSeriesFound());
                 }
                 break;

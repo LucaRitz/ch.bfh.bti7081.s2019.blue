@@ -5,6 +5,7 @@ import ch.bfh.bti7081.s2019.blue.shared.dto.MissionDto;
 import ch.bfh.bti7081.s2019.blue.shared.dto.MissionSeriesDto;
 import ch.bfh.bti7081.s2019.blue.shared.dto.PatientRefDto;
 
+import java.time.LocalDateTime;
 import java.util.Date;
 import java.util.List;
 
@@ -28,6 +29,6 @@ public interface PatientPlannerView extends IsView {
         void onCreateClicked();
         void onEditClicked();
         void onAssignClicked();
-        void onSelectionChange(PatientRefDto patient, Date startDate, Date endDate);
+        void onSelectionChange(PatientRefDto patient, LocalDateTime startDate, LocalDateTime endDate);
     }
 }

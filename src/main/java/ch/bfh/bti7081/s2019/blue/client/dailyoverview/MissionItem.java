@@ -7,8 +7,7 @@ import com.vaadin.flow.component.button.Button;
 import com.vaadin.flow.component.html.ListItem;
 import com.vaadin.flow.component.html.Paragraph;
 
-import java.text.DateFormat;
-import java.text.SimpleDateFormat;
+import java.time.format.DateTimeFormatter;
 
 public class MissionItem extends ListItem {
 
@@ -24,7 +23,7 @@ public class MissionItem extends ListItem {
         String postalCode = address.getPostalCode().toString();
         String city = address.getCity();
 
-        DateFormat dateFormat = new SimpleDateFormat("hh:mm");
+        DateTimeFormatter dateFormat = DateTimeFormatter.ofPattern("hh:mm");
         String startTime = dateFormat.format(mission.getStartDate());
         String endTime = dateFormat.format(mission.getEndDate());
 

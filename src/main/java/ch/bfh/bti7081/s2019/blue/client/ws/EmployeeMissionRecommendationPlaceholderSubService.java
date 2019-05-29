@@ -8,7 +8,7 @@ import ch.bfh.bti7081.s2019.blue.shared.dto.DateRange;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 
-import java.util.Date;
+import java.time.LocalDateTime;
 import java.util.List;
 
 @Path("/misssionrecommendationplaceholders")
@@ -16,5 +16,5 @@ public interface EmployeeMissionRecommendationPlaceholderSubService extends IsRe
 
     @GetMapping
     @ReturnType(RestConverter.KEY_DATE_RANGE_LIST)
-    RestPromise<List<DateRange>> find(@RequestParam("start") Date start, @RequestParam("end") Date end);
+    RestPromise<List<DateRange>> find(@RequestParam("start") LocalDateTime start, @RequestParam("end") LocalDateTime end);
 }

@@ -7,6 +7,7 @@ import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.query.Param;
 import org.springframework.stereotype.Repository;
 
+import java.time.LocalDateTime;
 import java.util.Date;
 import java.util.List;
 
@@ -19,7 +20,7 @@ public interface EmployeeRepository extends JpaRepository<Employee, Integer> {
             + " AND a.startDate <= :endDate AND a.endDate >= :startDate")
     List<Absence> findAbsencesByHealthVisitorAndIntersectingDateRange(
             @Param("healthVisitorId") Integer healthVisitorId,
-            @Param("startDate") Date startDate,
-            @Param("endDate") Date endDate);
+            @Param("startDate") LocalDateTime startDate,
+            @Param("endDate") LocalDateTime endDate);
 
 }

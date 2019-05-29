@@ -1,20 +1,20 @@
 package ch.bfh.bti7081.s2019.blue.shared.dto;
 
-import java.util.Date;
+import java.time.LocalDateTime;
 
 public class PatientRefDto extends AbstractPerson implements HasBirthdate {
 
-    private Date birthdate;
+    private LocalDateTime birthdate;
 
     private Integer number;
 
     private AddressRefDto address;
 
-    public void setBirthdate(Date birthdate) {
+    public void setBirthdate(LocalDateTime birthdate) {
         this.birthdate = birthdate;
     }
 
-    public Date getBirthdate() {
+    public LocalDateTime getBirthdate() {
         return this.birthdate;
     }
 

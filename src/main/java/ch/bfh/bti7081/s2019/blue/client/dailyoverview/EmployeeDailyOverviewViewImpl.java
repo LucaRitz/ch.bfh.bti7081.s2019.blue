@@ -2,10 +2,8 @@ package ch.bfh.bti7081.s2019.blue.client.dailyoverview;
 
 import ch.bfh.bti7081.s2019.blue.client.app.base.BaseViewImpl;
 import ch.bfh.bti7081.s2019.blue.client.i18n.AppConstants;
-import ch.bfh.bti7081.s2019.blue.shared.dto.AddressRefDto;
 import ch.bfh.bti7081.s2019.blue.shared.dto.EmployeeDto;
 import ch.bfh.bti7081.s2019.blue.shared.dto.MissionDto;
-import ch.bfh.bti7081.s2019.blue.shared.dto.PatientRefDto;
 import com.vaadin.flow.component.ClickEvent;
 import com.vaadin.flow.component.ComponentEventListener;
 import com.vaadin.flow.component.ItemLabelGenerator;
@@ -24,7 +22,9 @@ import org.springframework.stereotype.Component;
 import java.text.DateFormat;
 import java.text.SimpleDateFormat;
 import java.time.LocalDate;
+import java.time.LocalDateTime;
 import java.time.ZoneId;
+import java.time.format.DateTimeFormatter;
 import java.util.Date;
 import java.util.List;
 
@@ -49,13 +49,14 @@ public class EmployeeDailyOverviewViewImpl extends BaseViewImpl<EmployeeDailyOve
     private UnorderedList missionList;
 
     private Presenter presenter;
-    private Date selectedDate;
+    private LocalDateTime selectedDate;
 
     @Autowired
     public EmployeeDailyOverviewViewImpl() {
         setText(getModel().getText()::setTitle, AppConstants.MENU_EMPLOYEEDAILYOVERVIEW);
         this.employees.setItemLabelGenerator((ItemLabelGenerator<EmployeeDto>)
                 EmployeeDto::getDisplayName);
+        this.employees.addValueChangeListener(event -> this.loadMissionEntries());
         previousButton.addClickListener((ComponentEventListener<ClickEvent<Button>>) event -> {
             this.setSelectedDate(-1);
             loadMissionEntries();
@@ -64,16 +65,16 @@ public class EmployeeDailyOverviewViewImpl extends BaseViewImpl<EmployeeDailyOve
             this.setSelectedDate(1);
             loadMissionEntries();
         });
-        this.selectedDate = Date.from(LocalDate.now().atStartOfDay(ZoneId.systemDefault()).toInstant());
+        this.selectedDate = LocalDate.now().atStartOfDay();
     }
 
     @Override
     public void loadMissionEntries() {
 
         EmployeeDto selectedEmployee = employees.getValue();
-        DateFormat dateFormat = new SimpleDateFormat("EEEE, dd.MM.yyyy");
+        DateTimeFormatter dateFormat = DateTimeFormatter.ofPattern("EEEE, dd.MM.yyyy");
         this.date.setText(dateFormat.format(this.selectedDate));
-        Date nextDay = Date.from(this.selectedDate.toInstant().plusSeconds(24*3600));
+        LocalDateTime nextDay = selectedDate.plusDays(1);
 
         if (selectedEmployee != null) {
             presenter.onSelectionChange(selectedEmployee, selectedDate, nextDay);
@@ -115,6 +116,6 @@ public class EmployeeDailyOverviewViewImpl extends BaseViewImpl<EmployeeDailyOve
     }
 
     private void setSelectedDate(long difference) {
-        this.selectedDate = Date.from(this.selectedDate.toInstant().plusSeconds(difference*24*3600));
+        this.selectedDate = selectedDate.plusDays(difference);
     }
 }

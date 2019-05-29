@@ -11,6 +11,7 @@ import ch.bfh.bti7081.s2019.blue.shared.dto.MissionDto;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
+import java.time.LocalDateTime;
 import java.util.Comparator;
 import java.util.Date;
 import java.util.List;
@@ -53,7 +54,7 @@ public class EmployeeRecommendationService {
         return missions;
     }
 
-    public List<Employee> getEmployeeRecommendations(MissionSeries missionSeries, Date startDate, Date endDate) {
+    public List<Employee> getEmployeeRecommendations(MissionSeries missionSeries, LocalDateTime startDate, LocalDateTime endDate) {
 
         DateRange dateRange = new DateRange(startDate, endDate);
         Patient patient = missionSeries.getPatient();

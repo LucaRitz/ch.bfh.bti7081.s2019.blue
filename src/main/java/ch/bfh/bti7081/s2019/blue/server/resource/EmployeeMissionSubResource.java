@@ -10,6 +10,7 @@ import org.springframework.format.annotation.DateTimeFormat;
 import org.springframework.web.bind.annotation.*;
 
 import javax.ws.rs.core.MediaType;
+import java.time.LocalDateTime;
 import java.util.Date;
 import java.util.List;
 
@@ -30,8 +31,8 @@ public class EmployeeMissionSubResource {
     @GetMapping(produces = MediaType.APPLICATION_JSON)
     public @ResponseBody
     List<MissionDto> find(@PathVariable Integer employeeId,
-                          @RequestParam @DateTimeFormat(pattern = HttpUtil.DATE_TIME_FORMAT) Date start,
-                          @RequestParam @DateTimeFormat(pattern = HttpUtil.DATE_TIME_FORMAT) Date end) {
+                          @RequestParam @DateTimeFormat(pattern = HttpUtil.DATE_TIME_FORMAT) LocalDateTime start,
+                          @RequestParam @DateTimeFormat(pattern = HttpUtil.DATE_TIME_FORMAT) LocalDateTime end) {
         List<Mission> missions = missionRepository.findByHealthVisitorAndIntersectingDateRange(employeeId, start, end);
         return mapper.map(missions, MissionDto.class);
     }

@@ -5,7 +5,7 @@ import ch.bfh.bti7081.s2019.blue.shared.dto.DateRange;
 import ch.bfh.bti7081.s2019.blue.shared.dto.EmployeeDto;
 import ch.bfh.bti7081.s2019.blue.shared.dto.MissionDto;
 
-import java.util.Date;
+import java.time.LocalDateTime;
 import java.util.List;
 
 public interface EmployeePlannerView extends IsView {
@@ -24,6 +24,6 @@ public interface EmployeePlannerView extends IsView {
 
     interface Presenter {
         void onOpenRecommendationClick();
-        void onSelectionChange(EmployeeDto employee, Date startDate, Date endDate);
+        void onSelectionChange(EmployeeDto employee, LocalDateTime startDate, LocalDateTime endDate);
     }
 }

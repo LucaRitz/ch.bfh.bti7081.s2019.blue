@@ -18,6 +18,7 @@ import org.mockito.Answers;
 import org.mockito.Mock;
 import org.mockito.junit.jupiter.MockitoExtension;
 
+import java.time.LocalDateTime;
 import java.util.Collections;
 import java.util.Date;
 import java.util.List;
@@ -105,8 +106,8 @@ class PatientPlannerActivityTest {
     @Test
     void onSelectionChange_callServiceCorrectly() {
         int expectedPatientNumber = RAND.nextInt();
-        Date expectedStartDate = new Date();
-        Date expectedEndDate = new Date();
+        LocalDateTime expectedStartDate = LocalDateTime.now();
+        LocalDateTime expectedEndDate = LocalDateTime.now();
 
         PatientRefDto patientRefDto = mock(PatientRefDto.class);
         when(patientRefDto.getNumber()).thenReturn(expectedPatientNumber);
@@ -125,7 +126,7 @@ class PatientPlannerActivityTest {
         when(missionService.find(any(), any(), any())).thenReturn(Promises.fulfill(expectedMissions));
 
         // Act
-        activity.onSelectionChange(new PatientRefDto(), new Date(), new Date());
+        activity.onSelectionChange(new PatientRefDto(), LocalDateTime.now(), LocalDateTime.now());
 
         // Assert
         verify(view).setMissions(expectedMissions);

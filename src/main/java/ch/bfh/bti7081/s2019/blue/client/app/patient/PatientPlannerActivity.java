@@ -16,6 +16,7 @@ import com.vaadin.flow.spring.annotation.UIScope;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
+import java.time.LocalDateTime;
 import java.util.Date;
 
 @Component
@@ -86,7 +87,7 @@ public class PatientPlannerActivity extends BaseActivity implements PatientPlann
     }
 
     @Override
-    public void onSelectionChange(PatientRefDto patient, Date startDate, Date endDate) {
+    public void onSelectionChange(PatientRefDto patient, LocalDateTime startDate, LocalDateTime endDate) {
         missionService.find(patient.getNumber(), startDate, endDate)
                 .done(view::setMissions);
     }

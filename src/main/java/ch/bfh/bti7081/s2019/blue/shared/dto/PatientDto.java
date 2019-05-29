@@ -1,12 +1,13 @@
 package ch.bfh.bti7081.s2019.blue.shared.dto;
 
+import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 
 public class PatientDto extends AbstractPerson implements HasBirthdate {
 
-    private Date birthdate;
+    private LocalDateTime birthdate;
 
     private Integer number;
 
@@ -18,11 +19,11 @@ public class PatientDto extends AbstractPerson implements HasBirthdate {
 
     private AddressDto address;
 
-    public void setBirthdate(Date birthdate) {
+    public void setBirthdate(LocalDateTime birthdate) {
         this.birthdate = birthdate;
     }
 
-    public Date getBirthdate() {
+    public LocalDateTime getBirthdate() {
         return this.birthdate;
     }
 

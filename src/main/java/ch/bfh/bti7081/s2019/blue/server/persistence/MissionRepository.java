@@ -6,7 +6,7 @@ import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.query.Param;
 import org.springframework.stereotype.Repository;
 
-import java.util.Date;
+import java.time.LocalDateTime;
 import java.util.List;
 
 @Repository
@@ -18,8 +18,8 @@ public interface MissionRepository extends JpaRepository<Mission, Integer> {
             + " AND m.startDate <= :endDate AND m.endDate >= :startDate")
     List<Mission> findByHealthVisitorAndIntersectingDateRange(
             @Param("healthVisitorId") Integer healthVisitorId,
-            @Param("startDate") Date startDate,
-            @Param("endDate") Date endDate);
+            @Param("startDate") LocalDateTime startDate,
+            @Param("endDate") LocalDateTime endDate);
 
 
     @Query("SELECT m FROM Mission m"
@@ -29,8 +29,8 @@ public interface MissionRepository extends JpaRepository<Mission, Integer> {
             + " AND m.startDate <= :endDate AND m.endDate >= :startDate")
     List<Mission> findByPatientNumberAndIntersectingDateRange(
             @Param("patientNr") Integer patientNr,
-            @Param("startDate") Date startDate,
-            @Param("endDate") Date endDate);
+            @Param("startDate") LocalDateTime startDate,
+            @Param("endDate") LocalDateTime endDate);
 
     @Query("SELECT m FROM Mission m"
             + " JOIN MissionSeries ms ON m.missionSeries = ms"
