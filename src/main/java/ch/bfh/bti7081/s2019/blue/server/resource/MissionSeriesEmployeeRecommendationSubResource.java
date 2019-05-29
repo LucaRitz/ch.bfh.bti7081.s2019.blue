@@ -14,7 +14,7 @@ import org.springframework.format.annotation.DateTimeFormat;
 import org.springframework.web.bind.annotation.*;
 
 import javax.ws.rs.core.MediaType;
-import java.util.Date;
+import java.time.LocalDateTime;
 import java.util.List;
 import java.util.Optional;
 
@@ -41,8 +41,8 @@ public class MissionSeriesEmployeeRecommendationSubResource {
     @GetMapping(produces = MediaType.APPLICATION_JSON)
     public @ResponseBody
     List<EmployeeDto> find(@PathVariable Integer missionSeriesId,
-                           @RequestParam @DateTimeFormat(pattern = HttpUtil.DATE_TIME_FORMAT) Date start,
-                           @RequestParam @DateTimeFormat(pattern = HttpUtil.DATE_TIME_FORMAT) Date end) {
+                           @RequestParam @DateTimeFormat(pattern = HttpUtil.DATE_TIME_FORMAT) LocalDateTime start,
+                           @RequestParam @DateTimeFormat(pattern = HttpUtil.DATE_TIME_FORMAT) LocalDateTime end) {
 
         Optional<MissionSeries> missionSeries = missionSeriesRepository.findById(missionSeriesId);
         if (!missionSeries.isPresent()) {

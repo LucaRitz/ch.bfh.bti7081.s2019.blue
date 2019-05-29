@@ -14,6 +14,7 @@ import org.mockito.Mock;
 import org.mockito.junit.jupiter.MockitoExtension;
 
 import javax.persistence.EntityManager;
+import java.time.LocalDateTime;
 import java.util.Date;
 import java.util.Random;
 
@@ -71,6 +72,6 @@ class MissionSeriesResourceTest {
     @Test
     void updateEndDate_entityNotFound_getExpectedErrorMessage() {
         // Act/Assert
-        assertThrows(ValidationException.class, () -> resource.updateEndDate(RAND.nextInt(), new Date()));
+        assertThrows(ValidationException.class, () -> resource.updateEndDate(RAND.nextInt(), LocalDateTime.now()));
     }
 }

@@ -19,4 +19,6 @@ public interface ServerConstants {
     String missionAlreadyExists();
     String missionHasNoHealthVisitor();
     String healthVisitorIsOccupied();
+
+    String internalServerError();
 }

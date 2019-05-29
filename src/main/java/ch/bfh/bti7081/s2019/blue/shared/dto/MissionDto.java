@@ -1,14 +1,14 @@
 package ch.bfh.bti7081.s2019.blue.shared.dto;
 
-import java.util.Date;
+import java.time.LocalDateTime;
 
 public class MissionDto {
 
     private Integer id;
 
-    private Date startDate;
+    private LocalDateTime startDate;
 
-    private Date endDate;
+    private LocalDateTime endDate;
 
     private MissionSeriesDto missionSeries;
 
@@ -24,19 +24,19 @@ public class MissionDto {
         return this.id;
     }
 
-    public void setStartDate(Date startDate) {
+    public void setStartDate(LocalDateTime startDate) {
         this.startDate = startDate;
     }
 
-    public Date getStartDate() {
+    public LocalDateTime getStartDate() {
         return this.startDate;
     }
 
-    public void setEndDate(Date endDate) {
+    public void setEndDate(LocalDateTime endDate) {
         this.endDate = endDate;
     }
 
-    public Date getEndDate() {
+    public LocalDateTime getEndDate() {
         return this.endDate;
     }
 

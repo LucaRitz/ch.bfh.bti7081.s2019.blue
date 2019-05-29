@@ -1,7 +1,7 @@
 package ch.bfh.bti7081.s2019.blue.server.persistence.model;
 
 import javax.persistence.*;
-import java.util.Date;
+import java.time.LocalDateTime;
 
 @Entity
 @Table(name = "absence")
@@ -16,10 +16,10 @@ public class Absence {
     private String description;
 
     @Column(name = "from_date")
-    private Date startDate;
+    private LocalDateTime startDate;
 
     @Column(name = "end_date")
-    private Date endDate;
+    private LocalDateTime endDate;
 
     @ManyToOne
     @JoinColumn
@@ -41,19 +41,19 @@ public class Absence {
         return this.description;
     }
 
-    public void setStartDate(Date startDate) {
+    public void setStartDate(LocalDateTime startDate) {
         this.startDate = startDate;
     }
 
-    public Date getStartDate() {
+    public LocalDateTime getStartDate() {
         return this.startDate;
     }
 
-    public void setEndDate(Date endDate) {
+    public void setEndDate(LocalDateTime endDate) {
         this.endDate = endDate;
     }
 
-    public Date getEndDate() {
+    public LocalDateTime getEndDate() {
         return this.endDate;
     }
 

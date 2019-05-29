@@ -1,6 +1,7 @@
 package ch.bfh.bti7081.s2019.blue.server.persistence.model;
 
 import javax.persistence.*;
+import java.time.LocalDateTime;
 import java.util.Date;
 import java.util.List;
 
@@ -14,10 +15,10 @@ public class MissionSeries {
     private Integer id;
 
     @Column(name = "start_date")
-    private Date startDate;
+    private LocalDateTime startDate;
 
     @Column(name = "end_date")
-    private Date endDate;
+    private LocalDateTime endDate;
 
     @Column(name = "repetition_type")
     @Enumerated(EnumType.STRING)
@@ -35,19 +36,19 @@ public class MissionSeries {
         return this.id;
     }
 
-    public void setStartDate(Date startDate) {
+    public void setStartDate(LocalDateTime startDate) {
         this.startDate = startDate;
     }
 
-    public Date getStartDate() {
+    public LocalDateTime getStartDate() {
         return this.startDate;
     }
 
-    public void setEndDate(Date endDate) {
+    public void setEndDate(LocalDateTime endDate) {
         this.endDate = endDate;
     }
 
-    public Date getEndDate() {
+    public LocalDateTime getEndDate() {
         return this.endDate;
     }
 

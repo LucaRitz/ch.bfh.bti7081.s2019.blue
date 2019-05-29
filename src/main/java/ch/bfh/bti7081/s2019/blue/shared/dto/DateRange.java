@@ -1,42 +1,42 @@
 package ch.bfh.bti7081.s2019.blue.shared.dto;
 
-import java.util.Date;
+import java.time.LocalDateTime;
 
 public class DateRange {
 
-    private Date startDate;
+    private LocalDateTime startDate;
 
-    private Date endDate;
+    private LocalDateTime endDate;
 
-    public DateRange(Date startDate, Date endDate) {
+    public DateRange(LocalDateTime startDate, LocalDateTime endDate) {
         this.startDate = startDate;
         this.endDate = endDate;
     }
 
-    public boolean contains(Date date) {
+    public boolean contains(LocalDateTime date) {
         return date != null
-                && (getStartDate().before(date) || getStartDate().equals(date))
-                && (getEndDate().after(date) || getEndDate().equals(date));
+                && (getStartDate().isBefore(date) || getStartDate().equals(date))
+                && (getEndDate().isAfter(date) || getEndDate().equals(date));
     }
 
     public boolean intersects(DateRange other) {
-        return (startDate.before(other.getEndDate()) || startDate.equals(other.getEndDate()))
-                && (endDate.after(other.getStartDate()) || endDate.equals(other.getStartDate()));
+        return (startDate.isBefore(other.getEndDate()) || startDate.equals(other.getEndDate()))
+                && (endDate.isAfter(other.getStartDate()) || endDate.equals(other.getStartDate()));
     }
 
-    public Date getStartDate() {
+    public LocalDateTime getStartDate() {
         return startDate;
     }
 
-    public void setStartDate(Date startDate) {
+    public void setStartDate(LocalDateTime startDate) {
         this.startDate = startDate;
     }
 
-    public Date getEndDate() {
+    public LocalDateTime getEndDate() {
         return endDate;
     }
 
-    public void setEndDate(Date endDate) {
+    public void setEndDate(LocalDateTime endDate) {
         this.endDate = endDate;
     }
 }

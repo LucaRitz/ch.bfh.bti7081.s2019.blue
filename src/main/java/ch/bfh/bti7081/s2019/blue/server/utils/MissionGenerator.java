@@ -6,9 +6,8 @@ import ch.bfh.bti7081.s2019.blue.server.persistence.model.RepetitionType;
 import ch.bfh.bti7081.s2019.blue.shared.dto.DateRange;
 import org.springframework.stereotype.Component;
 
+import java.time.LocalDateTime;
 import java.util.ArrayList;
-import java.util.Calendar;
-import java.util.Date;
 import java.util.List;
 import java.util.stream.Collectors;
 
@@ -25,11 +24,11 @@ public class MissionGenerator {
     public List<Mission> generateMissionsFromSeries(MissionSeries missionSeries, DateRange viewRange) {
         List<Mission> missions = new ArrayList<>();
 
-        Date date = missionSeries.getStartDate();
+        LocalDateTime date = missionSeries.getStartDate();
 
-        while (date != null && date.before(viewRange.getEndDate())) {
+        while (date != null && date.isBefore(viewRange.getEndDate())) {
 
-            if (viewRange.contains(date) && missionSeries.getEndDate().after(date)) {
+            if (viewRange.contains(date) && missionSeries.getEndDate().isAfter(date)) {
                 missions.add(generateMission(missionSeries, date));
             }
 
@@ -39,9 +38,9 @@ public class MissionGenerator {
         return missions;
     }
 
-    private Mission generateMission(MissionSeries missionSeries, Date startDate) {
+    private Mission generateMission(MissionSeries missionSeries, LocalDateTime startDate) {
 
-        Date endDate = takeOverTime(missionSeries.getEndDate(), startDate);
+        LocalDateTime endDate = takeOverTime(missionSeries.getEndDate(), startDate);
 
         Mission mission = new Mission();
         mission.setMissionSeries(missionSeries);
@@ -50,43 +49,25 @@ public class MissionGenerator {
         return mission;
     }
 
-    private Date takeOverTime(Date source, Date target) {
-
-        Calendar sourceCal = Calendar.getInstance();
-        sourceCal.setTime(source);
-
-        Calendar targetCal = Calendar.getInstance();
-        targetCal.setTime(target);
-        targetCal.set(Calendar.HOUR_OF_DAY, sourceCal.get(Calendar.HOUR_OF_DAY));
-        targetCal.set(Calendar.MINUTE, sourceCal.get(Calendar.MINUTE));
-        targetCal.set(Calendar.SECOND, sourceCal.get(Calendar.SECOND));
-        targetCal.set(Calendar.MILLISECOND, sourceCal.get(Calendar.MILLISECOND));
-
-        return targetCal.getTime();
+    private LocalDateTime takeOverTime(LocalDateTime source, LocalDateTime target) {
+        return LocalDateTime.of(target.toLocalDate(), source.toLocalTime());
     }
 
-    private Date getNextDate(RepetitionType repetitionType, Date date) {
-
-        Calendar cal = Calendar.getInstance();
-        cal.setTime(date);
+    private LocalDateTime getNextDate(RepetitionType repetitionType, LocalDateTime date) {
 
         switch (repetitionType) {
             case ONCE:
                 return null;
             case DAILY:
-                cal.add(Calendar.DAY_OF_MONTH, 1);
-                break;
+                return date.plusDays(1);
             case WEEKLY:
-                cal.add(Calendar.WEEK_OF_YEAR, 1);
-                break;
+                return date.plusWeeks(1);
             case MONTHLY:
-                cal.add(Calendar.MONTH, 1);
-                break;
+                return  date.plusMonths(1);
             default:
                 throw new IllegalArgumentException("Unknown " + RepetitionType.class + ": " + repetitionType);
         }
 
-        return cal.getTime();
     }
 
 }

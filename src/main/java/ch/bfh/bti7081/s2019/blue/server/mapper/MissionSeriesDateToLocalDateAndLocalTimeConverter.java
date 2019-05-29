@@ -1,13 +1,10 @@
 package ch.bfh.bti7081.s2019.blue.server.mapper;
 
 import ch.bfh.bti7081.s2019.blue.server.persistence.model.MissionSeries;
-import ch.bfh.bti7081.s2019.blue.server.utils.DateTimeUtil;
 import ch.bfh.bti7081.s2019.blue.shared.dto.MissionSeriesDto;
 import org.dozer.DozerConverter;
 
 import java.time.LocalDateTime;
-import java.time.ZoneId;
-import java.util.Date;
 
 public class MissionSeriesDateToLocalDateAndLocalTimeConverter extends DozerConverter<MissionSeries, MissionSeriesDto> {
 
@@ -18,13 +15,10 @@ public class MissionSeriesDateToLocalDateAndLocalTimeConverter extends DozerConv
     @Override
     public MissionSeriesDto convertTo(MissionSeries source, MissionSeriesDto destination) {
 
-        LocalDateTime starDate = DateTimeUtil.getDateTime(source.getStartDate());
-        LocalDateTime endDate = DateTimeUtil.getDateTime(source.getEndDate());
-
-        destination.setStartDate(starDate.toLocalDate());
-        destination.setStartTime(starDate.toLocalTime());
-        destination.setEndDate(endDate.toLocalDate());
-        destination.setEndTime(endDate.toLocalTime());
+        destination.setStartDate(source.getStartDate().toLocalDate());
+        destination.setStartTime(source.getStartDate().toLocalTime());
+        destination.setEndDate(source.getEndDate().toLocalDate());
+        destination.setEndTime(source.getEndDate().toLocalTime());
 
         return destination;
     }
@@ -32,15 +26,8 @@ public class MissionSeriesDateToLocalDateAndLocalTimeConverter extends DozerConv
     @Override
     public MissionSeries convertFrom(MissionSeriesDto source, MissionSeries destination) {
 
-        Date startDate = Date.from(
-                LocalDateTime.of(source.getStartDate(), source.getStartTime())
-                        .atZone(ZoneId.systemDefault())
-                        .toInstant());
-
-        Date endDate = Date.from(
-                LocalDateTime.of(source.getEndDate(), source.getEndTime())
-                        .atZone(ZoneId.systemDefault())
-                        .toInstant());
+        LocalDateTime startDate = LocalDateTime.of(source.getStartDate(), source.getStartTime());
+        LocalDateTime endDate = LocalDateTime.of(source.getEndDate(), source.getEndTime());
 
         destination.setStartDate(startDate);
         destination.setEndDate(endDate);

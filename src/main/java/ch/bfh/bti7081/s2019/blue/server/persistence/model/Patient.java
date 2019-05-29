@@ -1,8 +1,8 @@
 package ch.bfh.bti7081.s2019.blue.server.persistence.model;
 
 import javax.persistence.*;
+import java.time.LocalDateTime;
 import java.util.ArrayList;
-import java.util.Date;
 import java.util.List;
 
 @Entity
@@ -21,7 +21,7 @@ public class Patient {
     private String lastname;
 
     @Column(name = "birthdate")
-    private Date birthdate;
+    private LocalDateTime birthdate;
 
     @Column(name = "number", unique = true)
     private Integer number;
@@ -67,11 +67,11 @@ public class Patient {
         return this.lastname;
     }
 
-    public void setBirthdate(Date birthdate) {
+    public void setBirthdate(LocalDateTime birthdate) {
         this.birthdate = birthdate;
     }
 
-    public Date getBirthdate() {
+    public LocalDateTime getBirthdate() {
         return this.birthdate;
     }
 

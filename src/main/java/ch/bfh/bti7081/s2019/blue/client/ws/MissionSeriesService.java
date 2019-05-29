@@ -6,7 +6,7 @@ import ch.bfh.bti7081.s2019.blue.client.rest.RestPromise;
 import ch.bfh.bti7081.s2019.blue.shared.dto.MissionSeriesDto;
 import org.springframework.web.bind.annotation.*;
 
-import java.util.Date;
+import java.time.LocalDateTime;
 
 @Path("/rest/missionseries")
 public interface MissionSeriesService extends IsRestService {
@@ -23,5 +23,5 @@ public interface MissionSeriesService extends IsRestService {
 
     @PutMapping
     @Path("/{id}")
-    RestPromise<Void> updateEndDate(@PathVariable int id, @RequestParam("endDate") Date endDate);
+    RestPromise<Void> updateEndDate(@PathVariable int id, @RequestParam("endDate") LocalDateTime endDate);
 }
