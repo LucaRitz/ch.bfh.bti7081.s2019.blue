@@ -11,25 +11,24 @@ import org.springframework.web.client.RestTemplate;
 import java.lang.annotation.Annotation;
 import java.lang.reflect.*;
 import java.util.*;
-import java.util.concurrent.CompletableFuture;
 
-public class RestResourceProxy implements InvocationHandler {
+public class RestResourceProxy<P> implements InvocationHandler {
 
     private final ProvidesConverter converter;
     private final Map<String, Configuration> configMapping;
-    private final Map<String, RestResourceProxy> subProxies;
+    private final Map<String, RestResourceProxy<?>> subProxies;
     private final String parentResourcePath;
     private final RestTemplate template;
-    private final Object resourceProxy;
+    private final P resourceProxy;
 
     private Object[] parentParams;
 
-    public RestResourceProxy(Class<?> resource, String host, ProvidesConverter converter,
+    public RestResourceProxy(Class<P> resource, String host, ProvidesConverter converter,
                              ResponseErrorHandler errorHandler) {
         this(resource, converter, errorHandler, host);
     }
 
-    private RestResourceProxy(Class<?> resource, ProvidesConverter converter, ResponseErrorHandler errorHandler,
+    private RestResourceProxy(Class<P> resource, ProvidesConverter converter, ResponseErrorHandler errorHandler,
                               String parentResourcePath) {
         this.converter = converter;
         this.configMapping = new HashMap<>();
@@ -38,11 +37,11 @@ public class RestResourceProxy implements InvocationHandler {
         this.template = new RestTemplate();
         this.template.setErrorHandler(errorHandler);
 
-        this.resourceProxy = Proxy.newProxyInstance(RestResourceProxy.class.getClassLoader(), new Class<?>[]{resource}, this);
+        this.resourceProxy = (P) Proxy.newProxyInstance(RestResourceProxy.class.getClassLoader(), new Class<?>[]{resource}, this);
         initialize(resource);
     }
 
-    public Object getResourceProxy() {
+    public P getResourceProxy() {
         return resourceProxy;
     }
 
@@ -67,7 +66,7 @@ public class RestResourceProxy implements InvocationHandler {
 
     private Object doRequest(Method method, Object[] args) {
         Configuration configuration = configMapping.get(method.getName());
-        CompletableFuture<Object> future = new CompletableFuture<>();
+        RestPromise<Object> promise = new RestPromise<>();
 
         Object[] convertedParams = Arrays.stream(args)
                 .map(converter::convertParam)
@@ -92,13 +91,12 @@ public class RestResourceProxy implements InvocationHandler {
         }
 
         if (hasErrors(response)) {
-            future.completeExceptionally(new RequestException());
+            promise.reject(new RequestException());
         } else {
-
-            future.complete(response.getBody());
+            promise.fulfill(response.getBody());
         }
 
-        return future;
+        return promise;
     }
 
     private void initialize(Class<?> resource) {
@@ -127,8 +125,8 @@ public class RestResourceProxy implements InvocationHandler {
     }
 
     private void initializeSubProxy(String fullResourcePath, Method method) {
-        RestResourceProxy subProxy = new RestResourceProxy(method.getReturnType(), converter, template.getErrorHandler(),
-                fullResourcePath);
+        RestResourceProxy<?> subProxy = new RestResourceProxy<>(method.getReturnType(), converter,
+                template.getErrorHandler(), fullResourcePath);
         subProxies.put(method.getName(), subProxy);
     }
 

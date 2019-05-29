@@ -8,12 +8,14 @@ import ch.bfh.bti7081.s2019.blue.server.i18n.ServerConstantsProvider;
 import com.vaadin.flow.spring.annotation.EnableVaadin;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.beans.factory.config.ConfigurableBeanFactory;
+import org.springframework.boot.web.servlet.FilterRegistrationBean;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.ComponentScan;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.context.annotation.Scope;
 import org.springframework.data.jpa.repository.config.EnableJpaRepositories;
 import org.springframework.web.client.ResponseErrorHandler;
+import org.springframework.web.filter.CommonsRequestLoggingFilter;
 
 @Configuration
 @EnableVaadin
@@ -34,36 +36,54 @@ public class AppConfiguration {
         return provider.get();
     }
 
-    // Rest Services
     @Bean
-    public HomeService getHomeRestClient(ResponseErrorHandler errorHandler, ProvidesConverter readConverter) {
-        return createProxy(HomeService.class, errorHandler, readConverter);
+    public CommonsRequestLoggingFilter logFilter() {
+        CommonsRequestLoggingFilter filter
+                = new CommonsRequestLoggingFilter();
+        filter.setIncludeQueryString(true);
+        filter.setIncludePayload(true);
+        filter.setMaxPayloadLength(10000);
+        filter.setIncludeHeaders(false);
+        filter.setAfterMessagePrefix("REQUEST DATA : ");
+        return filter;
     }
 
     @Bean
-    public EmployeeService getEmployeeRestClient(ResponseErrorHandler errorHandler, ProvidesConverter readConverter) {
-        return createProxy(EmployeeService.class, errorHandler, readConverter);
+    public FilterRegistrationBean loggingFilterRegistration(CommonsRequestLoggingFilter loggingFilter) {
+        FilterRegistrationBean<CommonsRequestLoggingFilter> registration = new FilterRegistrationBean<>(loggingFilter);
+        registration.addUrlPatterns("/rest/*");
+        return registration;
+    }
+
+    // Rest Services
+    @Bean
+    public HomeService getHomeRestClient(ResponseErrorHandler errorHandler, ProvidesConverter converter) {
+        return createProxy(HomeService.class, errorHandler, converter);
+    }
+
+    @Bean
+    public EmployeeService getEmployeeRestClient(ResponseErrorHandler errorHandler, ProvidesConverter converter) {
+        return createProxy(EmployeeService.class, errorHandler, converter);
     }
 
     @Bean
     public MissionSeriesService getMissionSeriesRestClient(ResponseErrorHandler errorHandler,
-                                                           ProvidesConverter readConverter) {
-        return createProxy(MissionSeriesService.class, errorHandler, readConverter);
+                                                           ProvidesConverter converter) {
+        return createProxy(MissionSeriesService.class, errorHandler, converter);
     }
 
     @Bean
-    public MissionService getMissionRestClient(ResponseErrorHandler errorHandler, ProvidesConverter readConverter) {
-        return createProxy(MissionService.class, errorHandler, readConverter);
+    public MissionService getMissionRestClient(ResponseErrorHandler errorHandler, ProvidesConverter converter) {
+        return createProxy(MissionService.class, errorHandler, converter);
     }
 
     @Bean
-    public PatientService getPatientRestClient(ResponseErrorHandler errorHandler, ProvidesConverter readConverter) {
-        return createProxy(PatientService.class, errorHandler, readConverter);
+    public PatientService getPatientRestClient(ResponseErrorHandler errorHandler, ProvidesConverter converter) {
+        return createProxy(PatientService.class, errorHandler, converter);
     }
 
-    private <T> T createProxy(Class<T> service, ResponseErrorHandler errorHandler, ProvidesConverter readConverter) {
+    private <T> T createProxy(Class<T> service, ResponseErrorHandler errorHandler, ProvidesConverter converter) {
         String host = "http://" + serverAddress + ":" + serverPort;
-        return (T) new RestResourceProxy(service, host, readConverter, errorHandler)
-                .getResourceProxy();
+        return new RestResourceProxy<>(service, host, converter, errorHandler).getResourceProxy();
     }
 }

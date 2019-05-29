@@ -4,6 +4,8 @@ import ch.bfh.bti7081.s2019.blue.client.app.patient.assign.MissionAssignDialog;
 import ch.bfh.bti7081.s2019.blue.client.i18n.AppConstants;
 import ch.bfh.bti7081.s2019.blue.client.app.patient.create.MissionCreateDialog;
 import ch.bfh.bti7081.s2019.blue.client.app.patient.edit.MissionEditDialog;
+import ch.bfh.bti7081.s2019.blue.client.i18n.AppConstants;
+import ch.bfh.bti7081.s2019.blue.client.rest.Promises;
 import ch.bfh.bti7081.s2019.blue.client.ws.MissionService;
 import ch.bfh.bti7081.s2019.blue.client.ws.PatientService;
 import ch.bfh.bti7081.s2019.blue.shared.dto.MissionDto;
@@ -20,7 +22,6 @@ import java.util.Collections;
 import java.util.Date;
 import java.util.List;
 import java.util.Random;
-import java.util.concurrent.CompletableFuture;
 
 import static org.mockito.Mockito.*;
 
@@ -121,7 +122,7 @@ class PatientPlannerActivityTest {
     void onSelectionChange_updateMissionsOnView() {
         List<MissionDto> expectedMissions = Collections.singletonList(new MissionDto());
 
-        when(missionService.find(any(), any(), any())).thenReturn(CompletableFuture.completedFuture(expectedMissions));
+        when(missionService.find(any(), any(), any())).thenReturn(Promises.fulfill(expectedMissions));
 
         // Act
         activity.onSelectionChange(new PatientRefDto(), new Date(), new Date());
@@ -133,7 +134,7 @@ class PatientPlannerActivityTest {
     @Test
     void loadMasterdata_updatePatientsOnView() {
         List<PatientRefDto> expectedPatients = Collections.singletonList(new PatientRefDto());
-        when(patientService.get()).thenReturn(CompletableFuture.completedFuture(expectedPatients));
+        when(patientService.get()).thenReturn(Promises.fulfill(expectedPatients));
 
         // Act
         activity.loadMasterdata();

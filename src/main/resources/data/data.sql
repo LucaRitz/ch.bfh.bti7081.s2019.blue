@@ -153,13 +153,13 @@ INSERT INTO mission_series(start_date, end_date, repetition_type, patient_id) VA
 
 -- Einsatzserien Patient Stucki
 INSERT INTO mission_series(start_date, end_date, repetition_type, patient_id) VALUES
-  (parsedatetime('2019-05-06 18:15:00.00', 'yyyy-MM-dd HH:mm:ss.SS'), parsedatetime('2019-07-07 17:00:00.00', 'yyyy-MM-dd HH:mm:ss.SS'), 'WEEKLY', select id from patient where lastname = 'Stucki'),
-  (parsedatetime('2019-05-07 18:15:00.00', 'yyyy-MM-dd HH:mm:ss.SS'), parsedatetime('2019-07-07 17:00:00.00', 'yyyy-MM-dd HH:mm:ss.SS'), 'WEEKLY', select id from patient where lastname = 'Stucki'),
-  (parsedatetime('2019-05-08 18:15:00.00', 'yyyy-MM-dd HH:mm:ss.SS'), parsedatetime('2019-07-07 17:00:00.00', 'yyyy-MM-dd HH:mm:ss.SS'), 'WEEKLY', select id from patient where lastname = 'Stucki'),
-  (parsedatetime('2019-05-09 18:15:00.00', 'yyyy-MM-dd HH:mm:ss.SS'), parsedatetime('2019-07-07 17:00:00.00', 'yyyy-MM-dd HH:mm:ss.SS'), 'WEEKLY', select id from patient where lastname = 'Stucki'),
-  (parsedatetime('2019-05-10 18:15:00.00', 'yyyy-MM-dd HH:mm:ss.SS'), parsedatetime('2019-07-07 17:00:00.00', 'yyyy-MM-dd HH:mm:ss.SS'), 'WEEKLY', select id from patient where lastname = 'Stucki'),
-  (parsedatetime('2019-05-11 18:15:00.00', 'yyyy-MM-dd HH:mm:ss.SS'), parsedatetime('2019-07-07 17:00:00.00', 'yyyy-MM-dd HH:mm:ss.SS'), 'WEEKLY', select id from patient where lastname = 'Stucki'),
-  (parsedatetime('2019-05-12 18:15:00.00', 'yyyy-MM-dd HH:mm:ss.SS'), parsedatetime('2019-07-07 17:00:00.00', 'yyyy-MM-dd HH:mm:ss.SS'), 'WEEKLY', select id from patient where lastname = 'Stucki');
+  (parsedatetime('2019-05-06 18:15:00.00', 'yyyy-MM-dd HH:mm:ss.SS'), parsedatetime('2019-07-07 19:00:00.00', 'yyyy-MM-dd HH:mm:ss.SS'), 'WEEKLY', select id from patient where lastname = 'Stucki'),
+  (parsedatetime('2019-05-07 18:15:00.00', 'yyyy-MM-dd HH:mm:ss.SS'), parsedatetime('2019-07-07 19:00:00.00', 'yyyy-MM-dd HH:mm:ss.SS'), 'WEEKLY', select id from patient where lastname = 'Stucki'),
+  (parsedatetime('2019-05-08 18:15:00.00', 'yyyy-MM-dd HH:mm:ss.SS'), parsedatetime('2019-07-07 19:00:00.00', 'yyyy-MM-dd HH:mm:ss.SS'), 'WEEKLY', select id from patient where lastname = 'Stucki'),
+  (parsedatetime('2019-05-09 18:15:00.00', 'yyyy-MM-dd HH:mm:ss.SS'), parsedatetime('2019-07-07 19:00:00.00', 'yyyy-MM-dd HH:mm:ss.SS'), 'WEEKLY', select id from patient where lastname = 'Stucki'),
+  (parsedatetime('2019-05-10 18:15:00.00', 'yyyy-MM-dd HH:mm:ss.SS'), parsedatetime('2019-07-07 19:00:00.00', 'yyyy-MM-dd HH:mm:ss.SS'), 'WEEKLY', select id from patient where lastname = 'Stucki'),
+  (parsedatetime('2019-05-11 18:15:00.00', 'yyyy-MM-dd HH:mm:ss.SS'), parsedatetime('2019-07-07 19:00:00.00', 'yyyy-MM-dd HH:mm:ss.SS'), 'WEEKLY', select id from patient where lastname = 'Stucki'),
+  (parsedatetime('2019-05-12 18:15:00.00', 'yyyy-MM-dd HH:mm:ss.SS'), parsedatetime('2019-07-07 19:00:00.00', 'yyyy-MM-dd HH:mm:ss.SS'), 'WEEKLY', select id from patient where lastname = 'Stucki');
 
 INSERT INTO mission_series(start_date, end_date, repetition_type, patient_id) VALUES
   (parsedatetime('2019-05-06 10:15:00.00', 'yyyy-MM-dd HH:mm:ss.SS'), parsedatetime('2019-07-07 11:15:00.00', 'yyyy-MM-dd HH:mm:ss.SS'), 'WEEKLY', select id from patient where lastname = 'Stucki'),
