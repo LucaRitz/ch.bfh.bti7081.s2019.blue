@@ -10,6 +10,7 @@ import com.vaadin.flow.component.*;
 import com.vaadin.flow.component.button.Button;
 import com.vaadin.flow.component.combobox.ComboBox;
 import com.vaadin.flow.component.dependency.HtmlImport;
+import com.vaadin.flow.component.polymertemplate.EventHandler;
 import com.vaadin.flow.component.polymertemplate.Id;
 import com.vaadin.flow.spring.annotation.UIScope;
 import org.springframework.stereotype.Component;
@@ -41,7 +42,6 @@ public class EmployeePlannerViewImpl extends BaseViewImpl<EmployeeViewModel> imp
     private Presenter presenter;
     private LocalDateTime startDate = null;
     private LocalDateTime endDate = null;
-    private Integer selectedMissionId = null;
     private DateRange selectedDateRange = null;
 
     public EmployeePlannerViewImpl() {
@@ -66,9 +66,10 @@ public class EmployeePlannerViewImpl extends BaseViewImpl<EmployeeViewModel> imp
     private void addEventListeners() {
         calendar.addEntryClickedListener((ComponentEventListener<EntryClickedEvent>) event -> {
             Entry entry = event.getEntry();
-            this.selectedMissionId = entry != null ? Integer.parseInt(entry.getId()) : null;
-            this.selectedDateRange = entry != null ? new DateRange(entry.getStart(), entry.getEnd()): null;
 
+            if(entry.getId().startsWith("-")) {
+                this.selectedDateRange = entry != null ? new DateRange(entry.getStart(), entry.getEnd()) : null;
+            }
         });
 
 
@@ -135,12 +136,24 @@ public class EmployeePlannerViewImpl extends BaseViewImpl<EmployeeViewModel> imp
 
     @Override
     public void reload() {
+        EmployeeDto selectedEmployee = employees.getValue();
 
+        if (selectedEmployee != null) {
+            presenter.onSelectionChange(selectedEmployee, startDate, endDate);
+        }
     }
 
     @Override
     public DateRange getSelectedDateRange() {
-        return this.selectedDateRange;
+        DateRange returnDateRange = this.selectedDateRange;
+        this.selectedDateRange = null;
+        return returnDateRange;
+
+    }
+
+    @Override
+    public EmployeeDto getSelectedEmployee() {
+        return employees.getValue();
     }
 
     private Entry toEntry(MissionDto missionDto) {
@@ -162,9 +175,7 @@ public class EmployeePlannerViewImpl extends BaseViewImpl<EmployeeViewModel> imp
 
     private Entry toEntry(DateRange dateRange) {
 
-        /*PatientRefDto patient = missionDto.getMissionSeries().getPatient();*/
-
-        String missionId = UUID.randomUUID().toString();
+        String missionId = "-" + UUID.randomUUID().toString();
 
         String title = "Vorschläge verfügbar.";
 
@@ -176,4 +187,11 @@ public class EmployeePlannerViewImpl extends BaseViewImpl<EmployeeViewModel> imp
 
         return new Entry(missionId, title, startDate, endDate, false, false, color, null);
     }
+
+    @EventHandler
+    private void openRecommendationButtonPressed() {
+        presenter.onOpenRecommendationClick();
+    }
+
+
 }

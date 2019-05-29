@@ -12,7 +12,7 @@ import java.time.LocalDateTime;
 import java.util.Date;
 import java.util.List;
 
-@Path("/misssionrecommendations")
+@Path("/missionrecommendations")
 public interface EmployeeMissionRecommendationsSubService extends IsRestService {
 
     @GetMapping

@@ -52,13 +52,14 @@ public class EmployeePlannerActivity extends BaseActivity implements EmployeePla
 
     @Override
     public void onOpenRecommendationClick() {
+        EmployeeDto employee = view.getSelectedEmployee();
         DateRange dateRange = view.getSelectedDateRange();
-        if (dateRange == null) {
+
+        if (dateRange == null || employee == null) {
             view.showNotification(AppConstants.PATIENT_PLANNER_NO_SELECTED_MISSION.getKey());
             return;
         }
-
-        assignDialog.setProperties(dateRange);
+        assignDialog.setProperties(dateRange, employee);
         assignDialog.setListener(view::reload);
         assignDialog.start();
     }

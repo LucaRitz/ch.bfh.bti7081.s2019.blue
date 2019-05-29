@@ -8,6 +8,7 @@ import ch.bfh.bti7081.s2019.blue.server.service.PatientMissionRecommendationServ
 import ch.bfh.bti7081.s2019.blue.server.validator.ValidationException;
 import ch.bfh.bti7081.s2019.blue.shared.HttpUtil;
 import ch.bfh.bti7081.s2019.blue.shared.dto.DateRange;
+import ch.bfh.bti7081.s2019.blue.shared.dto.MissionDto;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.format.annotation.DateTimeFormat;
 import org.springframework.web.bind.annotation.*;
@@ -20,7 +21,7 @@ import java.util.List;
 import java.util.Optional;
 
 @RestController
-@RequestMapping(EmployeeResource.PATH + "/{employeeId}/misssionrecommendations")
+@RequestMapping(EmployeeResource.PATH + "/{employeeId}/missionrecommendations")
 public class EmployeeMissionRecommendationSubResource {
 
     private final EmployeeRepository employeeRepository;
@@ -38,9 +39,9 @@ public class EmployeeMissionRecommendationSubResource {
 
     @GetMapping(produces = MediaType.APPLICATION_JSON)
     public @ResponseBody
-    List<Mission> find(@PathVariable Integer employeeId,
-                         @RequestParam @DateTimeFormat(pattern = HttpUtil.DATE_TIME_FORMAT) LocalDateTime start,
-                         @RequestParam @DateTimeFormat(pattern = HttpUtil.DATE_TIME_FORMAT) LocalDateTime end) {
+    List<MissionDto> find(@PathVariable Integer employeeId,
+                          @RequestParam @DateTimeFormat(pattern = HttpUtil.DATE_TIME_FORMAT) LocalDateTime start,
+                          @RequestParam @DateTimeFormat(pattern = HttpUtil.DATE_TIME_FORMAT) LocalDateTime end) {
 
         Optional<Employee> employee = employeeRepository.findById(employeeId);
         if (!employee.isPresent()) {

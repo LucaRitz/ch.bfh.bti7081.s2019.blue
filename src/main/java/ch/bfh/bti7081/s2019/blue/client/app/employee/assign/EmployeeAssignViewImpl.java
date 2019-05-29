@@ -3,8 +3,9 @@ package ch.bfh.bti7081.s2019.blue.client.app.employee.assign;
 
 import ch.bfh.bti7081.s2019.blue.client.app.base.BaseViewImpl;
 import ch.bfh.bti7081.s2019.blue.client.i18n.AppConstants;
+import ch.bfh.bti7081.s2019.blue.shared.dto.EmployeeDto;
 import ch.bfh.bti7081.s2019.blue.shared.dto.MissionDto;
-import ch.bfh.bti7081.s2019.blue.shared.dto.PatientDto;
+import com.vaadin.flow.component.ItemLabelGenerator;
 import com.vaadin.flow.component.Tag;
 import com.vaadin.flow.component.button.Button;
 import com.vaadin.flow.component.combobox.ComboBox;
@@ -12,24 +13,23 @@ import com.vaadin.flow.component.dependency.HtmlImport;
 import com.vaadin.flow.component.polymertemplate.EventHandler;
 import com.vaadin.flow.component.polymertemplate.Id;
 import com.vaadin.flow.data.binder.BeanValidationBinder;
-import com.vaadin.flow.data.binder.BinderValidationStatus;
 import com.vaadin.flow.spring.annotation.UIScope;
 import org.springframework.stereotype.Component;
 
-import java.util.ArrayList;
+import java.util.List;
 
-@HtmlImport("src/MissionAssignDialogViewImpl.html")
-@Tag("mission-assign-dialog")
+@HtmlImport("src/EmployeeAssignDialogViewImpl.html")
+@Tag("employee-assign-dialog")
 @Component
 @UIScope
 public class EmployeeAssignViewImpl extends BaseViewImpl<EmployeeAssignViewModel> implements EmployeeAssignView {
 
-    private final BeanValidationBinder<MissionDto> binder;
-
     private EmployeeAssignView.Presenter presenter;
 
+    private EmployeeDto employee;
+
     @Id
-    private ComboBox comboBox;
+    private ComboBox<MissionDto> comboBox;
 
     @Id
     private Button saveButton;
@@ -38,10 +38,11 @@ public class EmployeeAssignViewImpl extends BaseViewImpl<EmployeeAssignViewModel
     private Button cancelButton;
 
     public EmployeeAssignViewImpl(){
-        binder = new BeanValidationBinder<>(MissionDto.class);
-        this.binder.forField(comboBox).bind("healthVisitor");
 
-        setText(getModel().getText()::setEmployee, AppConstants.MISSION_ASSIGN_EMPLOYEE );
+        this.comboBox.setItemLabelGenerator((ItemLabelGenerator<MissionDto>) MissionDto::getDisplayName );
+
+
+        setText(getModel().getText()::setMissions, AppConstants.ASSIGN_TO_MISSION );
         setText(getModel().getText()::setSave, AppConstants.ACTION_SAVE);
         setText(getModel().getText():: setCancel, AppConstants.ACTION_CANCEL);
     }
@@ -52,16 +53,26 @@ public class EmployeeAssignViewImpl extends BaseViewImpl<EmployeeAssignViewModel
     }
 
     @Override
-    public void assign(MissionDto missionDto) {
-        binder.setBean(missionDto);
-        comboBox.setItems(new ArrayList<PatientDto>());
+    public void setEmployee(EmployeeDto employee) {
+        this.employee = employee;
+
+    }
+
+    @Override
+    public void setRecommendedMissions(List<MissionDto> missions) {
+        comboBox.setItems(missions);
+
+        if (this.comboBox.getValue() == null && !missions.isEmpty()) {
+            this.comboBox.setValue(missions.get(0));
+        }
     }
 
     @EventHandler
     private void saveButtonPressed() {
-        BinderValidationStatus<MissionDto> status = binder.validate();
-        if(!status.hasErrors()){
-            presenter.onSaveClicked((binder.getBean()));
+        MissionDto missionDto = comboBox.getValue();
+        if(missionDto != null) {
+            missionDto.setHealthVisitor(employee);
+            presenter.onSaveClicked(missionDto);
         }
     }
 

@@ -64,8 +64,11 @@ public class MissionAssignViewImpl extends BaseViewImpl<MissionAssignViewModel> 
 
     @Override
     public void setEmployees(List<EmployeeDto> employees) {
-
         comboBox.setItems(employees);
+
+        if (this.comboBox.getValue() == null && !employees.isEmpty()) {
+            this.comboBox.setValue(employees.get(0));
+        }
     }
 
     @EventHandler

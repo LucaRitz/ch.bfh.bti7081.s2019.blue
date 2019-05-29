@@ -80,6 +80,10 @@ public class PatientPlannerActivity extends BaseActivity implements PatientPlann
             view.showNotification(AppConstants.PATIENT_PLANNER_NO_SELECTED_MISSION.getKey());
             return;
         }
+        if(dto.getHealthVisitor() != null) {
+            view.showNotification(AppConstants.PATIENT_PLANNER_HEALTH_VISITOR_ALREADY_ASSIGNED.getKey());
+            return;
+        }
 
         assignDialog.setProperties(dto);
         assignDialog.setListener(view::reload);

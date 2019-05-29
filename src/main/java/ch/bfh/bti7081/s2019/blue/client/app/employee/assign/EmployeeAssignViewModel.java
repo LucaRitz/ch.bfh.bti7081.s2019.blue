@@ -5,7 +5,7 @@ public interface EmployeeAssignViewModel extends TemplateModel {
     Text getText();
 
     interface Text{
-        void setEmployee(String employee);
+        void setMissions(String employee);
         void setSave(String save);
         void setCancel(String save);
     }

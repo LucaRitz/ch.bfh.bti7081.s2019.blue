@@ -21,6 +21,7 @@ public interface EmployeePlannerView extends IsView {
     void reload();
 
     DateRange getSelectedDateRange();
+    EmployeeDto getSelectedEmployee();
 
     interface Presenter {
         void onOpenRecommendationClick();
