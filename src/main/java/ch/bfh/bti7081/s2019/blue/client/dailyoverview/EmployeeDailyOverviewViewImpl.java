@@ -58,20 +58,21 @@ public class EmployeeDailyOverviewViewImpl extends BaseViewImpl<EmployeeDailyOve
                 EmployeeDto::getDisplayName);
         previousButton.addClickListener((ComponentEventListener<ClickEvent<Button>>) event -> {
             this.setSelectedDate(-1);
-            reloadEntries();
+            loadMissionEntries();
         });
         nextButton.addClickListener((ComponentEventListener<ClickEvent<Button>>) event -> {
             this.setSelectedDate(1);
-            reloadEntries();
+            loadMissionEntries();
         });
         this.selectedDate = Date.from(LocalDate.now().atStartOfDay(ZoneId.systemDefault()).toInstant());
-        this.date.setText(this.selectedDate.toString());
     }
 
-    private void reloadEntries() {
+    @Override
+    public void loadMissionEntries() {
 
         EmployeeDto selectedEmployee = employees.getValue();
-        this.date.setText(selectedDate.toString());
+        DateFormat dateFormat = new SimpleDateFormat("EEEE, d.M.y");
+        this.date.setText(dateFormat.format(this.selectedDate));
         Date nextDay = Date.from(this.selectedDate.toInstant().plusSeconds(24*3600));
 
         if (selectedEmployee != null) {
@@ -98,7 +99,7 @@ public class EmployeeDailyOverviewViewImpl extends BaseViewImpl<EmployeeDailyOve
         this.missionList.removeAll();
 
         if (list.isEmpty()) {
-            this.missionList.add("no entries found");
+            showNotification("employee.dailyoverview.nomissions");
         } else {
             for (MissionDto mission: list) {
                 PatientRefDto patient = mission.getMissionSeries().getPatient();
@@ -115,8 +116,12 @@ public class EmployeeDailyOverviewViewImpl extends BaseViewImpl<EmployeeDailyOve
                 String startTime = dateFormat.format(mission.getStartDate());
                 String endTime = dateFormat.format(mission.getEndDate());
 
+                String detailsButtonId = mission.getId().toString();
+                String detailsButtonText = this.getTranslation("employee.dailyoverview.details");
+
                 MissionItem missionItem = new MissionItem(false, firstname, lastname, streetName, houseNumber,
-                                                            postalCode, city, startTime, endTime);
+                                                            postalCode, city, startTime, endTime, detailsButtonId, detailsButtonText);
+
                 missionList.add(missionItem);
             }
         }

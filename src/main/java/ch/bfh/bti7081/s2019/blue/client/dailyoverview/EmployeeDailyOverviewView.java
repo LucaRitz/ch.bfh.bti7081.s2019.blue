@@ -16,6 +16,8 @@ public interface EmployeeDailyOverviewView extends IsView {
 
     void setMissions(List<MissionDto> list);
 
+    void loadMissionEntries();
+
     interface Presenter {
         void onDetailsClicked();
         void onSelectionChange(EmployeeDto employee, Date startDate, Date endDate);
