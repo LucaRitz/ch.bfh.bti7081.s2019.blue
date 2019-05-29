@@ -1,5 +1,6 @@
 <link rel="import" href="../bower_components/polymer/polymer.html">
 <link rel="import" href="TitledContent.html">
+<link rel="import" href="Dot.html">
 <dom-module id="employee-planner-view">
     <template>
         <style>
@@ -20,13 +21,17 @@
                         </vaadin-button>
                         <vaadin-combo-box id="employees">
                         </vaadin-combo-box>
+                        <pms-dot color="green"></pms-dot> [[text.colorRecommendationLegend]]
+                        <pms-dot color="blue"></pms-dot> [[text.colorBlueLegend]]
                     </vaadin-horizontal-layout>
                     <full-calendar id="calendar">
                     </full-calendar>
                 </vaadin-vertical-layout>
             </div>
             <div slot="actions">
-
+                <vaadin-button theme="action-button icon" on-click="openRecommendationButtonPressed">
+                    <iron-icon icon="vaadin:modal-list"></iron-icon>
+                </vaadin-button>
             </div>
         </titled-content>
     </template>

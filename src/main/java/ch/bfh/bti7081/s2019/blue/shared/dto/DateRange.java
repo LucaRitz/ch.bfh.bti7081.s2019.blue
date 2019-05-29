@@ -8,6 +8,9 @@ public class DateRange {
 
     private LocalDateTime endDate;
 
+    public DateRange() {
+
+    }
     public DateRange(LocalDateTime startDate, LocalDateTime endDate) {
         this.startDate = startDate;
         this.endDate = endDate;

@@ -2,10 +2,7 @@ package ch.bfh.bti7081.s2019.blue.client.app.patient;
 
 import ch.bfh.bti7081.s2019.blue.client.app.base.BaseViewImpl;
 import ch.bfh.bti7081.s2019.blue.client.i18n.AppConstants;
-import ch.bfh.bti7081.s2019.blue.shared.dto.EmployeeDto;
-import ch.bfh.bti7081.s2019.blue.shared.dto.MissionDto;
-import ch.bfh.bti7081.s2019.blue.shared.dto.MissionSeriesDto;
-import ch.bfh.bti7081.s2019.blue.shared.dto.PatientRefDto;
+import ch.bfh.bti7081.s2019.blue.shared.dto.*;
 import com.vaadin.flow.component.*;
 import com.vaadin.flow.component.button.Button;
 import com.vaadin.flow.component.combobox.ComboBox;
@@ -21,8 +18,6 @@ import org.vaadin.stefan.fullcalendar.*;
 import java.time.DayOfWeek;
 import java.time.LocalDate;
 import java.time.LocalDateTime;
-import java.time.ZoneId;
-import java.util.Date;
 import java.util.List;
 import java.util.Locale;
 import java.util.stream.Collectors;
@@ -83,8 +78,12 @@ public class PatientPlannerViewImpl extends BaseViewImpl<PatientPlannerViewModel
             Notification notification = new Notification("Click on " + id.getType() + " Mission with id=" + id + " was registered\n" +
                     "Start: " + entry.getStart().toString() + " End: " + entry.getEnd(), 3000);
             notification.open();
+
             this.selectedMissionSeries = getMissionSeriesById(id);
-            this.selectedMission = getNewMissionDtoById(id, entry);
+            if(id.getType() == MissionId.Type.MISSION_SERIES)
+                this.selectedMission = getNewMissionDtoById(id, entry);
+            else if(id.getType() == MissionId.Type.MISSION)
+                this.selectedMission = getMissionById(id);
 
 
         });
@@ -120,11 +119,18 @@ public class PatientPlannerViewImpl extends BaseViewImpl<PatientPlannerViewModel
 
     @Override
     public MissionSeriesDto getSelectedMissionSeries() {
-        return this.selectedMissionSeries;
+        MissionSeriesDto returnMissionSeriesDto = this.selectedMissionSeries;
+        this.selectedMissionSeries = null;
+        return returnMissionSeriesDto;
     }
 
     @Override
-    public MissionDto getSelectedMissionToAssign() { return this.selectedMission; }
+    public MissionDto getSelectedMissionToAssign() {
+        MissionDto returnMissionDto = this.selectedMission;
+        this.selectedMission = null;
+        return returnMissionDto;
+    }
+
 
     @Override
     public void setPresenter(Presenter presenter) {
@@ -204,6 +210,19 @@ public class PatientPlannerViewImpl extends BaseViewImpl<PatientPlannerViewModel
         }
     }
 
+    private MissionDto getMissionById(MissionId id) {
+
+       if (MissionId.Type.MISSION.equals(id.getType())) {
+
+            return this.missions.stream()
+                    .filter(mission -> mission.getId().equals(id.getMissionId()))
+                    .findFirst()
+                    .orElse(null);
+        } else {
+            return null;
+        }
+    }
+
     //Returns a new MissionDto out of the selected Appointment
     private MissionDto getNewMissionDtoById(MissionId id, Entry entry) {
 
@@ -216,3 +235,6 @@ public class PatientPlannerViewImpl extends BaseViewImpl<PatientPlannerViewModel
 
     }
 }
+
+
+

@@ -1,6 +1,9 @@
 package ch.bfh.bti7081.s2019.blue.shared.dto;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+
 import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
 
 public class MissionDto {
 
@@ -62,5 +65,13 @@ public class MissionDto {
 
     public void setRecommendationsAvailable(boolean recommendationsAvailable) {
         this.recommendationsAvailable = recommendationsAvailable;
+    }
+
+
+    @JsonIgnore
+    public String getDisplayName() {
+        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("hh:mm");
+
+        return this.getMissionSeries().getPatient().getDisplayName()+": " + formatter.format(this.getStartDate()) + " - " + formatter.format(this.getEndDate());
     }
 }
