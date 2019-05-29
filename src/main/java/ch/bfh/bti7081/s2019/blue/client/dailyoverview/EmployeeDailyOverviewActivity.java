@@ -40,7 +40,6 @@ public class EmployeeDailyOverviewActivity extends BaseActivity implements Emplo
     void loadMasterdata() {
         employeeService.find(EmployeeRole.HEALTH_VISITOR)
                 .done(view::setEmployees);
-        view.loadMissionEntries();
     }
 
     @Override

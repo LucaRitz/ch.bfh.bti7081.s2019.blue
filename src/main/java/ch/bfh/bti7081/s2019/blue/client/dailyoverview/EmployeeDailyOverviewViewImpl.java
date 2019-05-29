@@ -56,6 +56,7 @@ public class EmployeeDailyOverviewViewImpl extends BaseViewImpl<EmployeeDailyOve
         setText(getModel().getText()::setTitle, AppConstants.MENU_EMPLOYEEDAILYOVERVIEW);
         this.employees.setItemLabelGenerator((ItemLabelGenerator<EmployeeDto>)
                 EmployeeDto::getDisplayName);
+        this.employees.addValueChangeListener(event -> this.loadMissionEntries());
         previousButton.addClickListener((ComponentEventListener<ClickEvent<Button>>) event -> {
             this.setSelectedDate(-1);
             loadMissionEntries();
