@@ -1,4 +1,4 @@
-package ch.bfh.bti7081.s2019.blue.client.app.patient;
+package ch.bfh.bti7081.s2019.blue.client.app.backoffice.patient;
 
 import ch.bfh.bti7081.s2019.blue.client.app.base.BaseViewImpl;
 import ch.bfh.bti7081.s2019.blue.client.i18n.AppConstants;
