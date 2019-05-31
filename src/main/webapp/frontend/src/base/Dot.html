@@ -1,0 +1,40 @@
+<link rel="import" href="../../bower_components/polymer/polymer-element.html">
+
+<dom-module id="pms-dot">
+
+    <template>
+        <style>
+            :host {
+                height: 1em;
+                width: 1em;
+                background-color: #bbb;
+                border-radius: 50%;
+                display: inline-block;
+                vertical-align: middle;
+                border: 1px solid #686868;
+            }
+
+            :host([color="blue"]) {
+                background-color: #6565FF;
+            }
+
+            :host([color="red"]) {
+                background-color: #FF6565;
+            }
+            :host([color="green"]) {
+                background-color: #48FF79;
+            }
+        </style>
+        <span></span>
+    </template>
+
+    <script>
+        class DotApply extends Polymer.Element {
+            static get is() {
+                return 'pms-dot'
+            }
+        }
+
+        customElements.define(DotApply.is, DotApply);
+    </script>
+</dom-module>

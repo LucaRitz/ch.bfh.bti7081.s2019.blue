@@ -1,0 +1,67 @@
+<link rel="import" href="../../../bower_components/polymer/polymer.html">
+<link rel="import" href="../../base/TitledContent.html">
+<link rel="import" href="../../base/Dot.html">
+<dom-module id="employee-daily-overview">
+    <template>
+        <style>
+            :host {
+                width: 100%;
+            }
+            ul.timeline {
+                list-style-type: none;
+                position: relative;
+            }
+            ul.timeline:before {
+                content: ' ';
+                background: #d4d9df;
+                display: inline-block;
+                position: absolute;
+                left: 32px;
+                width: 2px;
+                height: 100%;
+            }
+            ul.timeline > li {
+                margin: 20px 0;
+                padding-left: 20px;
+            }
+            ul.timeline > li:before {
+                content: ' ';
+                background: white;
+                display: inline-block;
+                position: absolute;
+                border-radius: 50%;
+                border: 3px solid #22c0e8;
+                left: 20px;
+                width: 20px;
+                height: 20px;
+            }
+            ul.timeline > li.done:before {
+                background: #22c0e8;
+            }
+        </style>
+        <titled-content>
+            <label slot="title">[[text.title]]</label>
+            <div slot="content">
+                <vaadin-combo-box id="employees"></vaadin-combo-box>
+                <vaadin-button theme="icon" id="previousButton">
+                    <iron-icon icon="lumo:arrow-left"></iron-icon>
+                </vaadin-button>
+                <vaadin-button theme="icon" id="nextButton">
+                    <iron-icon icon="lumo:arrow-right"></iron-icon>
+                </vaadin-button>
+                <p id="date"></p>
+                <ul id="missionList" class="timeline"></ul>
+            </div>
+        </titled-content>
+    </template>
+
+    <script>
+        class ViewApply extends Polymer.Element {
+            static get is() {
+                return 'employee-daily-overview'
+            }
+        }
+
+        customElements.define(ViewApply.is, ViewApply);
+    </script>
+</dom-module>
