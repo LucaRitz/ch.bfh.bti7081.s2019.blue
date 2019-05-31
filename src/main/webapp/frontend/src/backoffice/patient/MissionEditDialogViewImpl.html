@@ -1,0 +1,27 @@
+<link rel="import" href="../../../bower_components/polymer/polymer.html">
+<link rel="import" href="../../../bower_components/vaadin-date-picker/vaadin-date-picker.html">
+
+<dom-module id="mission-edit-dialog">
+    <template>
+        <style>
+            :host {
+                width: 100%;
+            }
+        </style>
+            <vaadin-form-layout>
+                    <vaadin-date-picker id="endDate"  label="[[text.endDate]]"></vaadin-date-picker>
+                <br>
+                    <vaadin-button id="saveButton" on-click="saveButtonPressed">[[text.save]]</vaadin-button>
+                    <vaadin-button id="cancelButton" on-click="cancelButtonPressed">[[text.cancel]]</vaadin-button>
+            </vaadin-form-layout>
+    </template>
+
+    <script>
+        class MissionEditDialogViewApply extends Polymer.Element {
+            static get is() {
+                return 'mission-edit-dialog'
+            }
+        }
+        customElements.define(MissionEditDialogViewApply.is, MissionEditDialogViewApply);
+    </script>
+</dom-module>
