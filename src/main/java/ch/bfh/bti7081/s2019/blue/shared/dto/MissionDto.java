@@ -70,7 +70,7 @@ public class MissionDto {
 
     @JsonIgnore
     public String getDisplayName() {
-        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("hh:mm");
+        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("HH:mm");
 
         return this.getMissionSeries().getPatient().getDisplayName()+": " + formatter.format(this.getStartDate()) + " - " + formatter.format(this.getEndDate());
     }
