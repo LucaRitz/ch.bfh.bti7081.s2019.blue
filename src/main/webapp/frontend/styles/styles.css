@@ -48,7 +48,7 @@ body {
 
 /* Region CONTENT */
 .content {
-    width: 80%;
+    width: 100%;
     margin: 0 auto;
     background-color: white;
     flex: 1 1 auto;
@@ -60,6 +60,13 @@ body {
     box-shadow: 14px 22px 37px -1px rgba(197,197,197,1);
 }
 
+@media (min-width: 1025px) {
+
+    .content {
+        width: 80%;
+    }
+
+}
 
 /* Region FOOTER */
 .footer {
