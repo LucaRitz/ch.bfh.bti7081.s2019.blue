@@ -1,10 +1,7 @@
 package ch.bfh.bti7081.s2019.blue.server.persistence.model;
 
-import ch.bfh.bti7081.s2019.blue.server.persistence.model.Absence;
-
 import javax.persistence.*;
 import java.util.ArrayList;
-import java.util.Date;
 import java.util.List;
 
 @Entity
