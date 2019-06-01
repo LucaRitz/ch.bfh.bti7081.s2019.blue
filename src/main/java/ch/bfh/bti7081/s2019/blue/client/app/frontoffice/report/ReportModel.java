@@ -7,5 +7,6 @@ public interface ReportModel extends TemplateModel {
 
     interface Text {
         void setTitle(String title);
+        void setSubtitle(String subtitle);
     }
 }

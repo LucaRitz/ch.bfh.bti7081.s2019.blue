@@ -4,6 +4,7 @@ import ch.bfh.bti7081.s2019.blue.client.app.base.BaseViewImpl;
 import ch.bfh.bti7081.s2019.blue.client.app.base.IsView;
 import ch.bfh.bti7081.s2019.blue.client.i18n.AppConstants;
 import com.vaadin.flow.component.Tag;
+import com.vaadin.flow.component.button.Button;
 import com.vaadin.flow.component.dependency.HtmlImport;
 import com.vaadin.flow.component.html.Div;
 import com.vaadin.flow.component.polymertemplate.EventHandler;
@@ -22,6 +23,10 @@ public class ReportViewImpl extends BaseViewImpl<ReportModel> implements ReportV
 
     @Id
     private Div viewContainer;
+    @Id
+    private Button previousStepButton;
+    @Id
+    private Button nextStepButton;
 
     private Presenter presenter;
 
@@ -43,10 +48,21 @@ public class ReportViewImpl extends BaseViewImpl<ReportModel> implements ReportV
     }
 
     @Override
-    public void setCurrentStepView(IsView view) {
+    public void setCurrentStepView(IsView view, AppConstants titleKey) {
         viewContainer.getChildren()
                 .forEach(child -> child.setVisible(false));
         view.asComponent().setVisible(true);
+        setText(getModel().getText()::setSubtitle, titleKey);
+    }
+
+    @Override
+    public void setPreviousButtonEnabled(boolean enabled) {
+        previousStepButton.setEnabled(enabled);
+    }
+
+    @Override
+    public void setNextButtonEnabled(boolean enabled) {
+        nextStepButton.setEnabled(enabled);
     }
 
     @EventHandler

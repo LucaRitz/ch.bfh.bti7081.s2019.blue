@@ -6,15 +6,15 @@
         </style>
         <titled-content>
             <label slot="title">[[text.title]]</label>
+            <label slot="subtitle">[[text.subtitle]]</label>
             <div slot="content">
-                REPORT
                 <div id="viewContainer">
 
                 </div>
-                <vaadin-button on-click="nextStepButtonPressed">
+                <vaadin-button id="previousStepButton" on-click="previousStepButtonPressed">
                     <iron-icon icon="lumo:arrow-left"></iron-icon>
                 </vaadin-button>
-                <vaadin-button on-click="previousStepButtonPressed">
+                <vaadin-button id="nextStepButton" on-click="nextStepButtonPressed">
                     <iron-icon icon="lumo:arrow-right"></iron-icon>
                 </vaadin-button>
             </div>

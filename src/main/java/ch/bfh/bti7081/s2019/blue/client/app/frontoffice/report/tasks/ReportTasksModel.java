@@ -7,5 +7,7 @@ public interface ReportTasksModel extends TemplateModel {
 
     interface Text {
         void setTitle(String title);
+        void setDescription(String description);
+        void setAdd(String add);
     }
 }

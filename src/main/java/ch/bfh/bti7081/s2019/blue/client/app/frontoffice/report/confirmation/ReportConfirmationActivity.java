@@ -1,8 +1,8 @@
 package ch.bfh.bti7081.s2019.blue.client.app.frontoffice.report.confirmation;
 
-import ch.bfh.bti7081.s2019.blue.client.app.base.BaseActivity;
 import ch.bfh.bti7081.s2019.blue.client.app.base.IsView;
 import ch.bfh.bti7081.s2019.blue.client.app.frontoffice.report.ReportStepActivity;
+import ch.bfh.bti7081.s2019.blue.client.i18n.AppConstants;
 import com.vaadin.flow.spring.annotation.UIScope;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
@@ -27,5 +27,15 @@ public class ReportConfirmationActivity extends ReportStepActivity implements Re
     @Override
     public void start() {
 
+    }
+
+    @Override
+    public AppConstants getTitleKey() {
+        return AppConstants.REPORT_CONFIRMATION;
+    }
+
+    @Override
+    public boolean validate() {
+        return true;
     }
 }

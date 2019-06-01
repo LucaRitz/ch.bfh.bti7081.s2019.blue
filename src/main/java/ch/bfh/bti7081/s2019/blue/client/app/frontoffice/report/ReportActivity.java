@@ -10,7 +10,6 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
 import java.util.Arrays;
-import java.util.List;
 import java.util.stream.Collectors;
 
 @Component
@@ -18,11 +17,8 @@ import java.util.stream.Collectors;
 public class ReportActivity extends BaseActivity implements ReportView.Presenter {
 
     private final ReportView view;
-    private final ReportTasksActivity tasksActivity;
-    private final ReportConfirmationActivity confirmationActivity;
 
-    private List<ReportStepActivity> steps;
-    private int currentStepIndex = 0;
+    private final Wizard<ReportStepActivity> wizard;
 
     @Autowired
     public ReportActivity(ReportView view,
@@ -30,9 +26,7 @@ public class ReportActivity extends BaseActivity implements ReportView.Presenter
                           ReportConfirmationActivity confirmationActivity) {
         this.view = view;
         this.view.setPresenter(this);
-        this.tasksActivity = tasksActivity;
-        this.confirmationActivity = confirmationActivity;
-        this.steps = Arrays.asList(tasksActivity, confirmationActivity);
+        this.wizard = new Wizard<>(Arrays.asList(tasksActivity, confirmationActivity));
     }
 
     @Override
@@ -42,13 +36,14 @@ public class ReportActivity extends BaseActivity implements ReportView.Presenter
 
     @Override
     public void start() {
-        for (ReportStepActivity step : steps) {
+        for (ReportStepActivity step : wizard.getSteps()) {
             step.start();
         }
-        view.setStepViews(steps.stream()
+        view.setStepViews(wizard.getSteps().stream()
                 .map(BaseActivity::getView)
                 .collect(Collectors.toList()));
-        show(currentStepIndex);
+        show(wizard.getCurrent());
+        updateActions();
     }
 
     public void setMissionId(Integer missionId) {
@@ -57,17 +52,27 @@ public class ReportActivity extends BaseActivity implements ReportView.Presenter
 
     @Override
     public void onNextStepButtonPressed() {
-        this.currentStepIndex = this.currentStepIndex + 1 >= steps.size() ? 0 : this.currentStepIndex + 1;
-        show(currentStepIndex);
+        if (!wizard.getCurrent().validate()) {
+            return;
+        }
+        wizard.next();
+        show(wizard.getCurrent());
+        updateActions();
     }
 
     @Override
     public void onPreviousStepButtonPressed() {
-        this.currentStepIndex = this.currentStepIndex - 1 < 0 ? steps.size() - 1 : this.currentStepIndex - 1;
-        show(currentStepIndex);
+        wizard.previous();
+        show(wizard.getCurrent());
+        updateActions();
     }
 
-    private void show(int stepIndex) {
-        view.setCurrentStepView(steps.get(stepIndex).getView());
+    private void show(ReportStepActivity activity) {
+        view.setCurrentStepView(activity.getView(), activity.getTitleKey());
+    }
+
+    private void updateActions() {
+        view.setPreviousButtonEnabled(!wizard.isFirst());
+        view.setNextButtonEnabled(!wizard.isLast());
     }
 }

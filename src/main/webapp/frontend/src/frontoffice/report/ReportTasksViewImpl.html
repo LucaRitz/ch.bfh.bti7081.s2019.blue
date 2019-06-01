@@ -1,11 +1,20 @@
 <link rel="import" href="../../../bower_components/polymer/polymer.html">
+<link rel="import" href="../../../bower_components/vaadin-checkbox/vaadin-checkbox-group.html">
+
 <dom-module id="report-tasks">
     <template>
         <style>
         </style>
         <div>
-            TASKS
+            <label>[[text.description]]</label>
         </div>
+        <div>
+            <vaadin-checkbox-group id="taskCheckboxes" theme="vertical">
+            </vaadin-checkbox-group>
+        </div>
+        <vaadin-button theme="primary icon" on-click="newTaskButtonPressed">
+            [[text.add]]
+        </vaadin-button>
     </template>
 
     <script>
