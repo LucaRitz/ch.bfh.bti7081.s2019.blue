@@ -42,6 +42,9 @@ public class ReportActivity extends BaseActivity implements ReportView.Presenter
 
     @Override
     public void start() {
+        for (ReportStepActivity step : steps) {
+            step.start();
+        }
         view.setStepViews(steps.stream()
                 .map(BaseActivity::getView)
                 .collect(Collectors.toList()));
