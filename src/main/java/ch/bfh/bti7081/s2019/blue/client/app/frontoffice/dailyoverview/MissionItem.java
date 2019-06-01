@@ -23,7 +23,7 @@ public class MissionItem extends ListItem {
         String postalCode = address.getPostalCode().toString();
         String city = address.getCity();
 
-        DateTimeFormatter dateFormat = DateTimeFormatter.ofPattern("hh:mm");
+        DateTimeFormatter dateFormat = DateTimeFormatter.ofPattern("HH:mm");
         String startTime = dateFormat.format(mission.getStartDate());
         String endTime = dateFormat.format(mission.getEndDate());
 
