@@ -2,10 +2,13 @@ package ch.bfh.bti7081.s2019.blue.client.app.frontoffice.dailyoverview;
 
 import ch.bfh.bti7081.s2019.blue.client.app.base.BaseActivity;
 import ch.bfh.bti7081.s2019.blue.client.app.base.IsView;
+import ch.bfh.bti7081.s2019.blue.client.app.frontoffice.report.ReportEntryPoint;
 import ch.bfh.bti7081.s2019.blue.client.ws.EmployeeService;
 import ch.bfh.bti7081.s2019.blue.server.persistence.model.EmployeeRole;
 import ch.bfh.bti7081.s2019.blue.shared.dto.EmployeeDto;
+import ch.bfh.bti7081.s2019.blue.shared.dto.MissionDto;
 import com.google.common.annotations.VisibleForTesting;
+import com.vaadin.flow.component.UI;
 import com.vaadin.flow.spring.annotation.UIScope;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
@@ -51,7 +54,7 @@ public class EmployeeDailyOverviewActivity extends BaseActivity implements Emplo
     }
 
     @Override
-    public void onDetailsClicked() {
-
+    public void onDetailsClicked(MissionDto mission) {
+        UI.getCurrent().navigate(ReportEntryPoint.class, mission.getId());
     }
 }
