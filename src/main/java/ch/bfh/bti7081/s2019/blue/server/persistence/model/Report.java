@@ -1,8 +1,8 @@
 package ch.bfh.bti7081.s2019.blue.server.persistence.model;
 
 import javax.persistence.*;
+import java.time.LocalDateTime;
 import java.util.ArrayList;
-import java.util.Date;
 import java.util.List;
 
 @Entity
@@ -37,10 +37,10 @@ public class Report {
     private List<Action> actions = new ArrayList<>();
 
     @Column(name = "creation_date")
-    private Date creationDate;
+    private LocalDateTime creationDate;
 
     @Column(name = "closed_date")
-    private Date closedDate;
+    private LocalDateTime closedDate;
 
     public Integer getId() {
         return id;
@@ -74,19 +74,19 @@ public class Report {
         this.backofficeAgent = backofficeAgent;
     }
 
-    public Date getCreationDate() {
+    public LocalDateTime getCreationDate() {
         return creationDate;
     }
 
-    public void setCreationDate(Date creationDate) {
+    public void setCreationDate(LocalDateTime creationDate) {
         this.creationDate = creationDate;
     }
 
-    public Date getClosedDate() {
+    public LocalDateTime getClosedDate() {
         return closedDate;
     }
 
-    public void setClosedDate(Date closedDate) {
+    public void setClosedDate(LocalDateTime closedDate) {
         this.closedDate = closedDate;
     }
 

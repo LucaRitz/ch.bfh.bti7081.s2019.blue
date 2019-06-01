@@ -1,7 +1,6 @@
 package ch.bfh.bti7081.s2019.blue.server.persistence.model;
 
 import javax.persistence.*;
-import java.util.Date;
 
 @Entity
 @Table(name = "user")
