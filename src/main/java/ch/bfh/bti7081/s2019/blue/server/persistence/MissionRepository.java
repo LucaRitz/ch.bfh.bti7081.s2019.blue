@@ -1,6 +1,7 @@
 package ch.bfh.bti7081.s2019.blue.server.persistence;
 
 import ch.bfh.bti7081.s2019.blue.server.persistence.model.Mission;
+import org.springframework.data.domain.Sort;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.query.Param;
@@ -19,7 +20,8 @@ public interface MissionRepository extends JpaRepository<Mission, Integer> {
     List<Mission> findByHealthVisitorAndIntersectingDateRange(
             @Param("healthVisitorId") Integer healthVisitorId,
             @Param("startDate") LocalDateTime startDate,
-            @Param("endDate") LocalDateTime endDate);
+            @Param("endDate") LocalDateTime endDate,
+            Sort orderBy);
 
 
     @Query("SELECT m FROM Mission m"
