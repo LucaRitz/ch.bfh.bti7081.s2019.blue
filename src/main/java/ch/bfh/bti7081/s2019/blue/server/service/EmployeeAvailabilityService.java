@@ -31,7 +31,7 @@ public class EmployeeAvailabilityService {
 
         occupations.addAll(
                 missionRepository.findByHealthVisitorAndIntersectingDateRange(employee.getId(),
-                        planningDateRange.getStartDate(), planningDateRange.getEndDate())
+                        planningDateRange.getStartDate(), planningDateRange.getEndDate(), null)
                         .stream()
                         .map(mission -> new DateRange(mission.getStartDate(), mission.getEndDate()))
                         .collect(Collectors.toList())
