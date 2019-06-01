@@ -9,6 +9,7 @@ public enum AppConstants {
     REPORT("report"),
     REPORT_TASKS("report.tasks"),
     REPORT_TASKS_DESCRIPTION("report.tasks.description"),
+    REPORT_TASKS_TASKDESCRIPTION("report.tasks.taskdescription"),
     REPORT_TASKS_AT_LEAST_ONE_TASK("report.tasks.error.atleastonetask"),
     REPORT_CONFIRMATION("report.confirmation"),
     FOOTER_TEXT("footer.text"),
@@ -28,7 +29,8 @@ public enum AppConstants {
     COLOR_RED_LEGEND( "legend.color.red"),
     COLOR_BLUE_LEGEND( "legend.color.blue"),
     ASSIGNED_TO_PATIENT_LEGEND( "legend.assigned.to.patient"),
-    RECOMMONDATION_AVAILABLE_LEGEND( "legend.recommendation.available");
+    RECOMMONDATION_AVAILABLE_LEGEND( "legend.recommendation.available"),
+    REQUIRED("required");
 
     private final String key;
 

@@ -9,5 +9,6 @@ public interface ReportTasksModel extends TemplateModel {
         void setTitle(String title);
         void setDescription(String description);
         void setAdd(String add);
+        void setTaskDescription(String taskDescription);
     }
 }

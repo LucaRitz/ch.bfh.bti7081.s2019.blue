@@ -12,9 +12,15 @@
             <vaadin-checkbox-group id="taskCheckboxes" theme="vertical">
             </vaadin-checkbox-group>
         </div>
-        <vaadin-button theme="primary icon" on-click="newTaskButtonPressed">
-            [[text.add]]
-        </vaadin-button>
+        <div>
+            <vaadin-text-field id="taskDescription" label="[[text.taskDescription]]" maxlength="100">
+            </vaadin-text-field>
+        </div>
+        <div>
+            <vaadin-button theme="primary icon" on-click="newTaskButtonPressed">
+                [[text.add]]
+            </vaadin-button>
+        </div>
     </template>
 
     <script>
