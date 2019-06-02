@@ -11,6 +11,7 @@ import org.springframework.web.client.RestTemplate;
 import java.lang.annotation.Annotation;
 import java.lang.reflect.*;
 import java.util.*;
+import java.util.stream.Collectors;
 
 public class RestResourceProxy<P> implements InvocationHandler {
 
@@ -51,12 +52,12 @@ public class RestResourceProxy<P> implements InvocationHandler {
             return hashCode();
         }
 
-        String methodName = method.getName();
         Object[] allParams = ArrayUtils.addAll((parentParams != null ? parentParams : new Object[0]),
                 (args != null ? args : new Object[0]));
 
-        if (subProxies.containsKey(methodName)) {
-            RestResourceProxy subProxy = subProxies.get(methodName);
+        String key = getKey(method);
+        if (subProxies.containsKey(key)) {
+            RestResourceProxy subProxy = subProxies.get(key);
             subProxy.parentParams = allParams;
             return subProxy.getResourceProxy();
         }
@@ -65,7 +66,7 @@ public class RestResourceProxy<P> implements InvocationHandler {
     }
 
     private Object doRequest(Method method, Object[] args) {
-        Configuration configuration = configMapping.get(method.getName());
+        Configuration configuration = configMapping.get(getKey(method));
         RestPromise<Object> promise = new RestPromise<>();
 
         Object[] convertedParams = Arrays.stream(args)
@@ -120,14 +121,19 @@ public class RestResourceProxy<P> implements InvocationHandler {
 
     private void initializeConfigForResourceMethod(String fullResourcePath, Method method) {
         String resourcePath = fullResourcePath + readQueryParams(method);
-        configMapping.put(method.getName(), new Configuration(resourcePath, readReturnType(method),
+        configMapping.put(getKey(method), new Configuration(resourcePath, readReturnType(method),
                 readHttpMethod(method), readTypeReference(method)));
     }
 
     private void initializeSubProxy(String fullResourcePath, Method method) {
         RestResourceProxy<?> subProxy = new RestResourceProxy<>(method.getReturnType(), converter,
                 template.getErrorHandler(), fullResourcePath);
-        subProxies.put(method.getName(), subProxy);
+        subProxies.put(getKey(method), subProxy);
+    }
+
+    private String getKey(Method method) {
+        return method.getName() +
+                Arrays.stream(method.getParameterTypes()).map(Class::getName).collect(Collectors.joining("_"));
     }
 
     private ParameterizedTypeReference<?> readTypeReference(Method method) {

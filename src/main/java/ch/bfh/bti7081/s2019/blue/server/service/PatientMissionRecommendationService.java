@@ -123,7 +123,7 @@ public class PatientMissionRecommendationService {
         List<Mission> temporaryMissions = missionGenerator.generateMissionsFromSeries(missionSeries, planningDateRange);
         List<Mission> missions = missionRepository
                 .findByHealthVisitorAndIntersectingDateRange(
-                        employee.getId(), planningDateRange.getStartDate(), planningDateRange.getEndDate());
+                        employee.getId(), planningDateRange.getStartDate(), planningDateRange.getEndDate(), null);
         missionService.mergeExistingMissionsWithTemporaryOnes(missions, temporaryMissions);
 
         return temporaryMissions.stream()

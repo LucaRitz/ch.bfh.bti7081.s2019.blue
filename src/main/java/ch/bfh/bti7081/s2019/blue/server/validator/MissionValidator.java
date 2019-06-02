@@ -90,7 +90,8 @@ public class MissionValidator implements IsValidator<EntityWrapper<Mission>> {
             return Optional.of(constants.missionHasNoHealthVisitor());
         }
 
-        List<Mission> missions = repository.findByHealthVisitorAndIntersectingDateRange(healthVisitor.getId(), modified.getStartDate(), modified.getEndDate());
+        List<Mission> missions = repository.findByHealthVisitorAndIntersectingDateRange(healthVisitor.getId(),
+                modified.getStartDate(), modified.getEndDate(), null);
         if (missions == null || missions.size() > 0) {
             return Optional.of(constants.healthVisitorIsOccupied());
         }
