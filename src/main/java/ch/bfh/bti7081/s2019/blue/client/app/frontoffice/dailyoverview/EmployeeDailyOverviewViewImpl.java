@@ -4,10 +4,7 @@ import ch.bfh.bti7081.s2019.blue.client.app.base.BaseViewImpl;
 import ch.bfh.bti7081.s2019.blue.client.i18n.AppConstants;
 import ch.bfh.bti7081.s2019.blue.shared.dto.EmployeeDto;
 import ch.bfh.bti7081.s2019.blue.shared.dto.MissionDto;
-import com.vaadin.flow.component.ClickEvent;
-import com.vaadin.flow.component.ComponentEventListener;
-import com.vaadin.flow.component.ItemLabelGenerator;
-import com.vaadin.flow.component.Tag;
+import com.vaadin.flow.component.*;
 import com.vaadin.flow.component.button.Button;
 import com.vaadin.flow.component.combobox.ComboBox;
 import com.vaadin.flow.component.dependency.HtmlImport;
@@ -108,7 +105,7 @@ public class EmployeeDailyOverviewViewImpl extends BaseViewImpl<EmployeeDailyOve
 
     @EventHandler
     private void onDetailsButtonPressed() {
-        presenter.onDetailsClicked();
+        //presenter.onDetailsClicked(null); // TODO: get clicked mission
     }
 
     private void setSelectedDate(long difference) {

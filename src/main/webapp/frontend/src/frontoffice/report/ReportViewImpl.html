@@ -1,0 +1,33 @@
+<link rel="import" href="../../../bower_components/polymer/polymer.html">
+<link rel="import" href="../../base/TitledContent.html">
+<dom-module id="mission-report">
+    <template>
+        <style>
+        </style>
+        <titled-content>
+            <label slot="title">[[text.title]]</label>
+            <label slot="subtitle">[[text.subtitle]]</label>
+            <div slot="content">
+                <div id="viewContainer">
+
+                </div>
+                <vaadin-button id="previousStepButton" on-click="previousStepButtonPressed">
+                    <iron-icon icon="lumo:arrow-left"></iron-icon>
+                </vaadin-button>
+                <vaadin-button id="nextStepButton" on-click="nextStepButtonPressed">
+                    <iron-icon icon="lumo:arrow-right"></iron-icon>
+                </vaadin-button>
+            </div>
+        </titled-content>
+    </template>
+
+    <script>
+        class ReportViewApply extends Polymer.Element {
+            static get is() {
+                return 'mission-report'
+            }
+        }
+
+        customElements.define(ReportViewApply.is, ReportViewApply);
+    </script>
+</dom-module>

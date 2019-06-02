@@ -6,9 +6,16 @@ public enum AppConstants {
     MENU_PATIENTPLANNER("menu.patientplanner"),
     MENU_EMPLOYEEPLANNER("menu.employeeplanner"),
     MENU_EMPLOYEEDAILYOVERVIEW("menu.employeedailyoverview"),
+    REPORT("report"),
+    REPORT_TASKS("report.tasks"),
+    REPORT_TASKS_DESCRIPTION("report.tasks.description"),
+    REPORT_TASKS_TASKDESCRIPTION("report.tasks.taskdescription"),
+    REPORT_TASKS_AT_LEAST_ONE_TASK("report.tasks.error.atleastonetask"),
+    REPORT_CONFIRMATION("report.confirmation"),
     FOOTER_TEXT("footer.text"),
     ACTION_SAVE("action.save"),
     ACTION_CANCEL("action.cancel"),
+    ACTION_ADD("action.add"),
     MISSION_CREATE_START_DATE("mission.create.start.date"),
     MISSION_CREATE_START_TIME("mission.create.start.time"),
     MISSION_CREATE_END_DATE("mission.create.end.date"),
@@ -22,7 +29,8 @@ public enum AppConstants {
     COLOR_RED_LEGEND( "legend.color.red"),
     COLOR_BLUE_LEGEND( "legend.color.blue"),
     ASSIGNED_TO_PATIENT_LEGEND( "legend.assigned.to.patient"),
-    RECOMMONDATION_AVAILABLE_LEGEND( "legend.recommendation.available");
+    RECOMMONDATION_AVAILABLE_LEGEND( "legend.recommendation.available"),
+    REQUIRED("required");
 
     private final String key;
 

@@ -14,21 +14,28 @@
                 width: 100%;
                 display: flex;
                 justify-content: space-between;
+                margin-bottom: 1em;
             }
 
             .title {
-                margin-left: 15px;
+                padding: 0 15px;
                 font-size: 2em;
+            }
+
+            .subtitle {
+                padding: 0 15px;
+                color: #197de1;
+                font-size: 1.2em;
             }
 
             .action-box {
                 float: right;
                 color: white;
-                margin:0.3em 0.5em;
+                margin: 0.3em 0.5em;
             }
 
             .content {
-               padding: 1em;
+                padding: 0 1em 1em 1em;
             }
         </style>
         <div>
@@ -42,6 +49,9 @@
                 <span class="action-box">
                     <slot name="actions"></slot>
                 </span>
+            </div>
+            <div class="subtitle">
+                <slot name="subtitle"></slot>
             </div>
 
             <div class="content">
@@ -60,6 +70,7 @@
                 window.history.back();
             }
         }
+
         customElements.define(TitledContentAppy.is, TitledContentAppy);
     </script>
 </dom-module>
