@@ -11,12 +11,11 @@ public class Task {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Integer id;
 
+    @Column(name = "description", length = 100)
+    private String description;
+
     @Column(name = "done")
     private boolean done;
-
-    @ManyToOne
-    @JoinColumn
-    private TaskTemplate taskTemplate;
 
     @ManyToOne
     @JoinColumn
@@ -38,12 +37,12 @@ public class Task {
         this.done = done;
     }
 
-    public TaskTemplate getTaskTemplate() {
-        return taskTemplate;
+    public String getDescription() {
+        return description;
     }
 
-    public void setTaskTemplate(TaskTemplate taskTemplate) {
-        this.taskTemplate = taskTemplate;
+    public void setDescription(String description) {
+        this.description = description;
     }
 
     public Report getReport() {

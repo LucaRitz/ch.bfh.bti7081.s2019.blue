@@ -1,6 +1,7 @@
 package ch.bfh.bti7081.s2019.blue.server.persistence.model;
 
 import javax.persistence.*;
+import java.time.Duration;
 import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.List;
@@ -41,6 +42,12 @@ public class Report {
 
     @Column(name = "closed_date")
     private LocalDateTime closedDate;
+
+    @Column(name = "duration")
+    private Duration duration;
+
+    @Column(name = "comment")
+    private String comment;
 
     public Integer getId() {
         return id;
@@ -112,5 +119,21 @@ public class Report {
 
     public void setActions(List<Action> actions) {
         this.actions = actions;
+    }
+
+    public Duration getDuration() {
+        return duration;
+    }
+
+    public void setDuration(Duration duration) {
+        this.duration = duration;
+    }
+
+    public String getComment() {
+        return comment;
+    }
+
+    public void setComment(String comment) {
+        this.comment = comment;
     }
 }
