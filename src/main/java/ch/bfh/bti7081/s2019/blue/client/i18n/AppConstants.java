@@ -14,7 +14,6 @@ public enum AppConstants {
     REPORT_ACTIONS("report.actions"),
     REPORT_ACTIONS_DESCRIPTION("report.actions.description"),
     REPORT_ACTIONS_ACTIONDESCRIPTION("report.actions.actiondescription"),
-    REPORT_ACTIONS_AT_LEAST_ONE_TASK("report.actions.error.atleastoneaction"),
     REPORT_CONFIRMATION("report.confirmation"),
     FOOTER_TEXT("footer.text"),
     ACTION_SAVE("action.save"),

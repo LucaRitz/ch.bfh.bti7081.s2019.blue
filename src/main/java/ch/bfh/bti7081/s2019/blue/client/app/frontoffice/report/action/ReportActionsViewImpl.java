@@ -65,11 +65,6 @@ public class ReportActionsViewImpl extends BaseViewImpl<ReportActionsModel> impl
 
     @Override
     public boolean validate() {
-        Set<ActionDto> actions = actionCheckboxes.getSelectedItems();
-        if (actions.isEmpty()) {
-            showNotification(AppConstants.REPORT_ACTIONS_AT_LEAST_ONE_TASK.getKey(), 3000);
-            return false;
-        }
         return true;
     }
 
