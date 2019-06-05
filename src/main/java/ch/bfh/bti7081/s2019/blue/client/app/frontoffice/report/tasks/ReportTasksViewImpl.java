@@ -2,6 +2,7 @@ package ch.bfh.bti7081.s2019.blue.client.app.frontoffice.report.tasks;
 
 import ch.bfh.bti7081.s2019.blue.client.app.base.BaseViewImpl;
 import ch.bfh.bti7081.s2019.blue.client.i18n.AppConstants;
+import ch.bfh.bti7081.s2019.blue.shared.dto.TaskDto;
 import com.vaadin.flow.component.Tag;
 import com.vaadin.flow.component.checkbox.CheckboxGroup;
 import com.vaadin.flow.component.dependency.HtmlImport;
@@ -13,6 +14,7 @@ import com.vaadin.flow.spring.annotation.UIScope;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Set;
 
@@ -25,9 +27,11 @@ public class ReportTasksViewImpl extends BaseViewImpl<ReportTasksModel> implemen
     private Presenter presenter;
 
     @Id
-    private CheckboxGroup<String> taskCheckboxes;
+    private CheckboxGroup<TaskDto> taskCheckboxes;
     @Id
     private TextField taskDescription;
+
+    private List<TaskDto> tasks = new ArrayList<>();
 
     @Autowired
     public ReportTasksViewImpl() {
@@ -35,6 +39,8 @@ public class ReportTasksViewImpl extends BaseViewImpl<ReportTasksModel> implemen
         setText(getModel().getText()::setDescription, AppConstants.REPORT_TASKS_DESCRIPTION);
         setText(getModel().getText()::setAdd, AppConstants.ACTION_ADD);
         setText(getModel().getText()::setTaskDescription, AppConstants.REPORT_TASKS_TASKDESCRIPTION);
+
+        taskCheckboxes.setItemLabelGenerator(TaskDto::getDescription);
     }
 
     @Override
@@ -43,14 +49,30 @@ public class ReportTasksViewImpl extends BaseViewImpl<ReportTasksModel> implemen
     }
 
     @Override
-    public void setTasks(List<String> tasks) {
-        taskCheckboxes.setDataProvider(DataProvider.ofCollection(tasks));
-        taskCheckboxes.setItemLabelGenerator(item -> item);
+    public void setTasks(List<TaskDto> tasks) {
+        this.tasks = new ArrayList<>(tasks);
+        taskCheckboxes.setDataProvider(DataProvider.ofCollection(this.tasks));
+
+        for (TaskDto task : this.tasks) {
+            if(task.isDone()) {
+                taskCheckboxes.select(task);
+            } else {
+                taskCheckboxes.deselect(task);
+            }
+        }
+    }
+
+    @Override
+    public List<TaskDto> getTasks() {
+        for (TaskDto task : this.tasks) {
+            task.setDone(taskCheckboxes.isSelected(task));
+        }
+        return new ArrayList<>(this.tasks);
     }
 
     @Override
     public boolean validate() {
-        Set<String> tasks = taskCheckboxes.getSelectedItems();
+        Set<TaskDto> tasks = taskCheckboxes.getSelectedItems();
         if (tasks.isEmpty()) {
             showNotification(AppConstants.REPORT_TASKS_AT_LEAST_ONE_TASK.getKey(), 3000);
             return false;
@@ -63,9 +85,23 @@ public class ReportTasksViewImpl extends BaseViewImpl<ReportTasksModel> implemen
 
         if (validateDescription()) {
             String description = taskDescription.getValue();
-            // TODO: store new Task
+
+            TaskDto task = new TaskDto();
+            task.setDescription(description);
+            task.setDone(true);
+
+            addTask(task);
             taskDescription.clear();
         }
+    }
+
+    private void addTask(TaskDto task) {
+        Set<TaskDto> selected = taskCheckboxes.getSelectedItems();
+        this.tasks.add(task);
+        // refreshAll deselects all items, so we need to select them again
+        taskCheckboxes.getDataProvider().refreshAll();
+        taskCheckboxes.select(selected);
+        taskCheckboxes.select(task);
     }
 
     private boolean validateDescription() {

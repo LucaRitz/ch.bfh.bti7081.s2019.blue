@@ -9,7 +9,7 @@ import org.springframework.stereotype.Repository;
 import java.util.List;
 
 @Repository
-public interface PatientRepository extends JpaRepository<Patient, Long> {
+public interface PatientRepository extends JpaRepository<Patient, Integer> {
 
     @Query("SELECT new ch.bfh.bti7081.s2019.blue.server.persistence.MissionCountPerEmployee(COUNT(m), e)"
             + " FROM Mission m"
