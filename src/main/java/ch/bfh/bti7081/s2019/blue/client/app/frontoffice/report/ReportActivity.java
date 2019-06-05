@@ -2,6 +2,7 @@ package ch.bfh.bti7081.s2019.blue.client.app.frontoffice.report;
 
 import ch.bfh.bti7081.s2019.blue.client.app.base.BaseActivity;
 import ch.bfh.bti7081.s2019.blue.client.app.base.IsView;
+import ch.bfh.bti7081.s2019.blue.client.app.frontoffice.report.action.ReportActionsActivity;
 import ch.bfh.bti7081.s2019.blue.client.app.frontoffice.report.confirmation.ReportConfirmationActivity;
 import ch.bfh.bti7081.s2019.blue.client.app.frontoffice.report.tasks.ReportTasksActivity;
 import ch.bfh.bti7081.s2019.blue.client.ws.PatientService;
@@ -29,11 +30,12 @@ public class ReportActivity extends BaseActivity implements ReportView.Presenter
     @Autowired
     public ReportActivity(ReportView view,
                           PatientService patientService, ReportTasksActivity tasksActivity,
+                          ReportActionsActivity actionsActivity,
                           ReportConfirmationActivity confirmationActivity) {
         this.view = view;
         this.patientService = patientService;
         this.view.setPresenter(this);
-        this.wizard = new Wizard<>(Arrays.asList(tasksActivity, confirmationActivity));
+        this.wizard = new Wizard<>(Arrays.asList(tasksActivity, actionsActivity, confirmationActivity));
     }
 
     @Override

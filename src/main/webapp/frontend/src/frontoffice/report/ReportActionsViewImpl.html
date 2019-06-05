@@ -1,0 +1,35 @@
+<link rel="import" href="../../../bower_components/polymer/polymer.html">
+<link rel="import" href="../../../bower_components/vaadin-checkbox/vaadin-checkbox-group.html">
+
+<dom-module id="report-actions">
+    <template>
+        <style>
+        </style>
+        <div>
+            <label>[[text.description]]</label>
+        </div>
+        <div>
+            <vaadin-checkbox-group id="actionCheckboxes" theme="vertical">
+            </vaadin-checkbox-group>
+        </div>
+        <div>
+            <vaadin-text-field id="actionDescription" label="[[text.actionDescription]]" maxlength="100">
+            </vaadin-text-field>
+        </div>
+        <div>
+            <vaadin-button theme="primary icon" on-click="newActionButtonPressed">
+                [[text.add]]
+            </vaadin-button>
+        </div>
+    </template>
+
+    <script>
+        class ReportActionsViewApply extends Polymer.Element {
+            static get is() {
+                return 'report-actions'
+            }
+        }
+
+        customElements.define(ReportActionsViewApply.is, ReportActionsViewApply);
+    </script>
+</dom-module>

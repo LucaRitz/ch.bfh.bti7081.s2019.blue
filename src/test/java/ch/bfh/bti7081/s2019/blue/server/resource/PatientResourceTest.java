@@ -1,5 +1,6 @@
 package ch.bfh.bti7081.s2019.blue.server.resource;
 
+import ch.bfh.bti7081.s2019.blue.server.i18n.ServerConstants;
 import ch.bfh.bti7081.s2019.blue.server.mapper.Mapper;
 import ch.bfh.bti7081.s2019.blue.server.persistence.PatientRepository;
 import ch.bfh.bti7081.s2019.blue.server.persistence.model.Patient;
@@ -25,10 +26,12 @@ class PatientResourceTest {
     private PatientRepository repository;
     @Mock
     private Mapper mapper;
+    @Mock
+    private ServerConstants messages;
 
     @BeforeEach
     void setUp() {
-        resource = new PatientResource(repository, mapper);
+        resource = new PatientResource(repository, mapper, messages);
     }
 
     @Test
