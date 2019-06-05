@@ -1,5 +1,7 @@
 package ch.bfh.bti7081.s2019.blue.shared.dto;
 
+import ch.bfh.bti7081.s2019.blue.server.persistence.model.TaskTemplate;
+
 import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.Date;
@@ -14,6 +16,8 @@ public class PatientDto extends AbstractPerson implements HasBirthdate {
     private List<MedicationDto> medications = new ArrayList<>();
 
     private List<DiagnoseDto> diagnoses = new ArrayList<>();
+
+    private List<TaskTemplate> taskTemplates = new ArrayList<>();
 
     private DoctorDto doctor;
 
@@ -65,5 +69,13 @@ public class PatientDto extends AbstractPerson implements HasBirthdate {
 
     public void setDoctor(DoctorDto doctor) {
         this.doctor = doctor;
+    }
+
+    public List<TaskTemplate> getTaskTemplates() {
+        return taskTemplates;
+    }
+
+    public void setTaskTemplates(List<TaskTemplate> taskTemplates) {
+        this.taskTemplates = taskTemplates;
     }
 }
