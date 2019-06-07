@@ -4,6 +4,7 @@ import ch.bfh.bti7081.s2019.blue.client.app.base.BaseActivity;
 import ch.bfh.bti7081.s2019.blue.client.app.base.IsView;
 import ch.bfh.bti7081.s2019.blue.client.app.frontoffice.report.action.ReportActionsActivity;
 import ch.bfh.bti7081.s2019.blue.client.app.frontoffice.report.confirmation.ReportConfirmationActivity;
+import ch.bfh.bti7081.s2019.blue.client.app.frontoffice.report.healthstatus.ReportHealthStatusActivity;
 import ch.bfh.bti7081.s2019.blue.client.app.frontoffice.report.tasks.ReportTasksActivity;
 import ch.bfh.bti7081.s2019.blue.client.ws.PatientService;
 import ch.bfh.bti7081.s2019.blue.server.persistence.model.TaskTemplate;
@@ -32,10 +33,11 @@ public class ReportActivity extends BaseActivity implements ReportView.Presenter
                           PatientService patientService, ReportTasksActivity tasksActivity,
                           ReportActionsActivity actionsActivity,
                           ReportConfirmationActivity confirmationActivity) {
+                          ReportHealthStatusActivity healthStatusActivity, ReportConfirmationActivity confirmationActivity) {
         this.view = view;
         this.patientService = patientService;
         this.view.setPresenter(this);
-        this.wizard = new Wizard<>(Arrays.asList(tasksActivity, actionsActivity, confirmationActivity));
+        this.wizard = new Wizard<>(Arrays.asList(healthStatusActivity, actionsActivity, tasksActivity, confirmationActivity));
     }
 
     @Override
