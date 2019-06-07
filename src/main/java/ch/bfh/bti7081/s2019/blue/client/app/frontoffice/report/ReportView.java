@@ -17,9 +17,19 @@ public interface ReportView extends IsView {
 
     void setNextButtonEnabled(boolean enabled);
 
+    void showSaveButton(boolean visible);
+
+    void showBackToOverviewButton();
+
+    void hideBackToOverviewButton();
+
+    void setConfirmationView(IsView view);
+
     interface Presenter {
 
         void onNextStepButtonPressed();
         void onPreviousStepButtonPressed();
+        void onSaveButtonPressed();
+        void onBackToOverviewButtonPressed();
     }
 }

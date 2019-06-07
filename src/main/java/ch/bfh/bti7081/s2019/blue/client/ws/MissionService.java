@@ -5,6 +5,7 @@ import ch.bfh.bti7081.s2019.blue.client.rest.Path;
 import ch.bfh.bti7081.s2019.blue.client.rest.RestPromise;
 import ch.bfh.bti7081.s2019.blue.client.rest.ReturnType;
 import ch.bfh.bti7081.s2019.blue.shared.dto.MissionDto;
+import ch.bfh.bti7081.s2019.blue.shared.dto.ReportDto;
 import org.springframework.web.bind.annotation.*;
 
 import javax.ws.rs.core.MediaType;
@@ -25,5 +26,10 @@ public interface MissionService extends IsRestService {
 
     @GetMapping(produces = MediaType.APPLICATION_JSON)
     @Path("/{id}")
-    RestPromise<MissionDto> findById(@PathVariable Integer id);
+    RestPromise<MissionDto> get(@PathVariable Integer id);
+
+    @GetMapping
+    @Path("/{missionId}/reports")
+    RestPromise<ReportDto> getReport(@PathVariable Integer missionId);
+
 }

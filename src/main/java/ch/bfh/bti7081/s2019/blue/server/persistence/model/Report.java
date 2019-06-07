@@ -15,11 +15,11 @@ public class Report {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Integer id;
 
-    @OneToOne
+    @OneToOne(cascade = CascadeType.ALL)
     @JoinColumn
     private HealthStatus healthStatus;
 
-    @ManyToOne
+    @OneToOne
     @JoinColumn
     private Mission mission;
 

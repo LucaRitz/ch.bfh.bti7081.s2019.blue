@@ -1,10 +1,7 @@
 package ch.bfh.bti7081.s2019.blue.shared.dto;
 
-import ch.bfh.bti7081.s2019.blue.server.persistence.model.TaskTemplate;
-
 import java.time.LocalDateTime;
 import java.util.ArrayList;
-import java.util.Date;
 import java.util.List;
 
 public class PatientDto extends AbstractPerson implements HasBirthdate {

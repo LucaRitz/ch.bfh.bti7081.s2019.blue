@@ -12,11 +12,17 @@ public class LocalDateTimeConverter extends DozerConverter<LocalDateTime, LocalD
 
     @Override
     public LocalDateTime convertTo(LocalDateTime source, LocalDateTime destination) {
+        if (source == null) {
+            return null;
+        }
         return LocalDateTime.of(source.toLocalDate(), source.toLocalTime());
     }
 
     @Override
     public LocalDateTime convertFrom(LocalDateTime source, LocalDateTime destination) {
+        if (source == null) {
+            return null;
+        }
         return LocalDateTime.of(source.toLocalDate(), source.toLocalTime());
     }
 }
