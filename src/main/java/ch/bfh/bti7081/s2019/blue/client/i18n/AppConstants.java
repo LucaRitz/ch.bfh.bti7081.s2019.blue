@@ -38,6 +38,7 @@ public enum AppConstants {
     MISSION_START("mission.start"),
     MISSION_START_DATE("mission.start.date"),
     MISSION_END("mission.end"),
+    MISSION_SHOW_REPORT("mission.show.report"),
     MISSION_END_DATE("mission.end.date"),
     MISSION_ASSIGN_EMPLOYEE("mission.assign.employee"),
     ASSIGN_TO_MISSION("assign.to.mission"),

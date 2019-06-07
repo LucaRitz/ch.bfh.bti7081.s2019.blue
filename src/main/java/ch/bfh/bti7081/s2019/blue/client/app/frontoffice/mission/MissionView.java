@@ -12,10 +12,14 @@ public interface MissionView extends IsView {
     void setStartButtonEnabled(boolean enabled);
     void setStopButtonEnabled(boolean enabled);
 
+
+    void setShowReportVisibility(boolean visible);
+
     interface Presenter {
 
         void onStartButtonPressed();
         void onFinishButtonPressed();
+        void onShowReportPressed();
 
         void navigateToOverview();
     }

@@ -6,6 +6,8 @@ import ch.bfh.bti7081.s2019.blue.client.app.base.IsSessionHandler;
 import ch.bfh.bti7081.s2019.blue.client.app.base.IsView;
 import ch.bfh.bti7081.s2019.blue.client.app.frontoffice.dailyoverview.EmployeeDailyOverviewEntryPoint;
 import ch.bfh.bti7081.s2019.blue.client.app.frontoffice.report.ReportEntryPoint;
+import ch.bfh.bti7081.s2019.blue.client.i18n.AppConstants;
+import ch.bfh.bti7081.s2019.blue.client.rest.Promises;
 import ch.bfh.bti7081.s2019.blue.client.ws.MissionService;
 import com.google.common.annotations.VisibleForTesting;
 import com.vaadin.flow.component.notification.Notification;
@@ -25,6 +27,7 @@ public class MissionActivity extends BaseActivity implements MissionView.Present
     private final IsSessionHandler sessionHandler;
 
     private Integer missionId;
+    private boolean reportExists;
 
     @Autowired
     public MissionActivity(MissionView view, MissionService missionService, IsRouter router,
@@ -43,7 +46,6 @@ public class MissionActivity extends BaseActivity implements MissionView.Present
 
     @Override
     public void start() {
-        updateActions();
         loadViewModel();
     }
 
@@ -60,12 +62,21 @@ public class MissionActivity extends BaseActivity implements MissionView.Present
 
     @Override
     public void onFinishButtonPressed() {
-        router.navigate(ReportEntryPoint.class, missionId);
+        navigateToReport();
+    }
+
+    @Override
+    public void onShowReportPressed() {
+        navigateToReport();
     }
 
     @Override
     public void navigateToOverview() {
         router.navigate(EmployeeDailyOverviewEntryPoint.class);
+    }
+
+    private void navigateToReport() {
+        router.navigate(ReportEntryPoint.class, missionId);
     }
 
     @VisibleForTesting
@@ -80,13 +91,30 @@ public class MissionActivity extends BaseActivity implements MissionView.Present
                 .done((missionDto) -> {
                     if (missionDto == null) {
                         navigateToOverview();
-                    } else {
-                        view.setMission(missionDto);
+                        return;
                     }
+
+                    missionService.getReport(missionId)
+                            .done(report -> {
+                                reportExists = report != null;
+
+                                view.setMission(missionDto);
+                                updateActions();
+                            });
                 });
     }
 
     private void updateActions() {
+
+        if (reportExists) {
+            view.setStartButtonEnabled(false);
+            view.setStopButtonEnabled(false);
+            view.setShowReportVisibility(true);
+            return;
+        }
+
+        view.setShowReportVisibility(false);
+
         LocalDateTime timeStamp = sessionHandler.get(getMissionStartedKey(missionId));
 
         if (timeStamp != null) {
