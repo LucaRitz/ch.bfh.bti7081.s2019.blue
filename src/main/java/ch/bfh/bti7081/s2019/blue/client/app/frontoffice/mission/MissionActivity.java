@@ -81,8 +81,6 @@ public class MissionActivity extends BaseActivity implements MissionView.Present
 
     @VisibleForTesting
     void loadViewModel() {
-        reportExists = false;
-
         if (missionId == null)  {
             System.err.println("missionId was null");
             navigateToOverview();
@@ -98,9 +96,7 @@ public class MissionActivity extends BaseActivity implements MissionView.Present
 
                     missionService.getReport(missionId)
                             .done(report -> {
-                                if (report != null) {
-                                    reportExists = true;
-                                }
+                                reportExists = report != null;
 
                                 view.setMission(missionDto);
                                 updateActions();
