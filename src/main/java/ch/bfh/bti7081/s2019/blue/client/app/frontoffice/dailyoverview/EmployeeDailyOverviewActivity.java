@@ -37,8 +37,7 @@ public class EmployeeDailyOverviewActivity extends BaseActivity implements Emplo
         loadMasterdata();
     }
 
-    @VisibleForTesting
-    void loadMasterdata() {
+    private void loadMasterdata() {
         employeeService.find(EmployeeRole.HEALTH_VISITOR)
                 .done(view::setEmployees);
     }

@@ -16,9 +16,7 @@ import org.springframework.web.bind.annotation.*;
 import javax.persistence.EntityManager;
 import javax.transaction.Transactional;
 import javax.ws.rs.core.MediaType;
-import java.text.SimpleDateFormat;
 import java.time.LocalDateTime;
-import java.util.Date;
 import java.util.Optional;
 
 import static ch.bfh.bti7081.s2019.blue.server.resource.MissionSeriesResource.PATH;
