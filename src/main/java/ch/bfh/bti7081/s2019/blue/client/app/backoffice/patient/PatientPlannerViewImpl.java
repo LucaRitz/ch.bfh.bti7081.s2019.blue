@@ -31,7 +31,7 @@ public class PatientPlannerViewImpl extends BaseViewImpl<PatientPlannerViewModel
     private final MissionIdGenerator missionIdGenerator;
 
     @Id
-    private ComboBox<PatientRefDto> patients;
+    private ComboBox<PatientDto> patients;
     @Id
     private Button previousButton;
     @Id
@@ -50,7 +50,7 @@ public class PatientPlannerViewImpl extends BaseViewImpl<PatientPlannerViewModel
     public PatientPlannerViewImpl(MissionIdGenerator missionIdGenerator) {
         this.missionIdGenerator = missionIdGenerator;
 
-        this.patients.setItemLabelGenerator((ItemLabelGenerator<PatientRefDto>) PatientRefDto::getDisplayName);
+        this.patients.setItemLabelGenerator((ItemLabelGenerator<PatientDto>) PatientDto::getDisplayName);
         setText(getModel().getText()::setTitle, AppConstants.MENU_PATIENTPLANNER);
         setText(getModel().getText()::setColorRedLegend, AppConstants.COLOR_RED_LEGEND);
         setText(getModel().getText()::setColorBlueLegend, AppConstants.COLOR_BLUE_LEGEND);
@@ -92,7 +92,7 @@ public class PatientPlannerViewImpl extends BaseViewImpl<PatientPlannerViewModel
         previousButton.addClickListener((ComponentEventListener<ClickEvent<Button>>) event -> calendar.previous());
         nextButton.addClickListener((ComponentEventListener<ClickEvent<Button>>) event -> calendar.next());
 
-        patients.addValueChangeListener((HasValue.ValueChangeListener<AbstractField.ComponentValueChangeEvent<ComboBox<PatientRefDto>, PatientRefDto>>) event -> reload());
+        patients.addValueChangeListener((HasValue.ValueChangeListener<AbstractField.ComponentValueChangeEvent<ComboBox<PatientDto>, PatientDto>>) event -> reload());
     }
 
     private void onDateRangeChange(LocalDate intervalStart, LocalDate intervalEnd) {
@@ -105,7 +105,7 @@ public class PatientPlannerViewImpl extends BaseViewImpl<PatientPlannerViewModel
 
     public void reload() {
 
-        PatientRefDto selectedPatient = patients.getValue();
+        PatientDto selectedPatient = patients.getValue();
 
         if (selectedPatient != null) {
             presenter.onSelectionChange(selectedPatient, startDate, endDate);
@@ -113,7 +113,7 @@ public class PatientPlannerViewImpl extends BaseViewImpl<PatientPlannerViewModel
     }
 
     @Override
-    public PatientRefDto getPatient() {
+    public PatientDto getPatient() {
         return this.patients.getValue();
     }
 
@@ -138,7 +138,7 @@ public class PatientPlannerViewImpl extends BaseViewImpl<PatientPlannerViewModel
     }
 
     @Override
-    public void setPatients(List<PatientRefDto> patients) {
+    public void setPatients(List<PatientDto> patients) {
         this.patients.setItems(patients);
 
         if (this.patients.getValue() == null && !patients.isEmpty()) {

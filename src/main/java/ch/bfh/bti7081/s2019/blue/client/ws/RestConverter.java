@@ -2,10 +2,7 @@ package ch.bfh.bti7081.s2019.blue.client.ws;
 
 import ch.bfh.bti7081.s2019.blue.client.rest.ProvidesConverter;
 import ch.bfh.bti7081.s2019.blue.shared.HttpUtil;
-import ch.bfh.bti7081.s2019.blue.shared.dto.DateRange;
-import ch.bfh.bti7081.s2019.blue.shared.dto.EmployeeDto;
-import ch.bfh.bti7081.s2019.blue.shared.dto.MissionDto;
-import ch.bfh.bti7081.s2019.blue.shared.dto.PatientRefDto;
+import ch.bfh.bti7081.s2019.blue.shared.dto.*;
 import org.springframework.core.ParameterizedTypeReference;
 import org.springframework.stereotype.Component;
 
@@ -21,7 +18,7 @@ public class RestConverter implements ProvidesConverter {
 
     static final String KEY_EMPLOYEE_DTO_LIST = "employeeDtoList";
     static final String KEY_MISSION_DTO_LIST = "missionDtoList";
-    static final String KEY_PATIENT_REF_DTO_LIST = "patientRefDtoList";
+    static final String KEY_PATIENT_DTO_LIST = "patientDtoList";
     static final String KEY_DATE_RANGE_LIST = "dateRangeList";
 
     private static final Map<String, ParameterizedTypeReference<?>> CONVERTER = new HashMap<>();
@@ -29,7 +26,7 @@ public class RestConverter implements ProvidesConverter {
     static {
         CONVERTER.put(KEY_EMPLOYEE_DTO_LIST, new ParameterizedTypeReference<List<EmployeeDto>>() {});
         CONVERTER.put(KEY_MISSION_DTO_LIST, new ParameterizedTypeReference<List<MissionDto>>() {});
-        CONVERTER.put(KEY_PATIENT_REF_DTO_LIST, new ParameterizedTypeReference<List<PatientRefDto>>() {});
+        CONVERTER.put(KEY_PATIENT_DTO_LIST, new ParameterizedTypeReference<List<PatientDto>>() {});
         CONVERTER.put(KEY_DATE_RANGE_LIST, new ParameterizedTypeReference<List<DateRange>>() {});
     }
 

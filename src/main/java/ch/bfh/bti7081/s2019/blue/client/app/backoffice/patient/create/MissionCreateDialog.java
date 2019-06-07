@@ -6,6 +6,7 @@ import ch.bfh.bti7081.s2019.blue.client.app.base.IsDialog;
 import ch.bfh.bti7081.s2019.blue.client.app.base.IsView;
 import ch.bfh.bti7081.s2019.blue.client.ws.MissionSeriesService;
 import ch.bfh.bti7081.s2019.blue.shared.dto.MissionSeriesDto;
+import ch.bfh.bti7081.s2019.blue.shared.dto.PatientDto;
 import ch.bfh.bti7081.s2019.blue.shared.dto.PatientRefDto;
 import ch.bfh.bti7081.s2019.blue.shared.dto.RepetitionType;
 import com.google.common.annotations.VisibleForTesting;
@@ -28,7 +29,7 @@ public class MissionCreateDialog extends BaseActivity implements MissionCreateVi
     IsDialog dialog;
 
     private Listener listener;
-    private PatientRefDto patient;
+    private PatientDto patient;
 
     @Autowired
     public MissionCreateDialog(MissionCreateView view, MissionSeriesService missionSeriesService,
@@ -75,7 +76,7 @@ public class MissionCreateDialog extends BaseActivity implements MissionCreateVi
         }
     }
 
-    public void setProperties(PatientRefDto patient) {
+    public void setProperties(PatientDto patient) {
         this.patient = patient;
     }
 

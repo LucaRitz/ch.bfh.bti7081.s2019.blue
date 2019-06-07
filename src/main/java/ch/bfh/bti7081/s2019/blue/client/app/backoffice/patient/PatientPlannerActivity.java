@@ -10,6 +10,7 @@ import ch.bfh.bti7081.s2019.blue.client.ws.MissionService;
 import ch.bfh.bti7081.s2019.blue.client.ws.PatientService;
 import ch.bfh.bti7081.s2019.blue.shared.dto.MissionDto;
 import ch.bfh.bti7081.s2019.blue.shared.dto.MissionSeriesDto;
+import ch.bfh.bti7081.s2019.blue.shared.dto.PatientDto;
 import ch.bfh.bti7081.s2019.blue.shared.dto.PatientRefDto;
 import com.google.common.annotations.VisibleForTesting;
 import com.vaadin.flow.spring.annotation.UIScope;
@@ -90,7 +91,7 @@ public class PatientPlannerActivity extends BaseActivity implements PatientPlann
     }
 
     @Override
-    public void onSelectionChange(PatientRefDto patient, LocalDateTime startDate, LocalDateTime endDate) {
+    public void onSelectionChange(PatientDto patient, LocalDateTime startDate, LocalDateTime endDate) {
         missionService.find(patient.getNumber(), startDate, endDate)
                 .done(view::setMissions);
     }

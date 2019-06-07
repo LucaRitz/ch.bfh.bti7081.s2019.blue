@@ -20,7 +20,6 @@ import org.springframework.web.bind.annotation.*;
 import javax.ws.rs.core.MediaType;
 import java.time.LocalDateTime;
 import java.util.ArrayList;
-import java.util.Date;
 import java.util.List;
 
 @RestController
@@ -65,6 +64,15 @@ public class MissionResource {
 
         List<MissionDto> result = mapper.map(mergedMissions, MissionDto.class);
         employeeRecommendationService.addEmployeeRecommendationsAvailableFlag(result, new DateRange(startDate, endDate));
+        return result;
+    }
+
+    @GetMapping(produces = MediaType.APPLICATION_JSON)
+    @RequestMapping("/{id}")
+    public @ResponseBody
+    MissionDto findById(@PathVariable Integer id) {
+        Mission mission = missionRepository.findById(id).orElse(null);
+        MissionDto result = mapper.map(mission, MissionDto.class);
         return result;
     }
 

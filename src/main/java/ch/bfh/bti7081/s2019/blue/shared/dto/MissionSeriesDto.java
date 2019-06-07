@@ -26,7 +26,7 @@ public class MissionSeriesDto {
 
     @NotNull
     @Valid
-    private PatientRefDto patient;
+    private PatientDto patient;
 
     public void setId(Integer id) {
         this.id = id;
@@ -76,11 +76,11 @@ public class MissionSeriesDto {
         this.repetitionType = repetitionType;
     }
 
-    public PatientRefDto getPatient() {
+    public PatientDto getPatient() {
         return patient;
     }
 
-    public void setPatient(PatientRefDto patient) {
+    public void setPatient(PatientDto patient) {
         this.patient = patient;
     }
 
