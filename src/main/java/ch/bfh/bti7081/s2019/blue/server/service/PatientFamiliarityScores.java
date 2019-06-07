@@ -7,7 +7,7 @@ import java.util.Map;
 
 public class PatientFamiliarityScores {
 
-    private Map<Integer, Long> missionCountPerEmployee;
+    private final Map<Integer, Long> missionCountPerEmployee;
 
     public PatientFamiliarityScores() {
         missionCountPerEmployee = new HashMap<>();

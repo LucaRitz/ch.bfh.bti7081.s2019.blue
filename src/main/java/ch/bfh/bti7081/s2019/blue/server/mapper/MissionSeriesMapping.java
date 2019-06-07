@@ -5,8 +5,6 @@ import ch.bfh.bti7081.s2019.blue.shared.dto.MissionSeriesDto;
 import org.dozer.loader.api.BeanMappingBuilder;
 import org.dozer.loader.api.FieldsMappingOptions;
 
-import static org.dozer.loader.api.TypeMappingOptions.oneWay;
-
 public class MissionSeriesMapping extends BeanMappingBuilder {
     @Override
     protected void configure() {

@@ -23,7 +23,7 @@ public class TranslationProvider implements I18NProvider {
             .build(new CacheLoader<Locale, ResourceBundle>() {
 
                 @Override
-                public ResourceBundle load(final Locale key) throws Exception {
+                public ResourceBundle load(final Locale key) {
                     return initializeBundle(key);
                 }
             });

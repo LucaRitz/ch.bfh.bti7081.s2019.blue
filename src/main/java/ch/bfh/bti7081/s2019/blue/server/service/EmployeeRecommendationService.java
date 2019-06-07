@@ -13,7 +13,6 @@ import org.springframework.stereotype.Component;
 
 import java.time.LocalDateTime;
 import java.util.Comparator;
-import java.util.Date;
 import java.util.List;
 import java.util.stream.Collectors;
 
@@ -33,14 +32,14 @@ public class EmployeeRecommendationService {
         this.employeeAvailabilityService = employeeAvailabilityService;
     }
 
-    public List<MissionDto> addEmployeeRecommendationsAvailableFlag(List<MissionDto> missions, DateRange planningDateRange) {
+    public void addEmployeeRecommendationsAvailableFlag(List<MissionDto> missions, DateRange planningDateRange) {
 
         List<MissionDto> unplannedMissions = missions.stream()
                 .filter(mission -> mission.getHealthVisitor() == null)
                 .collect(Collectors.toList());
 
         if (unplannedMissions.isEmpty()) {
-            return missions;
+            return;
         }
 
         Schedule schedule = getSchedule(planningDateRange);
@@ -51,7 +50,6 @@ public class EmployeeRecommendationService {
             List<Employee> availableEmployees = schedule.getAvailableEmployees(dateRange);
             mission.setRecommendationsAvailable(!availableEmployees.isEmpty());
         }
-        return missions;
     }
 
     public List<Employee> getEmployeeRecommendations(MissionSeries missionSeries, LocalDateTime startDate, LocalDateTime endDate) {

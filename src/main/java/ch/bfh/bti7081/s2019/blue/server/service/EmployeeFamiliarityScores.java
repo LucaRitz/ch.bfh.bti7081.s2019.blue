@@ -1,6 +1,5 @@
 package ch.bfh.bti7081.s2019.blue.server.service;
 
-import ch.bfh.bti7081.s2019.blue.server.persistence.model.Employee;
 import ch.bfh.bti7081.s2019.blue.server.persistence.model.Patient;
 
 import java.util.HashMap;
@@ -8,7 +7,7 @@ import java.util.Map;
 
 public class EmployeeFamiliarityScores {
 
-    private Map<Integer, Long> missionCountPerPatient;
+    private final Map<Integer, Long> missionCountPerPatient;
 
     public EmployeeFamiliarityScores() {
         missionCountPerPatient = new HashMap<>();

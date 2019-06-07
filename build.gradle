@@ -13,13 +13,13 @@ version = '0.1-SNAPSHOT'
 
 dependencies {
     compile vaadin.springBoot()
-    
+
     compile 'commons-lang:commons-lang:2.3'
 
     // UI
     compile 'org.vaadin.stefan:fullcalendar:1.9.1'
     compile group: 'org.webjars.bowergithub.polymerelements', name: 'iron-icons', version: '3.0.1'
-    
+
     // i18n
     compile group: 'com.vaadin.addon', name: 'flow-guice-addon', version: '2.3.6-vaadin10'
 
@@ -30,7 +30,7 @@ dependencies {
     compile group: 'javax.xml.bind', name: 'jaxb-api', version: '2.3.1'
 
     compileOnly group: 'javax', name: 'javaee-api', version: '7.0'
-    
+
     // Mapping
     compile "net.sf.dozer:dozer:5.5.1"
 

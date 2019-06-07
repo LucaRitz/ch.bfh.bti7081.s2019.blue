@@ -26,7 +26,7 @@ public class ServerConstantsProvider implements InvocationHandler {
             .build(new CacheLoader<Locale, ResourceBundle>() {
 
                 @Override
-                public ResourceBundle load(final Locale key) throws Exception {
+                public ResourceBundle load(final Locale key) {
                     return initializeBundle(key);
                 }
             });
@@ -38,7 +38,7 @@ public class ServerConstantsProvider implements InvocationHandler {
     }
 
     @Override
-    public Object invoke(Object proxy, Method method, Object[] args) throws Throwable {
+    public Object invoke(Object proxy, Method method, Object[] args) {
         if ("hashCode".equals(method.getName())) {
             return 0;
         }

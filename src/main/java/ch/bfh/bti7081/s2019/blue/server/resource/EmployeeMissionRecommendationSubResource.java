@@ -3,7 +3,6 @@ package ch.bfh.bti7081.s2019.blue.server.resource;
 import ch.bfh.bti7081.s2019.blue.server.i18n.ServerConstants;
 import ch.bfh.bti7081.s2019.blue.server.persistence.EmployeeRepository;
 import ch.bfh.bti7081.s2019.blue.server.persistence.model.Employee;
-import ch.bfh.bti7081.s2019.blue.server.persistence.model.Mission;
 import ch.bfh.bti7081.s2019.blue.server.service.PatientMissionRecommendationService;
 import ch.bfh.bti7081.s2019.blue.server.validator.ValidationException;
 import ch.bfh.bti7081.s2019.blue.shared.HttpUtil;
@@ -15,8 +14,6 @@ import org.springframework.web.bind.annotation.*;
 
 import javax.ws.rs.core.MediaType;
 import java.time.LocalDateTime;
-import java.util.ArrayList;
-import java.util.Date;
 import java.util.List;
 import java.util.Optional;
 
