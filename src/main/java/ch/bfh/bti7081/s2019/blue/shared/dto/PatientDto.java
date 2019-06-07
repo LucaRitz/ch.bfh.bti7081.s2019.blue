@@ -17,7 +17,7 @@ public class PatientDto extends AbstractPerson implements HasBirthdate {
 
     private List<DiagnoseDto> diagnoses = new ArrayList<>();
 
-    private List<TaskTemplate> taskTemplates = new ArrayList<>();
+    private List<TaskTemplateDto> taskTemplates = new ArrayList<>();
 
     private DoctorDto doctor;
 
@@ -71,11 +71,11 @@ public class PatientDto extends AbstractPerson implements HasBirthdate {
         this.doctor = doctor;
     }
 
-    public List<TaskTemplate> getTaskTemplates() {
+    public List<TaskTemplateDto> getTaskTemplates() {
         return taskTemplates;
     }
 
-    public void setTaskTemplates(List<TaskTemplate> taskTemplates) {
+    public void setTaskTemplates(List<TaskTemplateDto> taskTemplates) {
         this.taskTemplates = taskTemplates;
     }
 }

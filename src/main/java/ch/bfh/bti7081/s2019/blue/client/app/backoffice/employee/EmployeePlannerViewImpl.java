@@ -2,10 +2,7 @@ package ch.bfh.bti7081.s2019.blue.client.app.backoffice.employee;
 
 import ch.bfh.bti7081.s2019.blue.client.app.base.BaseViewImpl;
 import ch.bfh.bti7081.s2019.blue.client.i18n.AppConstants;
-import ch.bfh.bti7081.s2019.blue.shared.dto.DateRange;
-import ch.bfh.bti7081.s2019.blue.shared.dto.EmployeeDto;
-import ch.bfh.bti7081.s2019.blue.shared.dto.MissionDto;
-import ch.bfh.bti7081.s2019.blue.shared.dto.PatientRefDto;
+import ch.bfh.bti7081.s2019.blue.shared.dto.*;
 import com.vaadin.flow.component.*;
 import com.vaadin.flow.component.button.Button;
 import com.vaadin.flow.component.combobox.ComboBox;
@@ -158,7 +155,7 @@ public class EmployeePlannerViewImpl extends BaseViewImpl<EmployeeViewModel> imp
 
     private Entry toEntry(MissionDto missionDto) {
 
-        PatientRefDto patient = missionDto.getMissionSeries().getPatient();
+        PatientDto patient = missionDto.getMissionSeries().getPatient();
 
         String missionId = String.valueOf(missionDto.getId());
 

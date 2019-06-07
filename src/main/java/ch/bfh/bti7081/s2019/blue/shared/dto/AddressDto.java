@@ -52,4 +52,8 @@ public class AddressDto {
         return this.houseNr;
     }
 
+
+    public String toString() {
+        return streetName + " " + houseNr + " ," + this.postalCode + " " + this.city;
+    }
 }
