@@ -64,7 +64,7 @@ public class EmployeeRecommendationService {
 
         return schedule.getAvailableEmployees(dateRange)
                 .stream()
-                .sorted(Comparator.comparing(scores::getFamiliarity))
+                .sorted(Comparator.comparing(scores::getFamiliarity).reversed())
                 .collect(Collectors.toList());
     }
 

@@ -6,6 +6,7 @@ import ch.bfh.bti7081.s2019.blue.server.persistence.MissionSeriesRepository;
 import ch.bfh.bti7081.s2019.blue.server.persistence.model.Employee;
 import ch.bfh.bti7081.s2019.blue.server.persistence.model.Mission;
 import ch.bfh.bti7081.s2019.blue.server.persistence.model.MissionSeries;
+import ch.bfh.bti7081.s2019.blue.server.persistence.model.Patient;
 import ch.bfh.bti7081.s2019.blue.server.utils.MissionGenerator;
 import ch.bfh.bti7081.s2019.blue.shared.dto.DateRange;
 import ch.bfh.bti7081.s2019.blue.shared.dto.MissionDto;
@@ -54,8 +55,16 @@ public class PatientMissionRecommendationService {
         EmployeeFamiliarityScores employeeFamiliarityScores = familiarityService.getFamiliarityScores(employee);
 
         return mapper.map(possibleMissions.stream()
-                .sorted(Comparator.comparing(mission -> employeeFamiliarityScores.getFamiliarity(mission.getMissionSeries().getPatient())))
+                .sorted(getComparator(employeeFamiliarityScores))
                 .collect(Collectors.toList()), MissionDto.class);
+    }
+
+    private Comparator<Mission> getComparator(EmployeeFamiliarityScores employeeFamiliarityScores) {
+        Comparator<Mission> comparator = Comparator.comparing(mission -> {
+            Patient patient = mission.getMissionSeries().getPatient();
+            return employeeFamiliarityScores.getFamiliarity(patient);
+        });
+        return comparator.reversed();
     }
 
     public List<DateRange> getPatientMissionRecommendationPlaceholders(Employee employee, DateRange planningDateRange) {
@@ -70,7 +79,7 @@ public class PatientMissionRecommendationService {
     }
 
     private List<DateRange> mergeOverlappingDateRanges(List<DateRange> intervals) {
-        if(intervals.size() == 0 || intervals.size() == 1){
+        if (intervals.size() == 0 || intervals.size() == 1) {
             return intervals;
         }
         intervals.sort(Comparator.comparing(DateRange::getStartDate));
@@ -81,11 +90,11 @@ public class PatientMissionRecommendationService {
 
         List<DateRange> result = new ArrayList<>();
 
-        for(int i = 1; i < intervals.size(); i++){
+        for (int i = 1; i < intervals.size(); i++) {
             DateRange current = intervals.get(i);
-            if(current.getStartDate().isBefore(end) || current.getStartDate().equals(end)){
+            if (current.getStartDate().isBefore(end) || current.getStartDate().equals(end)) {
                 end = current.getEndDate().isAfter(end) ? current.getEndDate() : end;
-            }else{
+            } else {
                 result.add(new DateRange(start, end));
                 start = current.getStartDate();
                 end = current.getEndDate();
