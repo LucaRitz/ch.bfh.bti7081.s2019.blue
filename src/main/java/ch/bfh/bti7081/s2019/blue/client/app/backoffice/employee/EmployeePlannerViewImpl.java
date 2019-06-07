@@ -64,11 +64,13 @@ public class EmployeePlannerViewImpl extends BaseViewImpl<EmployeeViewModel> imp
         calendar.addEntryClickedListener((ComponentEventListener<EntryClickedEvent>) event -> {
             Entry entry = event.getEntry();
 
-            if(entry.getId().startsWith("-")) {
-                this.selectedDateRange = entry != null ? new DateRange(entry.getStart(), entry.getEnd()) : null;
+            if (entry != null && entry.getId().startsWith("-")) {
+
+                this.selectedDateRange = new DateRange(entry.getStart(), entry.getEnd());
+            } else {
+                this.selectedDateRange = null;
             }
         });
-
 
         calendar.addViewRenderedListener((ComponentEventListener<ViewRenderedEvent>) event -> onDateRangeChange(event.getIntervalStart(), event.getIntervalEnd()));
 
@@ -124,8 +126,7 @@ public class EmployeePlannerViewImpl extends BaseViewImpl<EmployeeViewModel> imp
     }
 
     @Override
-    public void setRecommendationEntries(List<DateRange> dateRanges)
-    {
+    public void setRecommendationEntries(List<DateRange> dateRanges) {
         calendar.addEntries(dateRanges.stream()
                 .map(this::toEntry)
                 .collect(Collectors.toList()));
@@ -162,7 +163,6 @@ public class EmployeePlannerViewImpl extends BaseViewImpl<EmployeeViewModel> imp
         String title = patient.getDisplayName();
 
         LocalDateTime startDate = missionDto.getStartDate();
-
         LocalDateTime endDate = missionDto.getEndDate();
 
         String color = "#3333ff";
@@ -174,10 +174,9 @@ public class EmployeePlannerViewImpl extends BaseViewImpl<EmployeeViewModel> imp
 
         String missionId = "-" + UUID.randomUUID().toString();
 
-        String title = "Vorschläge verfügbar.";
+        String title = getTranslation(AppConstants.RECOMMONDATIONS_AVAILABLE.getKey());
 
         LocalDateTime startDate = dateRange.getStartDate();
-
         LocalDateTime endDate = dateRange.getEndDate();
 
         String color = "#0CFF4D";

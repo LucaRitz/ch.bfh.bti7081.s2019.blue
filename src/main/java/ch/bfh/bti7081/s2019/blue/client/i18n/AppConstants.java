@@ -41,6 +41,7 @@ public enum AppConstants {
     MISSION_END_DATE("mission.end.date"),
     MISSION_ASSIGN_EMPLOYEE("mission.assign.employee"),
     ASSIGN_TO_MISSION("assign.to.mission"),
+    RECOMMONDATIONS_AVAILABLE("recommendations.available"),
     PATIENT_NAME("patient"),
     PATIENT_LOCATION("patient.location"),
     PATIENT_LOCATION_OPEN_IN_MAPS("patient.location.open.in.map"),

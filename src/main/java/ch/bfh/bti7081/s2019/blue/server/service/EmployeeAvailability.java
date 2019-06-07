@@ -6,7 +6,7 @@ import java.util.List;
 
 public class EmployeeAvailability {
 
-    private List<DateRange> occupations;
+    private final List<DateRange> occupations;
 
     public EmployeeAvailability(List<DateRange> occupations) {
         this.occupations = occupations;
