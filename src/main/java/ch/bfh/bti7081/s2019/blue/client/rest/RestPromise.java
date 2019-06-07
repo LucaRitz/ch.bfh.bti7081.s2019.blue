@@ -6,7 +6,7 @@ import java.util.Objects;
 public class RestPromise<V> implements Promise<V> {
 
     private V value;
-    private State state = State.PENDING;;
+    private State state = State.PENDING;
     private Exception reason;
 
     private Handler<V> first;
@@ -41,7 +41,7 @@ public class RestPromise<V> implements Promise<V> {
     }
 
     @Override
-    public <R> Promise<R> then(ThenCallback<? super V, R> callback) {
+    public synchronized <R> Promise<R> then(ThenCallback<? super V, R> callback) {
         switch (state) {
             case FULFILLED:
                 return callback.onFulfilled(value);
@@ -81,7 +81,7 @@ public class RestPromise<V> implements Promise<V> {
     }
 
     @Override
-    public void done(DoneCallback<? super V> callback) {
+    public synchronized void done(DoneCallback<? super V> callback) {
         switch (state) {
             case FULFILLED:
                 callback.onFulfilled(value);
@@ -116,7 +116,7 @@ public class RestPromise<V> implements Promise<V> {
         return state;
     }
 
-    private void addHandler(Handler<V> handler) {
+    private synchronized void addHandler(Handler<V> handler) {
         if (last == null) {
             first = handler;
         } else {

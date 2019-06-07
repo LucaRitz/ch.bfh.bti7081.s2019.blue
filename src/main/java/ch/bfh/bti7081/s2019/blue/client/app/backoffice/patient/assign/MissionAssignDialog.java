@@ -7,7 +7,6 @@ import ch.bfh.bti7081.s2019.blue.client.app.base.IsView;
 import ch.bfh.bti7081.s2019.blue.client.ws.MissionSeriesService;
 import ch.bfh.bti7081.s2019.blue.client.ws.MissionService;
 import ch.bfh.bti7081.s2019.blue.shared.dto.MissionDto;
-import com.google.common.annotations.VisibleForTesting;
 import com.vaadin.flow.spring.annotation.UIScope;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
@@ -21,12 +20,10 @@ public class MissionAssignDialog extends BaseActivity implements MissionAssignVi
     private final DialogFactory dialogFactory;
     private final MissionSeriesService missionSeriesService;
 
-    @VisibleForTesting
-    IsDialog dialog;
+    private IsDialog dialog;
 
     private Listener listener;
     private MissionDto missionDto;
-
 
     @Autowired
     public MissionAssignDialog(MissionAssignView view, MissionService missionService,

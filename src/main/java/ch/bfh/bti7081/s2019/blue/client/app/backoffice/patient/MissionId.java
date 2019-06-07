@@ -2,9 +2,9 @@ package ch.bfh.bti7081.s2019.blue.client.app.backoffice.patient;
 
 public class MissionId {
 
-    private Type type;
-    private Integer seriesId;
-    private String missionId;
+    private final Type type;
+    private final Integer seriesId;
+    private final String missionId;
 
     public MissionId(Type type, Integer seriesId, String missionId) {
         this.type = type;

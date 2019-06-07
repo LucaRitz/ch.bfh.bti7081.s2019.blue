@@ -6,7 +6,7 @@ import com.vaadin.flow.component.dialog.Dialog;
 
 public class DialogImpl implements IsDialog {
 
-    private Dialog dialog;
+    private final Dialog dialog;
 
     public DialogImpl(IsView view) {
         this.dialog = new Dialog(view.asComponent());

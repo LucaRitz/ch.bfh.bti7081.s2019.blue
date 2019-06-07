@@ -30,6 +30,7 @@ public enum AppConstants {
     MISSION_EDIT_END_DATE("mission.edit.end.date"),
     MISSION_ASSIGN_EMPLOYEE("mission.assign.employee"),
     ASSIGN_TO_MISSION("assign.to.mission"),
+    RECOMMONDATIONS_AVAILABLE("recommendations.available"),
     PATIENT_PLANNER_NO_SELECTED_MISSION("patient.planner.no.selected.mission"),
     PATIENT_PLANNER_HEALTH_VISITOR_ALREADY_ASSIGNED("patient.planner.health.visitor.already.assigned"),
     COLOR_RED_LEGEND( "legend.color.red"),

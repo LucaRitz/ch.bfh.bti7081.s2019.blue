@@ -8,8 +8,8 @@ import java.util.stream.Collectors;
 
 public class Schedule {
 
-    private List<Employee> employees;
-    private EmployeeAvailabilities employeeAvailabilities;
+    private final List<Employee> employees;
+    private final EmployeeAvailabilities employeeAvailabilities;
 
     public Schedule(List<Employee> employees, EmployeeAvailabilities employeeAvailabilities) {
         this.employees = employees;
