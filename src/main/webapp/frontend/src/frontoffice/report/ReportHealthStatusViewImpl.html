@@ -1,0 +1,25 @@
+<link rel="import" href="../../../bower_components/polymer/polymer.html">
+<link rel="import" href="../../../bower_components/vaadin-text-field/vaadin-number-field.html">
+
+<dom-module id="report-healthstatus">
+    <template>
+        <style>
+        </style>
+        <div>
+            <p id="physicalStatus">[[text.physicalStatus]]</p>
+            <vaadin-number-field id="physicalStatusPoints" value="3" min="1" max="5" has-controls></vaadin-number-field>
+            <p id="psychologicalStatus">[[text.psychologicalStatus]]</p>
+            <vaadin-number-field id="psychologicalStatusPoints" value="3" min="1" max="5" has-controls></vaadin-number-field>
+        </div>
+    </template>
+
+    <script>
+        class ReportHealthStatusViewApply extends Polymer.Element {
+            static get is() {
+                return 'report-healthstatus'
+            }
+        }
+
+        customElements.define(ReportHealthStatusViewApply.is, ReportHealthStatusViewApply);
+    </script>
+</dom-module>
