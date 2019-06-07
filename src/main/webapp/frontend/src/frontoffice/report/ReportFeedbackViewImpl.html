@@ -1,0 +1,26 @@
+<link rel="import" href="../../../bower_components/polymer/polymer.html">
+<link rel="import" href="../../../bower_components/vaadin-checkbox/vaadin-checkbox-group.html">
+
+<dom-module id="report-feedback">
+    <template>
+        <style>
+        </style>
+        <div>
+            <label>[[text.feedbackDescription]]</label>
+        </div>
+        <div>
+            <vaadin-text-area id="feedbackTextArea" maxlength="800" style="width: 300px; height: 250px;">
+            </vaadin-text-area>
+        </div>
+    </template>
+
+    <script>
+        class ReportFeedbackViewApply extends Polymer.Element {
+            static get is() {
+                return 'report-feedback'
+            }
+        }
+
+        customElements.define(ReportFeedbackViewApply.is, ReportFeedbackViewApply);
+    </script>
+</dom-module>

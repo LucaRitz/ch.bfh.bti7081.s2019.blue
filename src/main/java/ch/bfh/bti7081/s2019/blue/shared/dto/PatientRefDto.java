@@ -38,4 +38,5 @@ public class PatientRefDto extends AbstractPerson implements HasBirthdate {
     public String getDisplayName() {
         return super.getDisplayName() + ", " + this.getAge();
     }
+
 }

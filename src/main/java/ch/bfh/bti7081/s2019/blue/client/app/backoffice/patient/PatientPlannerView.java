@@ -3,6 +3,7 @@ package ch.bfh.bti7081.s2019.blue.client.app.backoffice.patient;
 import ch.bfh.bti7081.s2019.blue.client.app.base.IsView;
 import ch.bfh.bti7081.s2019.blue.shared.dto.MissionDto;
 import ch.bfh.bti7081.s2019.blue.shared.dto.MissionSeriesDto;
+import ch.bfh.bti7081.s2019.blue.shared.dto.PatientDto;
 import ch.bfh.bti7081.s2019.blue.shared.dto.PatientRefDto;
 
 import java.time.LocalDateTime;
@@ -12,13 +13,13 @@ public interface PatientPlannerView extends IsView {
 
     void setPresenter(Presenter presenter);
 
-    void setPatients(List<PatientRefDto> patients);
+    void setPatients(List<PatientDto> patients);
 
     void setMissions(List<MissionDto> missions);
 
     void reload();
 
-    PatientRefDto getPatient();
+    PatientDto getPatient();
 
     MissionSeriesDto getSelectedMissionSeries();
 
@@ -28,6 +29,6 @@ public interface PatientPlannerView extends IsView {
         void onCreateClicked();
         void onEditClicked();
         void onAssignClicked();
-        void onSelectionChange(PatientRefDto patient, LocalDateTime startDate, LocalDateTime endDate);
+        void onSelectionChange(PatientDto patient, LocalDateTime startDate, LocalDateTime endDate);
     }
 }

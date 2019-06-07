@@ -7,5 +7,6 @@ public interface ReportConfirmationModel extends TemplateModel {
 
     interface Text {
         void setTitle(String title);
+        void setConfirmationMessage(String title);
     }
 }

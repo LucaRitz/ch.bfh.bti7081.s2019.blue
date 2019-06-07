@@ -10,6 +10,7 @@ public class Navigation {
     public static final String PATIENT_PLANNER = "patientplanner";
     public static final String EMPLOYEE_PLANNER = "employeeplanner";
     public static final String EMPLOYEE_DAILY_OVERVIEW = "employeedailyoverview";
+    public static final String MISSION = "mission";
     public static final String REPORT = "report";
 
     private static final Map<String, Integer> ORDER_MAP = new HashMap<>();

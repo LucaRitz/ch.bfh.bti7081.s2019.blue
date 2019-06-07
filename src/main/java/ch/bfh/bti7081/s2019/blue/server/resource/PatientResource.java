@@ -6,7 +6,6 @@ import ch.bfh.bti7081.s2019.blue.server.persistence.PatientRepository;
 import ch.bfh.bti7081.s2019.blue.server.persistence.model.Patient;
 import ch.bfh.bti7081.s2019.blue.server.validator.ValidationException;
 import ch.bfh.bti7081.s2019.blue.shared.dto.PatientDto;
-import ch.bfh.bti7081.s2019.blue.shared.dto.PatientRefDto;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
@@ -29,10 +28,9 @@ public class PatientResource {
     }
 
     @GetMapping(produces = MediaType.APPLICATION_JSON)
-    public @ResponseBody
-    List<PatientRefDto> get() {
+    public @ResponseBody List<PatientDto> get() {
         List<Patient> entities = repository.findAll();
-        return mapper.map(entities, PatientRefDto.class);
+        return mapper.map(entities, PatientDto.class);
     }
 
     @GetMapping(path = "/{id}", produces = MediaType.APPLICATION_JSON)
