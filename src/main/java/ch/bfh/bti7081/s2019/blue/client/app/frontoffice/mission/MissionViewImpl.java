@@ -32,6 +32,9 @@ public class MissionViewImpl extends BaseViewImpl<MissionModel> implements Missi
     @Id
     private Button finishButton;
     @Id
+    private Button showReportButton;
+
+    @Id
     private Label nameLabel;
     @Id
     private Label startDateLabel;
@@ -57,7 +60,7 @@ public class MissionViewImpl extends BaseViewImpl<MissionModel> implements Missi
 
         setText(getModel().getText()::setStartMission, AppConstants.MISSION_START);
         setText(getModel().getText()::setFinishMission, AppConstants.MISSION_END);
-        setText(getModel().getText()::setSubtitle, AppConstants.MISSION_DETAILS);
+        setText(getModel().getText()::setShowReport, AppConstants.MISSION_SHOW_REPORT);
 
         setText(getModel().getText()::setPatientName, AppConstants.PATIENT_NAME);
         setText(getModel().getText()::setPatientLocation, AppConstants.PATIENT_LOCATION);
@@ -81,13 +84,6 @@ public class MissionViewImpl extends BaseViewImpl<MissionModel> implements Missi
             presenter.navigateToOverview();
             return;
         }
-
-        /*
-        if (missionDto.getReport() != null) {
-            setStartButtonEnabled(false);
-            setStopButtonEnabled(false);
-        }
-        */
 
         DateTimeFormatter dateFormat = DateTimeFormatter.ofPattern("dd.MM.yyyy HH:mm");
 
@@ -131,6 +127,12 @@ public class MissionViewImpl extends BaseViewImpl<MissionModel> implements Missi
         finishButton.setEnabled(enabled);
     }
 
+    @Override
+    public void setShowReportVisibility(boolean visible) {
+        showReportButton.setVisible(visible);
+    }
+
+
     @EventHandler
     private void startButtonPressed() {
         presenter.onStartButtonPressed();
@@ -139,6 +141,11 @@ public class MissionViewImpl extends BaseViewImpl<MissionModel> implements Missi
     @EventHandler
     private void finishButtonPressed() {
         presenter.onFinishButtonPressed();
+    }
+
+    @EventHandler
+    private void showReportButtonPressed() {
+        presenter.onShowReportPressed();
     }
 
 }
