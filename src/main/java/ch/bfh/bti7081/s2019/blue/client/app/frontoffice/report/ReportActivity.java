@@ -32,7 +32,6 @@ public class ReportActivity extends BaseActivity implements ReportView.Presenter
     public ReportActivity(ReportView view,
                           PatientService patientService, ReportTasksActivity tasksActivity,
                           ReportActionsActivity actionsActivity,
-                          ReportConfirmationActivity confirmationActivity) {
                           ReportHealthStatusActivity healthStatusActivity, ReportConfirmationActivity confirmationActivity) {
         this.view = view;
         this.patientService = patientService;
