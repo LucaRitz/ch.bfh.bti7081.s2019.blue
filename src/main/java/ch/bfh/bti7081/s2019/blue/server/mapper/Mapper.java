@@ -41,6 +41,7 @@ public class Mapper {
         mapper.addMapping(new EmployeeMapping());
         mapper.addMapping(new MissionMapping());
         mapper.addMapping(new MissionSeriesMapping());
+        mapper.addMapping(new ReportMapping());
     }
 
     public <T> T map(Object source, Class<T> destinationClass) {

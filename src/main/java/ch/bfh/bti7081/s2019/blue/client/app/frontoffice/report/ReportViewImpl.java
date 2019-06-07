@@ -27,12 +27,19 @@ public class ReportViewImpl extends BaseViewImpl<ReportModel> implements ReportV
     private Button previousStepButton;
     @Id
     private Button nextStepButton;
+    @Id
+    private Button saveButton;
+
+    @Id
+    private Button backToOverviewButton;
 
     private Presenter presenter;
 
     @Autowired
     public ReportViewImpl() {
         setText(getModel().getText()::setTitle, AppConstants.REPORT);
+        setText(getModel().getText()::setSave, AppConstants.ACTION_SAVE);
+        setText(getModel().getText()::setBackToOverview, AppConstants.ACTION_BACK_TO_OVERVIEW);
     }
 
     @Override
@@ -65,6 +72,30 @@ public class ReportViewImpl extends BaseViewImpl<ReportModel> implements ReportV
         nextStepButton.setEnabled(enabled);
     }
 
+    @Override
+    public void showSaveButton(boolean visible) {
+        saveButton.setVisible(visible);
+        nextStepButton.setVisible(!visible);
+    }
+
+    @Override
+    public void showBackToOverviewButton() {
+        previousStepButton.setVisible(false);
+        nextStepButton.setVisible(false);
+        saveButton.setVisible(false);
+        backToOverviewButton.setVisible(true);
+    }
+
+    @Override
+    public void hideBackToOverviewButton() {
+        backToOverviewButton.setVisible(false);
+    }
+
+    @Override
+    public void setConfirmationView(IsView view) {
+        viewContainer.add(view.asComponent());
+    }
+
     @EventHandler
     private void nextStepButtonPressed() {
         presenter.onNextStepButtonPressed();
@@ -75,4 +106,13 @@ public class ReportViewImpl extends BaseViewImpl<ReportModel> implements ReportV
         presenter.onPreviousStepButtonPressed();
     }
 
+    @EventHandler
+    private void saveButtonPressed() {
+        presenter.onSaveButtonPressed();
+    }
+
+    @EventHandler
+    private void backToOverviewButtonPressed() {
+        presenter.onBackToOverviewButtonPressed();
+    }
 }

@@ -18,7 +18,7 @@ public class ReportConfirmationViewImpl extends BaseViewImpl<ReportConfirmationM
 
     @Autowired
     public ReportConfirmationViewImpl() {
-        setText(getModel().getText()::setTitle, AppConstants.REPORT_CONFIRMATION);
+        setText(getModel().getText()::setConfirmationMessage, AppConstants.REPORT_CONFIRMATION_MESSAGE);
     }
 
     @Override

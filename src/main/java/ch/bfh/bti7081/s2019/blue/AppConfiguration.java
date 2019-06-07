@@ -82,6 +82,11 @@ public class AppConfiguration {
         return createProxy(PatientService.class, errorHandler, converter);
     }
 
+    @Bean
+    public ReportService getReportRestClient(ResponseErrorHandler errorHandler, ProvidesConverter converter) {
+        return createProxy(ReportService.class, errorHandler, converter);
+    }
+
     private <T> T createProxy(Class<T> service, ResponseErrorHandler errorHandler, ProvidesConverter converter) {
         String host = "http://" + serverAddress + ":" + serverPort;
         return new RestResourceProxy<>(service, host, converter, errorHandler).getResourceProxy();

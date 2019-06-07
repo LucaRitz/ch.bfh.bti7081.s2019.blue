@@ -7,6 +7,9 @@ public enum AppConstants {
     MENU_EMPLOYEEPLANNER("menu.employeeplanner"),
     MENU_EMPLOYEEDAILYOVERVIEW("menu.employeedailyoverview"),
     REPORT("report"),
+    REPORT_ALREADY_EXISTING("report.already.existing"),
+    REPORT_FEEDBACK("report.feedback"),
+    REPORT_FEEDBACK_DESCRIPTION("report.feedback.description"),
     REPORT_TASKS("report.tasks"),
     REPORT_TASKS_DESCRIPTION("report.tasks.description"),
     REPORT_TASKS_TASKDESCRIPTION("report.tasks.taskdescription"),
@@ -15,6 +18,7 @@ public enum AppConstants {
     REPORT_ACTIONS_DESCRIPTION("report.actions.description"),
     REPORT_ACTIONS_ACTIONDESCRIPTION("report.actions.actiondescription"),
     REPORT_CONFIRMATION("report.confirmation"),
+    REPORT_CONFIRMATION_MESSAGE("report.confirmation.message"),
     REPORT_HEALTHSTATUS("report.healthstatus"),
     REPORT_HEALTHSTATUS_PHYSICAL("report.healthstatus.physical"),
     REPORT_HEALTHSTATUS_PSYCHOLOGICAL("report.healthstatus.psychological"),
@@ -22,6 +26,7 @@ public enum AppConstants {
     ACTION_SAVE("action.save"),
     ACTION_CANCEL("action.cancel"),
     ACTION_ADD("action.add"),
+    ACTION_BACK_TO_OVERVIEW("action.back.to.overview"),
     MISSION("mission"),
     MISSION_DETAILS("mission.details"),
     MISSION_CREATE_START_DATE("mission.create.start.date"),
@@ -48,7 +53,8 @@ public enum AppConstants {
     COLOR_BLUE_LEGEND( "legend.color.blue"),
     ASSIGNED_TO_PATIENT_LEGEND( "legend.assigned.to.patient"),
     RECOMMONDATION_AVAILABLE_LEGEND( "legend.recommendation.available"),
-    REQUIRED("required");
+    REQUIRED("required"),
+    NO_AGENT_AVAILABLE("no.agent.available");
 
     private final String key;
 

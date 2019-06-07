@@ -76,7 +76,7 @@ public class MissionActivity extends BaseActivity implements MissionView.Present
             return;
         }
 
-        missionService.findById(missionId)
+        missionService.get(missionId)
                 .done((missionDto) -> {
                     if (missionDto == null) {
                         navigateToOverview();

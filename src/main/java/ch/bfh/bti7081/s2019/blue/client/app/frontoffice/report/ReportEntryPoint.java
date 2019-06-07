@@ -22,11 +22,11 @@ public class ReportEntryPoint extends UrlParameterEntryPoint {
     @PostConstruct
     void setUp() {
         add(presenter.getView().asComponent());
-        presenter.start();
     }
 
     @Override
     public void setParameter(BeforeEvent event, Integer parameter) {
         presenter.setMissionId(parameter);
+        presenter.start();
     }
 }

@@ -6,7 +6,6 @@ import ch.bfh.bti7081.s2019.blue.shared.dto.*;
 import org.springframework.core.ParameterizedTypeReference;
 import org.springframework.stereotype.Component;
 
-
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 import java.util.HashMap;
