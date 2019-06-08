@@ -1,0 +1,30 @@
+<link rel="import" href="../../../bower_components/polymer/polymer.html">
+
+<dom-module id="report-duration">
+    <template>
+        <style>
+        </style>
+        <div>
+            <div>[[text.duration]]</div>
+            <label id="time"></label>
+            <div>
+                <vaadin-button id="minusButton">
+                    <iron-icon icon="vaadin:minus"></iron-icon>
+                </vaadin-button>
+                <vaadin-button id="plusButton">
+                    <iron-icon icon="vaadin:plus"></iron-icon>
+                </vaadin-button>
+            </div>
+        </div>
+    </template>
+
+    <script>
+        class ReportDurationViewApply extends Polymer.Element {
+            static get is() {
+                return 'report-duration'
+            }
+        }
+
+        customElements.define(ReportDurationViewApply.is, ReportDurationViewApply);
+    </script>
+</dom-module>

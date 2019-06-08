@@ -6,6 +6,7 @@ import ch.bfh.bti7081.s2019.blue.client.app.base.IsView;
 import ch.bfh.bti7081.s2019.blue.client.app.frontoffice.dailyoverview.EmployeeDailyOverviewEntryPoint;
 import ch.bfh.bti7081.s2019.blue.client.app.frontoffice.report.action.ReportActionsActivity;
 import ch.bfh.bti7081.s2019.blue.client.app.frontoffice.report.confirmation.ReportConfirmationActivity;
+import ch.bfh.bti7081.s2019.blue.client.app.frontoffice.report.duration.ReportDurationActivity;
 import ch.bfh.bti7081.s2019.blue.client.app.frontoffice.report.feedback.ReportFeedbackActivity;
 import ch.bfh.bti7081.s2019.blue.client.app.frontoffice.report.healthstatus.ReportHealthStatusActivity;
 import ch.bfh.bti7081.s2019.blue.client.app.frontoffice.report.tasks.ReportTasksActivity;
@@ -56,6 +57,7 @@ public class ReportActivity extends BaseActivity implements ReportView.Presenter
                           ReportTasksActivity tasksActivity,
                           ReportActionsActivity actionsActivity,
                           ReportHealthStatusActivity healthStatusActivity,
+                          ReportDurationActivity durationActivity,
                           ReportFeedbackActivity feedbackActivity,
                           ReportConfirmationActivity confirmationActivity) {
         this.view = view;
@@ -66,7 +68,7 @@ public class ReportActivity extends BaseActivity implements ReportView.Presenter
         this.confirmationActivity = confirmationActivity;
         this.router = router;
         this.view.setPresenter(this);
-        this.wizard = new Wizard<>(Arrays.asList(healthStatusActivity, actionsActivity, tasksActivity, feedbackActivity));
+        this.wizard = new Wizard<>(Arrays.asList(healthStatusActivity, actionsActivity, tasksActivity, durationActivity, feedbackActivity));
     }
 
     @Override
