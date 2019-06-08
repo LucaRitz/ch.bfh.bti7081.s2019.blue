@@ -11,6 +11,7 @@ public class ReportMapping extends BeanMappingBuilder {
     protected void configure() {
         mapping(Report.class, ReportDto.class)
                 .fields("creationDate", "creationDate", customConverter(LocalDateTimeConverter.class))
-                .fields("closedDate", "closedDate", customConverter(LocalDateTimeConverter.class));
+                .fields("closedDate", "closedDate", customConverter(LocalDateTimeConverter.class))
+                .fields("duration", "duration", customConverter(DurationConverter.class));
     }
 }

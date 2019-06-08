@@ -81,6 +81,7 @@ public class ReportDurationViewImpl extends BaseViewImpl<ReportDurationModel> im
     @Override
     public void setDuration(Duration duration) {
         this.duration = duration;
+        setTimeText();
     }
 
     @Override
