@@ -2,10 +2,7 @@ package ch.bfh.bti7081.s2019.blue.client.app.frontoffice.mission;
 
 import ch.bfh.bti7081.s2019.blue.client.app.base.BaseViewImpl;
 import ch.bfh.bti7081.s2019.blue.client.i18n.AppConstants;
-import ch.bfh.bti7081.s2019.blue.shared.dto.DoctorDto;
-import ch.bfh.bti7081.s2019.blue.shared.dto.MedicationDto;
-import ch.bfh.bti7081.s2019.blue.shared.dto.MissionDto;
-import ch.bfh.bti7081.s2019.blue.shared.dto.PatientDto;
+import ch.bfh.bti7081.s2019.blue.shared.dto.*;
 import com.vaadin.flow.component.Tag;
 import com.vaadin.flow.component.button.Button;
 import com.vaadin.flow.component.dependency.HtmlImport;
@@ -45,6 +42,8 @@ public class MissionViewImpl extends BaseViewImpl<MissionModel> implements Missi
     @Id
     private Div medicationDiv;
     @Id
+    private Div diagnosesDiv;
+    @Id
     private Label doctorLabel;
 
     @Id
@@ -68,6 +67,7 @@ public class MissionViewImpl extends BaseViewImpl<MissionModel> implements Missi
         setText(getModel().getText()::setMissionStart, AppConstants.MISSION_START_DATE);
         setText(getModel().getText()::setMissionEnd, AppConstants.MISSION_END_DATE);
         setText(getModel().getText()::setPatientMedication, AppConstants.PATIENT_MEDICATION);
+        setText(getModel().getText()::setPatientDiagnoses, AppConstants.PATIENT_DIAGNOSES);
         setText(getModel().getText()::setPatientDoctor, AppConstants.PATIENT_DOCTOR);
     }
 
@@ -80,7 +80,6 @@ public class MissionViewImpl extends BaseViewImpl<MissionModel> implements Missi
     @Override
     public void setMission(MissionDto missionDto) {
         if (missionDto == null)  {
-            System.err.println("Mission is null");
             presenter.navigateToOverview();
             return;
         }
@@ -98,13 +97,23 @@ public class MissionViewImpl extends BaseViewImpl<MissionModel> implements Missi
         locationLabel.setText(location);
         mapsLocationFrame.setSrc(getMapsUrlForAddress(location));
 
+        List<DiagnoseDto> diagnoses = patient.getDiagnoses();
+        diagnosesDiv.removeAll();
+        if (diagnoses.isEmpty()) {
+            diagnosesDiv.add(new Div(new Label(getTranslation(AppConstants.PATIENT_NO_DIAGNOSE.getKey()))));
+        } else {
+            diagnoses.forEach((x) -> {
+                diagnosesDiv.add(new Div(new Label(x.getName())));
+            });
+        }
 
         List<MedicationDto> medications = patient.getMedications();
+        medicationDiv.removeAll();
         if (medications.isEmpty()) {
-            medicationDiv.add(new Label(getTranslation(AppConstants.PATIENT_NO_MEDICATION.getKey())));
+            medicationDiv.add(new Div(new Label(getTranslation(AppConstants.PATIENT_NO_MEDICATION.getKey()))));
         } else {
             medications.forEach((x) -> {
-                medicationDiv.add(new Label(x.getName() + " (" + x.getUsage() + ")"));
+                medicationDiv.add(new Div(new Label(x.getName() + " (" + x.getUsage() + ")")));
             });
         }
 

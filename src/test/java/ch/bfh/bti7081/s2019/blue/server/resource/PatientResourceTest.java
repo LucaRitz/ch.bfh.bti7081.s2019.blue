@@ -4,7 +4,7 @@ import ch.bfh.bti7081.s2019.blue.server.i18n.ServerConstants;
 import ch.bfh.bti7081.s2019.blue.server.mapper.Mapper;
 import ch.bfh.bti7081.s2019.blue.server.persistence.PatientRepository;
 import ch.bfh.bti7081.s2019.blue.server.persistence.model.Patient;
-import ch.bfh.bti7081.s2019.blue.shared.dto.PatientRefDto;
+import ch.bfh.bti7081.s2019.blue.shared.dto.PatientDto;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
@@ -36,14 +36,14 @@ class PatientResourceTest {
 
     @Test
     void get_getExpected() {
-        PatientRefDto expectedDto = new PatientRefDto();
+        PatientDto expectedDto = new PatientDto();
         Patient entity = new Patient();
         when(repository.findAll()).thenReturn(Collections.singletonList(entity));
-        when(mapper.map(Collections.singletonList(entity), PatientRefDto.class))
+        when(mapper.map(Collections.singletonList(entity), PatientDto.class))
                 .thenReturn(Collections.singletonList(expectedDto));
 
         // Act
-        List<PatientRefDto> results = resource.get();
+        List<PatientDto> results = resource.get();
 
         // Assert
         assertTrue(results.contains(expectedDto));

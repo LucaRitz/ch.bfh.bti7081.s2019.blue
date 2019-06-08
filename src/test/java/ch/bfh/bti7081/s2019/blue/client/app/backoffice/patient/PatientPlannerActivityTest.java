@@ -1,15 +1,15 @@
 package ch.bfh.bti7081.s2019.blue.client.app.backoffice.patient;
 
 import ch.bfh.bti7081.s2019.blue.client.app.backoffice.patient.assign.MissionAssignDialog;
-import ch.bfh.bti7081.s2019.blue.client.i18n.AppConstants;
 import ch.bfh.bti7081.s2019.blue.client.app.backoffice.patient.create.MissionCreateDialog;
 import ch.bfh.bti7081.s2019.blue.client.app.backoffice.patient.edit.MissionEditDialog;
+import ch.bfh.bti7081.s2019.blue.client.i18n.AppConstants;
 import ch.bfh.bti7081.s2019.blue.client.rest.Promises;
 import ch.bfh.bti7081.s2019.blue.client.ws.MissionService;
 import ch.bfh.bti7081.s2019.blue.client.ws.PatientService;
 import ch.bfh.bti7081.s2019.blue.shared.dto.MissionDto;
 import ch.bfh.bti7081.s2019.blue.shared.dto.MissionSeriesDto;
-import ch.bfh.bti7081.s2019.blue.shared.dto.PatientRefDto;
+import ch.bfh.bti7081.s2019.blue.shared.dto.PatientDto;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
@@ -62,7 +62,7 @@ class PatientPlannerActivityTest {
 
     @Test
     void onCreateClicked_showCreateDialog() {
-        PatientRefDto expectedPatientRefDto = new PatientRefDto();
+        PatientDto expectedPatientRefDto = new PatientDto();
 
         when(view.getPatient()).thenReturn(expectedPatientRefDto);
 
@@ -107,7 +107,7 @@ class PatientPlannerActivityTest {
         LocalDateTime expectedStartDate = LocalDateTime.now();
         LocalDateTime expectedEndDate = LocalDateTime.now();
 
-        PatientRefDto patientRefDto = mock(PatientRefDto.class);
+        PatientDto patientRefDto = mock(PatientDto.class);
         when(patientRefDto.getNumber()).thenReturn(expectedPatientNumber);
 
         // Act
@@ -124,7 +124,7 @@ class PatientPlannerActivityTest {
         when(missionService.find(any(), any(), any())).thenReturn(Promises.fulfill(expectedMissions));
 
         // Act
-        activity.onSelectionChange(new PatientRefDto(), LocalDateTime.now(), LocalDateTime.now());
+        activity.onSelectionChange(new PatientDto(), LocalDateTime.now(), LocalDateTime.now());
 
         // Assert
         verify(view).setMissions(expectedMissions);
@@ -132,7 +132,7 @@ class PatientPlannerActivityTest {
 
     @Test
     void loadMasterdata_updatePatientsOnView() {
-        List<PatientRefDto> expectedPatients = Collections.singletonList(new PatientRefDto());
+        List<PatientDto> expectedPatients = Collections.singletonList(new PatientDto());
         when(patientService.get()).thenReturn(Promises.fulfill(expectedPatients));
 
         // Act

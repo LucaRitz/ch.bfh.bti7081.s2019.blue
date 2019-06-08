@@ -36,7 +36,6 @@ public class Mapper {
         mapper.setCustomConvertersWithId(idConverters);
 
         // Mapping Konfigurationen
-        mapper.addMapping(new HomeMapping());
         mapper.addMapping(new PatientMapping());
         mapper.addMapping(new EmployeeMapping());
         mapper.addMapping(new MissionMapping());

@@ -54,6 +54,6 @@ public class AddressDto {
 
 
     public String toString() {
-        return streetName + " " + houseNr + " ," + this.postalCode + " " + this.city;
+        return streetName + " " + houseNr + ", " + this.postalCode + " " + this.city;
     }
 }
