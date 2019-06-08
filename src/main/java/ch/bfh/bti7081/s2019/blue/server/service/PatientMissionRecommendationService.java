@@ -17,7 +17,6 @@ import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.Comparator;
 import java.util.List;
-import java.util.Optional;
 import java.util.stream.Collectors;
 
 @Component
@@ -50,7 +49,7 @@ public class PatientMissionRecommendationService {
     public List<MissionDto> getPatientMissionRecommendations(Employee employee, DateRange dateRange) {
 
         EmployeeAvailability availability = employeeAvailabilityService.getAvailability(employee, dateRange);
-        List<Mission> possibleMissions = getPossibleMissions(employee, availability, dateRange);
+        List<Mission> possibleMissions = getPossibleMissions(availability, dateRange);
 
         EmployeeFamiliarityScores employeeFamiliarityScores = familiarityService.getFamiliarityScores(employee);
 
@@ -70,7 +69,7 @@ public class PatientMissionRecommendationService {
     public List<DateRange> getPatientMissionRecommendationPlaceholders(Employee employee, DateRange planningDateRange) {
 
         EmployeeAvailability availability = employeeAvailabilityService.getAvailability(employee, planningDateRange);
-        List<DateRange> possibleMissions = getPossibleMissions(employee, availability, planningDateRange)
+        List<DateRange> possibleMissions = getPossibleMissions(availability, planningDateRange)
                 .stream()
                 .map(this::getDateRange)
                 .collect(Collectors.toList());
@@ -105,37 +104,18 @@ public class PatientMissionRecommendationService {
         return result;
     }
 
-    private Optional<DateRange> getSpanningDateRange(List<DateRange> dateRanges) {
-
-        if (dateRanges.isEmpty()) {
-            return Optional.empty();
-        }
-
-        LocalDateTime startDate = dateRanges.stream()
-                .map(DateRange::getStartDate)
-                .min(Comparator.naturalOrder())
-                .orElse(null);
-
-        LocalDateTime endDate = dateRanges.stream()
-                .map(DateRange::getEndDate)
-                .max(Comparator.naturalOrder())
-                .orElse(null);
-
-        return Optional.of(new DateRange(startDate, endDate));
-    }
-
-    private List<Mission> getPossibleMissions(Employee employee, EmployeeAvailability availability, DateRange planningDateRange) {
+    private List<Mission> getPossibleMissions(EmployeeAvailability availability, DateRange planningDateRange) {
 
         List<MissionSeries> missionSeries = missionSeriesRepository
                 .findByIntersectingDateRange(planningDateRange.getStartDate(), planningDateRange.getEndDate());
 
         List<Mission> temporaryMissions = missionGenerator.generateMissionsFromSeries(missionSeries, planningDateRange);
         List<Mission> missions = missionRepository
-                .findByHealthVisitorAndIntersectingDateRange(
-                        employee.getId(), planningDateRange.getStartDate(), planningDateRange.getEndDate(), null);
-        missionService.mergeExistingMissionsWithTemporaryOnes(missions, temporaryMissions);
+                .findByIntersectingDateRange(planningDateRange.getStartDate(), planningDateRange.getEndDate(), null);
+        List<Mission> mergedMissions = missionService.mergeExistingMissionsWithTemporaryOnes(missions, temporaryMissions);
+        mergedMissions.removeAll(missions);
 
-        return temporaryMissions.stream()
+        return mergedMissions.stream()
                 .filter(mission -> availability.isAvailable(getDateRange(mission)))
                 .collect(Collectors.toList());
     }
