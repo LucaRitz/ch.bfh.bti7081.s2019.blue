@@ -1,0 +1,106 @@
+<link rel="import" href="../../../bower_components/polymer/polymer.html">
+<link rel="import" href="../../../bower_components/vaadin-details/vaadin-details.html">
+<link rel="import" href="../../base/TitledContent.html">
+
+<dom-module id="mission-detail-view">
+    <template>
+        <style>
+            :host {
+                width: 100%;
+            }
+
+            .title {
+                font-weight: bold;
+                width: 200px;
+            }
+
+            .functions {
+                margin-top: 20px;
+            }
+
+            table {
+                width: 100%;
+            }
+            table, tr, td {
+                border: 0;
+            }
+
+        </style>
+        <titled-content>
+            <label slot="title">[[text.title]]</label>
+            <label slot="subtitle">[[text.subtitle]]</label>
+            <div slot="content">
+
+                <table>
+                    <tr>
+                        <td class="title">[[text.patientName]]</td>
+                        <td><label id="nameLabel"></label></td>
+                    </tr>
+
+                    <tr>
+                        <td class="title">[[text.missionStart]]</td>
+                        <td><label id="startDateLabel"></label></td>
+                    </tr>
+
+                    <tr>
+                        <td class="title">[[text.missionEnd]]</td>
+                        <td><label id="endDateLabel"></label></td>
+                    </tr>
+
+                    <tr>
+                        <td class="title">[[text.patientMedication]]</td>
+                        <td><div id="medicationDiv"></div></td>
+                    </tr>
+
+                    <tr>
+                        <td class="title">[[text.patientDoctor]]</td>
+                        <td><label id="doctorLabel"></label></td>
+                    </tr>
+
+                    <tr>
+                        <td class="title">[[text.patientLocation]]</td>
+                        <td><label id="locationLabel"></label></td>
+                    </tr>
+
+                    <tr>
+                        <td class="title"></td>
+                        <td><vaadin-details>
+                            <div slot="summary">[[text.locationOpenInMap]]</div>
+                            <iframe id="mapsLocationFrame" width="60%" height="400px"></iframe>
+                        </vaadin-details></td>
+                    </tr>
+
+
+                    <tr class="functions">
+                        <td class="title"></td>
+                        <td>
+                            <vaadin-button theme="icon" id="startButton" on-click="startButtonPressed">
+                                [[text.startMission]]
+                            </vaadin-button>
+
+                            <vaadin-button theme="icon" id="finishButton" on-click="finishButtonPressed">
+                                [[text.finishMission]]
+                            </vaadin-button>
+
+                            <vaadin-button theme="icon" id="showReportButton" on-click="showReportButtonPressed">
+                                [[text.showReport]]
+                            </vaadin-button>
+                        </td>
+                    </tr>
+                </table>
+
+            </div>
+        </titled-content>
+    </template>
+
+    <script>
+        class MissionDetailViewApply extends Polymer.Element {
+            static get is() {
+                return 'mission-detail-view'
+            }
+        }
+
+        customElements.define(MissionDetailViewApply.is, MissionDetailViewApply);
+    </script>
+
+</dom-module>

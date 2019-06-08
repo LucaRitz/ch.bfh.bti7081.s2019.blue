@@ -2,12 +2,10 @@ package ch.bfh.bti7081.s2019.blue.client.app.base;
 
 import ch.bfh.bti7081.s2019.blue.client.i18n.AppConstants;
 import com.vaadin.flow.component.HasElement;
-import com.vaadin.flow.component.UI;
 import com.vaadin.flow.component.dependency.StyleSheet;
 import com.vaadin.flow.component.html.Anchor;
 import com.vaadin.flow.component.html.Div;
 import com.vaadin.flow.component.html.Image;
-import com.vaadin.flow.router.Router;
 import com.vaadin.flow.router.RouterLayout;
 import com.vaadin.flow.server.VaadinService;
 import com.vaadin.flow.server.VaadinServletRequest;
@@ -49,8 +47,6 @@ Layout extends Div implements RouterLayout {
     }
 
     private void generateMenuWithRegisteredRoutes() {
-        Router router = UI.getCurrent().getRouter();
-
         this.menu.add(getLogoAnchor());
 
         Div menuItemWrapper = new Div();

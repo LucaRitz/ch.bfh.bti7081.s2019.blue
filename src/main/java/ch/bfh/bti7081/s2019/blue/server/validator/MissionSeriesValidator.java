@@ -48,8 +48,7 @@ public class MissionSeriesValidator implements IsValidator<EntityWrapper<Mission
         checkErrorsAndThrow(errors);
     }
 
-    @VisibleForTesting
-    Optional<String> validateNoMissionsAfterEndDate(MissionSeries entity) {
+    private Optional<String> validateNoMissionsAfterEndDate(MissionSeries entity) {
 
         List<Mission> missions = repository.findByMissionSeriesId(entity.getId());
 
@@ -65,8 +64,7 @@ public class MissionSeriesValidator implements IsValidator<EntityWrapper<Mission
         return Optional.empty();
     }
 
-    @VisibleForTesting
-    Optional<String> validateMissionSeriesOverlappingWithMission(MissionSeries entity) {
+    private Optional<String> validateMissionSeriesOverlappingWithMission(MissionSeries entity) {
 
         List<Mission> temporaryMissions = generator.generateMissionsFromSeries(
                 entity, new DateRange(entity.getStartDate(), entity.getEndDate()));
@@ -99,8 +97,7 @@ public class MissionSeriesValidator implements IsValidator<EntityWrapper<Mission
         return Optional.empty();
     }
 
-    @VisibleForTesting
-    Optional<String> validateDateTimeRange(MissionSeries original, MissionSeries modified) {
+    private Optional<String> validateDateTimeRange(MissionSeries original, MissionSeries modified) {
 
         LocalDate startDate = modified.getStartDate().toLocalDate();
         LocalDate endDate = modified.getEndDate().toLocalDate();

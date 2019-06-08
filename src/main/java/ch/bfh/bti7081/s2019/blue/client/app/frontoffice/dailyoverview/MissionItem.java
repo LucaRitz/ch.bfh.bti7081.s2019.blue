@@ -1,11 +1,12 @@
 package ch.bfh.bti7081.s2019.blue.client.app.frontoffice.dailyoverview;
 
-import ch.bfh.bti7081.s2019.blue.shared.dto.AddressRefDto;
-import ch.bfh.bti7081.s2019.blue.shared.dto.MissionDto;
-import ch.bfh.bti7081.s2019.blue.shared.dto.PatientRefDto;
+import ch.bfh.bti7081.s2019.blue.client.app.frontoffice.mission.MissionEntryPoint;
+import ch.bfh.bti7081.s2019.blue.shared.dto.*;
+import com.vaadin.flow.component.UI;
 import com.vaadin.flow.component.button.Button;
 import com.vaadin.flow.component.html.ListItem;
 import com.vaadin.flow.component.html.Paragraph;
+import com.vaadin.flow.component.notification.Notification;
 
 import java.time.format.DateTimeFormatter;
 
@@ -13,11 +14,11 @@ public class MissionItem extends ListItem {
 
     public MissionItem(boolean isDone, MissionDto mission) {
 
-        PatientRefDto patient = mission.getMissionSeries().getPatient();
+        PatientDto patient = mission.getMissionSeries().getPatient();
         String firstname = patient.getFirstname();
         String lastname = patient.getLastname();
 
-        AddressRefDto address = patient.getAddress();
+        AddressDto address = patient.getAddress();
         String streetName = address.getStreetName();
         String houseNumber = address.getHouseNr();
         String postalCode = address.getPostalCode().toString();
@@ -39,6 +40,7 @@ public class MissionItem extends ListItem {
         Button detailsButton = new Button();
         detailsButton.setId(detailsButtonId);
         detailsButton.setText(detailsButtonText);
+        detailsButton.addClickListener((event) -> UI.getCurrent().navigate(MissionEntryPoint.class, mission.getId()));
 
         this.add(timeWithPatientName);
         this.add(addressOfPatient);

@@ -15,7 +15,6 @@ import org.mockito.junit.jupiter.MockitoExtension;
 
 import javax.persistence.EntityManager;
 import java.time.LocalDateTime;
-import java.util.Date;
 import java.util.Random;
 
 import static org.junit.jupiter.api.Assertions.assertThrows;

@@ -2,10 +2,7 @@ package ch.bfh.bti7081.s2019.blue.client.app.backoffice.employee;
 
 import ch.bfh.bti7081.s2019.blue.client.app.base.BaseViewImpl;
 import ch.bfh.bti7081.s2019.blue.client.i18n.AppConstants;
-import ch.bfh.bti7081.s2019.blue.shared.dto.DateRange;
-import ch.bfh.bti7081.s2019.blue.shared.dto.EmployeeDto;
-import ch.bfh.bti7081.s2019.blue.shared.dto.MissionDto;
-import ch.bfh.bti7081.s2019.blue.shared.dto.PatientRefDto;
+import ch.bfh.bti7081.s2019.blue.shared.dto.*;
 import com.vaadin.flow.component.*;
 import com.vaadin.flow.component.button.Button;
 import com.vaadin.flow.component.combobox.ComboBox;
@@ -67,11 +64,13 @@ public class EmployeePlannerViewImpl extends BaseViewImpl<EmployeeViewModel> imp
         calendar.addEntryClickedListener((ComponentEventListener<EntryClickedEvent>) event -> {
             Entry entry = event.getEntry();
 
-            if(entry.getId().startsWith("-")) {
-                this.selectedDateRange = entry != null ? new DateRange(entry.getStart(), entry.getEnd()) : null;
+            if (entry != null && entry.getId().startsWith("-")) {
+
+                this.selectedDateRange = new DateRange(entry.getStart(), entry.getEnd());
+            } else {
+                this.selectedDateRange = null;
             }
         });
-
 
         calendar.addViewRenderedListener((ComponentEventListener<ViewRenderedEvent>) event -> onDateRangeChange(event.getIntervalStart(), event.getIntervalEnd()));
 
@@ -127,8 +126,7 @@ public class EmployeePlannerViewImpl extends BaseViewImpl<EmployeeViewModel> imp
     }
 
     @Override
-    public void setRecommendationEntries(List<DateRange> dateRanges)
-    {
+    public void setRecommendationEntries(List<DateRange> dateRanges) {
         calendar.addEntries(dateRanges.stream()
                 .map(this::toEntry)
                 .collect(Collectors.toList()));
@@ -158,14 +156,13 @@ public class EmployeePlannerViewImpl extends BaseViewImpl<EmployeeViewModel> imp
 
     private Entry toEntry(MissionDto missionDto) {
 
-        PatientRefDto patient = missionDto.getMissionSeries().getPatient();
+        PatientDto patient = missionDto.getMissionSeries().getPatient();
 
         String missionId = String.valueOf(missionDto.getId());
 
         String title = patient.getDisplayName();
 
         LocalDateTime startDate = missionDto.getStartDate();
-
         LocalDateTime endDate = missionDto.getEndDate();
 
         String color = "#3333ff";
@@ -177,10 +174,9 @@ public class EmployeePlannerViewImpl extends BaseViewImpl<EmployeeViewModel> imp
 
         String missionId = "-" + UUID.randomUUID().toString();
 
-        String title = "Vorschläge verfügbar.";
+        String title = getTranslation(AppConstants.RECOMMONDATIONS_AVAILABLE.getKey());
 
         LocalDateTime startDate = dateRange.getStartDate();
-
         LocalDateTime endDate = dateRange.getEndDate();
 
         String color = "#0CFF4D";

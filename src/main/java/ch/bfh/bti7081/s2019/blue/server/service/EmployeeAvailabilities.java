@@ -8,7 +8,7 @@ import java.util.Map;
 
 public class EmployeeAvailabilities {
 
-    private Map<Integer, EmployeeAvailability> availabilityPerEmployee;
+    private final Map<Integer, EmployeeAvailability> availabilityPerEmployee;
 
     public EmployeeAvailabilities(Map<Integer, EmployeeAvailability> availabilityPerEmployee) {
         this.availabilityPerEmployee = availabilityPerEmployee;

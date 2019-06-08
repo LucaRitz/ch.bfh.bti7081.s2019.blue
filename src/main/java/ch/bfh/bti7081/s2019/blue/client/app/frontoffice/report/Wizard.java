@@ -4,7 +4,7 @@ import java.util.List;
 
 public class Wizard<T> {
 
-    private List<T> steps;
+    private final List<T> steps;
     private int index = 0;
 
     public Wizard(List<T> steps) {

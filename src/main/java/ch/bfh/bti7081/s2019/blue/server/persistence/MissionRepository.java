@@ -14,6 +14,13 @@ import java.util.List;
 public interface MissionRepository extends JpaRepository<Mission, Integer> {
 
     @Query("SELECT m FROM Mission m"
+            + " WHERE m.startDate <= :endDate AND m.endDate >= :startDate")
+    List<Mission> findByIntersectingDateRange(
+            @Param("startDate") LocalDateTime startDate,
+            @Param("endDate") LocalDateTime endDate,
+            Sort orderBy);
+
+    @Query("SELECT m FROM Mission m"
             + " JOIN Employee h ON m.healthVisitor = h"
             + " WHERE h.id = :healthVisitorId"
             + " AND m.startDate <= :endDate AND m.endDate >= :startDate")
