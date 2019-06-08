@@ -1,6 +1,7 @@
 package ch.bfh.bti7081.s2019.blue.client.app.frontoffice.report;
 
 import ch.bfh.bti7081.s2019.blue.client.app.base.IsRouter;
+import ch.bfh.bti7081.s2019.blue.client.app.base.IsSessionHandler;
 import ch.bfh.bti7081.s2019.blue.client.app.base.IsView;
 import ch.bfh.bti7081.s2019.blue.client.app.frontoffice.report.action.ReportActionsActivity;
 import ch.bfh.bti7081.s2019.blue.client.app.frontoffice.report.confirmation.ReportConfirmationActivity;
@@ -60,13 +61,15 @@ class ReportActivityTest {
     private IsRouter router;
     @Mock
     private ReportConfirmationActivity confirmationActivity;
+    @Mock
+    private IsSessionHandler sessionHandler;
 
 
     @BeforeEach
     void setUp() {
         activity = new ReportActivity(view, patientService, missionService,
                 reportService, employeeService, router, tasksActivity, actionsActivity,
-                healthStatusActivity, durationActivity, feedbackActivity, confirmationActivity);
+                healthStatusActivity, durationActivity, feedbackActivity, confirmationActivity, sessionHandler);
     }
 
     @Test

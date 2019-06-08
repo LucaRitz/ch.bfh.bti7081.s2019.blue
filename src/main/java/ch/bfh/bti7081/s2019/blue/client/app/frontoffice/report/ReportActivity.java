@@ -2,6 +2,7 @@ package ch.bfh.bti7081.s2019.blue.client.app.frontoffice.report;
 
 import ch.bfh.bti7081.s2019.blue.client.app.base.BaseActivity;
 import ch.bfh.bti7081.s2019.blue.client.app.base.IsRouter;
+import ch.bfh.bti7081.s2019.blue.client.app.base.IsSessionHandler;
 import ch.bfh.bti7081.s2019.blue.client.app.base.IsView;
 import ch.bfh.bti7081.s2019.blue.client.app.frontoffice.dailyoverview.EmployeeDailyOverviewEntryPoint;
 import ch.bfh.bti7081.s2019.blue.client.app.frontoffice.report.action.ReportActionsActivity;
@@ -28,6 +29,8 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
 import java.time.Duration;
+import java.time.LocalDateTime;
+import java.time.temporal.ChronoUnit;
 import java.util.Arrays;
 import java.util.List;
 import java.util.stream.Collectors;
@@ -41,6 +44,7 @@ public class ReportActivity extends BaseActivity implements ReportView.Presenter
     private final MissionService missionService;
     private final ReportService reportService;
     private final EmployeeService employeeService;
+    private final IsSessionHandler sessionHandler;
     private final Wizard<ReportStepActivity> wizard;
     private final ReportConfirmationActivity confirmationActivity;
     private final IsRouter router;
@@ -60,7 +64,8 @@ public class ReportActivity extends BaseActivity implements ReportView.Presenter
                           ReportHealthStatusActivity healthStatusActivity,
                           ReportDurationActivity durationActivity,
                           ReportFeedbackActivity feedbackActivity,
-                          ReportConfirmationActivity confirmationActivity) {
+                          ReportConfirmationActivity confirmationActivity,
+                          IsSessionHandler sessionHandler) {
         this.view = view;
         this.patientService = patientService;
         this.missionService = missionService;
@@ -69,6 +74,7 @@ public class ReportActivity extends BaseActivity implements ReportView.Presenter
         this.confirmationActivity = confirmationActivity;
         this.router = router;
         this.view.setPresenter(this);
+        this.sessionHandler = sessionHandler;
         this.wizard = new Wizard<>(Arrays.asList(healthStatusActivity, actionsActivity, tasksActivity, durationActivity, feedbackActivity));
     }
 
@@ -164,8 +170,12 @@ public class ReportActivity extends BaseActivity implements ReportView.Presenter
         healthStatusDto.setPhysicalScore(3);
         healthStatusDto.setMentalScore(3);
 
-        report.setDuration(Duration.ZERO);
-
+        LocalDateTime missionTime = sessionHandler.get(getMissionStartedKey(missionId));
+        if (missionTime == null) {
+            report.setDuration(Duration.ZERO);
+        } else {
+            report.setDuration(calculateDuration(missionTime));
+        }
         report.setHealthStatus(healthStatusDto);
         return missionService.get(missionId)
                 .then(missionDto -> {
@@ -188,6 +198,11 @@ public class ReportActivity extends BaseActivity implements ReportView.Presenter
                 });
     }
 
+    private Duration calculateDuration(LocalDateTime missionTime) {
+        Duration duration = Duration.between(missionTime, LocalDateTime.now());
+        return duration.truncatedTo(ChronoUnit.HOURS).plusMinutes(15*(duration.toMinutes() / 15) + 15);
+    }
+
     @VisibleForTesting
     void updateActions() {
         view.setPreviousButtonEnabled(!wizard.isFirst());
@@ -205,5 +220,9 @@ public class ReportActivity extends BaseActivity implements ReportView.Presenter
 
     private void show(ReportStepActivity activity) {
         view.setCurrentStepView(activity.getView(), activity.getTitleKey());
+    }
+
+    private String getMissionStartedKey(Integer missionId) {
+        return "mission_started_" + missionId;
     }
 }
