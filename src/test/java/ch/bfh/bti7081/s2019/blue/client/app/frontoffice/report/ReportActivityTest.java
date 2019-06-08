@@ -31,7 +31,7 @@ import static org.mockito.ArgumentMatchers.any;
 import static org.mockito.Mockito.*;
 
 @ExtendWith(MockitoExtension.class)
-public class ReportActivityTest {
+class ReportActivityTest {
 
     private static final Random RAND = new Random();
 
@@ -131,6 +131,8 @@ public class ReportActivityTest {
         verify(tasksActivity).start();
         verify(actionsActivity).start();
         verify(feedbackActivity).start();
+        verify(healthStatusActivity).start();
+        verify(durationActivity).start();
     }
 
     @Test
