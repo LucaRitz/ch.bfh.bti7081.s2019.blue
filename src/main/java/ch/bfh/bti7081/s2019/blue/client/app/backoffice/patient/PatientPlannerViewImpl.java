@@ -2,12 +2,14 @@ package ch.bfh.bti7081.s2019.blue.client.app.backoffice.patient;
 
 import ch.bfh.bti7081.s2019.blue.client.app.base.BaseViewImpl;
 import ch.bfh.bti7081.s2019.blue.client.i18n.AppConstants;
-import ch.bfh.bti7081.s2019.blue.shared.dto.*;
+import ch.bfh.bti7081.s2019.blue.shared.dto.EmployeeDto;
+import ch.bfh.bti7081.s2019.blue.shared.dto.MissionDto;
+import ch.bfh.bti7081.s2019.blue.shared.dto.MissionSeriesDto;
+import ch.bfh.bti7081.s2019.blue.shared.dto.PatientDto;
 import com.vaadin.flow.component.*;
 import com.vaadin.flow.component.button.Button;
 import com.vaadin.flow.component.combobox.ComboBox;
 import com.vaadin.flow.component.dependency.HtmlImport;
-import com.vaadin.flow.component.notification.Notification;
 import com.vaadin.flow.component.polymertemplate.EventHandler;
 import com.vaadin.flow.component.polymertemplate.Id;
 import com.vaadin.flow.spring.annotation.UIScope;
@@ -75,16 +77,15 @@ public class PatientPlannerViewImpl extends BaseViewImpl<PatientPlannerViewModel
             }
 
             MissionId id = missionIdGenerator.parse(entry.getId());
-            Notification notification = new Notification("Click on " + id.getType() + " Mission with id=" + id + " was registered\n" +
-                    "Start: " + entry.getStart().toString() + " End: " + entry.getEnd(), 3000);
-            notification.open();
 
             this.selectedMissionSeries = getMissionSeriesById(id);
-            if(id.getType() == MissionId.Type.MISSION_SERIES)
+            if (id.getType() == MissionId.Type.MISSION_SERIES) {
                 this.selectedMission = getNewMissionDtoById(id, entry);
-            else if(id.getType() == MissionId.Type.MISSION)
+            } else if (id.getType() == MissionId.Type.MISSION) {
                 this.selectedMission = getMissionById(id);
-
+            } else {
+                this.selectedMission = null;
+            }
 
         });
         calendar.addViewRenderedListener((ComponentEventListener<ViewRenderedEvent>) event -> onDateRangeChange(event.getIntervalStart(), event.getIntervalEnd()));
@@ -212,7 +213,7 @@ public class PatientPlannerViewImpl extends BaseViewImpl<PatientPlannerViewModel
 
     private MissionDto getMissionById(MissionId id) {
 
-       if (MissionId.Type.MISSION.equals(id.getType())) {
+        if (MissionId.Type.MISSION.equals(id.getType())) {
 
             return this.missions.stream()
                     .filter(mission -> mission.getId().equals(id.getMissionId()))

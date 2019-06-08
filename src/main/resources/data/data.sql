@@ -1,5 +1,3 @@
-INSERT INTO home(text, reference) VALUES ('This is a welcome text 2', 10);
-
 INSERT INTO employee(firstname, lastname, profession, role) VALUES
   ('Sabine', 'Borislava', 'FAG', 'HEALTH_VISITOR'),
   ('Lara', 'Gerber', 'Pflegerin', 'HEALTH_VISITOR'),
@@ -52,15 +50,25 @@ INSERT INTO patient(firstname, lastname, birthdate, number, address_id, doctor_i
     select id from doctor where lastname = 'Brot'
   );
 
+INSERT INTO patient_medications(medications_id, patient_id) VALUES
+  (select id from medication where name = 'CardioFix', select id from patient where lastname = 'Rickner'),
+  (select id from medication where name = 'PainKiller', select id from patient where lastname = 'Rickner');
+
 INSERT INTO patient_diagnoses(diagnoses_id, patient_id) VALUES
   (select id from diagnose where name = 'Bluthochdruck', select id from patient where lastname = 'Rickner'),
   (select id from diagnose where name = 'Rückenschmerzen', select id from patient where lastname = 'Rickner'),
   (select id from diagnose where name = 'Alkoholabhängigkeit', select id from patient where lastname = 'Rickner'),
   (select id from diagnose where name = 'Heroinabhängigkeit', select id from patient where lastname = 'Rickner');
 
+INSERT INTO patient_medications(medications_id, patient_id) VALUES
+  (select id from medication where name = 'PainKiller', select id from patient where lastname = 'Müller');
+
 INSERT INTO patient_diagnoses(diagnoses_id, patient_id) VALUES
   (select id from diagnose where name = 'Rückenschmerzen', select id from patient where lastname = 'Müller'),
   (select id from diagnose where name = 'Heroinabhängigkeit', select id from patient where lastname = 'Müller');
+
+INSERT INTO patient_medications(medications_id, patient_id) VALUES
+  (select id from medication where name = 'CardioFix', select id from patient where lastname = 'Stucki');
 
 INSERT INTO patient_diagnoses(diagnoses_id, patient_id) VALUES
   (select id from diagnose where name = 'Bluthochdruck', select id from patient where lastname = 'Stucki'),

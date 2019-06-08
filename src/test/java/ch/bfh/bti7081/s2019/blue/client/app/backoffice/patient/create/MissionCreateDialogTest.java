@@ -5,7 +5,7 @@ import ch.bfh.bti7081.s2019.blue.client.app.base.IsDialog;
 import ch.bfh.bti7081.s2019.blue.client.rest.Promises;
 import ch.bfh.bti7081.s2019.blue.client.ws.MissionSeriesService;
 import ch.bfh.bti7081.s2019.blue.shared.dto.MissionSeriesDto;
-import ch.bfh.bti7081.s2019.blue.shared.dto.PatientRefDto;
+import ch.bfh.bti7081.s2019.blue.shared.dto.PatientDto;
 import ch.bfh.bti7081.s2019.blue.shared.dto.RepetitionType;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
@@ -14,15 +14,11 @@ import org.mockito.ArgumentCaptor;
 import org.mockito.Mock;
 import org.mockito.junit.jupiter.MockitoExtension;
 
-import java.util.Random;
-
 import static org.junit.jupiter.api.Assertions.*;
 import static org.mockito.Mockito.*;
 
 @ExtendWith(MockitoExtension.class)
 class MissionCreateDialogTest {
-
-    private static final Random RAND = new Random();
 
     private MissionCreateDialog dialog;
 
@@ -40,7 +36,7 @@ class MissionCreateDialogTest {
 
     @Test
     void start_editViewWithFilledDto() {
-        PatientRefDto expectedPatient = new PatientRefDto();
+        PatientDto expectedPatient = new PatientDto();
         dialog.setProperties(expectedPatient);
 
         // Act

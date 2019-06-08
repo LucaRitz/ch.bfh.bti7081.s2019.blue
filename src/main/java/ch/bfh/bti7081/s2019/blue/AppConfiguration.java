@@ -57,11 +57,6 @@ public class AppConfiguration {
 
     // Rest Services
     @Bean
-    public HomeService getHomeRestClient(ResponseErrorHandler errorHandler, ProvidesConverter converter) {
-        return createProxy(HomeService.class, errorHandler, converter);
-    }
-
-    @Bean
     public EmployeeService getEmployeeRestClient(ResponseErrorHandler errorHandler, ProvidesConverter converter) {
         return createProxy(EmployeeService.class, errorHandler, converter);
     }

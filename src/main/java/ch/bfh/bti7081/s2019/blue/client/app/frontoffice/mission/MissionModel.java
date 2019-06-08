@@ -18,6 +18,7 @@ public interface MissionModel extends TemplateModel {
         void setMissionStart(String missionStart);
         void setMissionEnd(String missionEnd);
         void setPatientMedication(String patientMedication);
+        void setPatientDiagnoses(String patientDiagnoses);
         void setPatientDoctor(String patientDoctor);
         void setLocationOpenInMap(String locationOpenInMap);
     }

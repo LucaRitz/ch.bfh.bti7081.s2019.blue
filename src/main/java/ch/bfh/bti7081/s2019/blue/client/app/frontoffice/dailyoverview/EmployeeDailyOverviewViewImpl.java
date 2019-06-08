@@ -103,11 +103,6 @@ public class EmployeeDailyOverviewViewImpl extends BaseViewImpl<EmployeeDailyOve
         }
     }
 
-    @EventHandler
-    private void onDetailsButtonPressed() {
-        //presenter.onDetailsClicked(null); // TODO: get clicked mission
-    }
-
     private void setSelectedDate(long difference) {
         this.selectedDate = selectedDate.plusDays(difference);
     }

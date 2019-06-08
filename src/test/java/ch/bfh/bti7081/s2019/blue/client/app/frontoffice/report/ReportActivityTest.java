@@ -1,9 +1,12 @@
 package ch.bfh.bti7081.s2019.blue.client.app.frontoffice.report;
 
+import ch.bfh.bti7081.s2019.blue.client.app.base.IsRouter;
 import ch.bfh.bti7081.s2019.blue.client.app.base.IsView;
 import ch.bfh.bti7081.s2019.blue.client.app.frontoffice.report.action.ReportActionsActivity;
 import ch.bfh.bti7081.s2019.blue.client.app.frontoffice.report.confirmation.ReportConfirmationActivity;
+import ch.bfh.bti7081.s2019.blue.client.app.frontoffice.report.duration.ReportDurationActivity;
 import ch.bfh.bti7081.s2019.blue.client.app.frontoffice.report.feedback.ReportFeedbackActivity;
+import ch.bfh.bti7081.s2019.blue.client.app.frontoffice.report.healthstatus.ReportHealthStatusActivity;
 import ch.bfh.bti7081.s2019.blue.client.app.frontoffice.report.tasks.ReportTasksActivity;
 import ch.bfh.bti7081.s2019.blue.client.i18n.AppConstants;
 import ch.bfh.bti7081.s2019.blue.client.rest.Promise;
@@ -50,14 +53,20 @@ public class ReportActivityTest {
     @Mock
     private ReportFeedbackActivity feedbackActivity;
     @Mock
+    private ReportHealthStatusActivity healthStatusActivity;
+    @Mock
+    private ReportDurationActivity durationActivity;
+    @Mock
+    private IsRouter router;
+    @Mock
     private ReportConfirmationActivity confirmationActivity;
 
 
     @BeforeEach
     void setUp() {
         activity = new ReportActivity(view, patientService, missionService,
-                reportService, employeeService, tasksActivity, actionsActivity,
-                feedbackActivity, confirmationActivity);
+                reportService, employeeService, router, tasksActivity, actionsActivity,
+                healthStatusActivity, durationActivity, feedbackActivity, confirmationActivity);
     }
 
     @Test
@@ -81,7 +90,6 @@ public class ReportActivityTest {
 
         // Assert
         verify(view).showNotification(AppConstants.REPORT_ALREADY_EXISTING.getKey());
-        verify(view).hideAllButtons();
     }
 
     @Test

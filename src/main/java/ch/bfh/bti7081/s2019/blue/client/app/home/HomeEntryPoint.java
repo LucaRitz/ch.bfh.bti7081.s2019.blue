@@ -11,7 +11,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import javax.annotation.PostConstruct;
 
 @Route(value = Navigation.HOME, layout = Layout.class)
-@PWA(name = "MHC PMS", shortName = "MHC PMS")
+@PWA(name = "MHC PMS", shortName = "MHC PMS", enableInstallPrompt = false)
 @UIScope
 public class HomeEntryPoint extends Div {
 

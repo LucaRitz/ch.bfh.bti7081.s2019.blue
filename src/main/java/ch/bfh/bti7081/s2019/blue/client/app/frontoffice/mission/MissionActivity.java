@@ -6,11 +6,8 @@ import ch.bfh.bti7081.s2019.blue.client.app.base.IsSessionHandler;
 import ch.bfh.bti7081.s2019.blue.client.app.base.IsView;
 import ch.bfh.bti7081.s2019.blue.client.app.frontoffice.dailyoverview.EmployeeDailyOverviewEntryPoint;
 import ch.bfh.bti7081.s2019.blue.client.app.frontoffice.report.ReportEntryPoint;
-import ch.bfh.bti7081.s2019.blue.client.i18n.AppConstants;
-import ch.bfh.bti7081.s2019.blue.client.rest.Promises;
 import ch.bfh.bti7081.s2019.blue.client.ws.MissionService;
 import com.google.common.annotations.VisibleForTesting;
-import com.vaadin.flow.component.notification.Notification;
 import com.vaadin.flow.spring.annotation.UIScope;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
@@ -56,7 +53,6 @@ public class MissionActivity extends BaseActivity implements MissionView.Present
     @Override
     public void onStartButtonPressed() {
         sessionHandler.set(getMissionStartedKey(missionId), LocalDateTime.now());
-        //view.showNotification("Mission successfully started", 5000);
         updateActions();
     }
 
@@ -81,8 +77,7 @@ public class MissionActivity extends BaseActivity implements MissionView.Present
 
     @VisibleForTesting
     void loadViewModel() {
-        if (missionId == null)  {
-            System.err.println("missionId was null");
+        if (missionId == null) {
             navigateToOverview();
             return;
         }
@@ -127,6 +122,6 @@ public class MissionActivity extends BaseActivity implements MissionView.Present
     }
 
     private String getMissionStartedKey(Integer missionId) {
-        return  "mission_started_" + missionId;
+        return "mission_started_" + missionId;
     }
 }
