@@ -39,10 +39,12 @@ public class ReportDurationActivity extends ReportStepActivity implements Report
     @Override
     public void setValue(ReportDto report) {
         this.report = report;
+        this.view.setDuration(report.getDuration());
     }
 
     @Override
     public ReportDto getValue() {
+        this.report.setDuration(view.getDuration());
         return report;
     }
 

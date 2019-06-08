@@ -7,7 +7,7 @@ public interface ReportHealthStatusModel extends TemplateModel {
 
     interface Text {
         void setTitle(String title);
-        void setPhysicalStatus(String text);
-        void setPsychologicalStatus(String text);
+        void setPhysicalText(String text);
+        void setMentalText(String text);
     }
 }

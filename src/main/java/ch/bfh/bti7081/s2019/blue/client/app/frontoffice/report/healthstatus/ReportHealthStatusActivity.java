@@ -39,10 +39,12 @@ public class ReportHealthStatusActivity extends ReportStepActivity implements Re
     @Override
     public void setValue(ReportDto report) {
         this.report = report;
+        this.view.setHealthStatus(report.getHealthStatus());
     }
 
     @Override
     public ReportDto getValue() {
+        this.report.setHealthStatus(view.getHealthStatus());
         return report;
     }
 

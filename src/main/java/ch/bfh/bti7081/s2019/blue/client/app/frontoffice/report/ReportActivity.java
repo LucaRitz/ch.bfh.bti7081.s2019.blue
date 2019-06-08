@@ -27,6 +27,7 @@ import com.vaadin.flow.spring.annotation.UIScope;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
+import java.time.Duration;
 import java.util.Arrays;
 import java.util.List;
 import java.util.stream.Collectors;
@@ -158,7 +159,14 @@ public class ReportActivity extends BaseActivity implements ReportView.Presenter
     @VisibleForTesting
     Promise<ReportDto> createReport(Integer missionId) {
         ReportDto report = new ReportDto();
-        report.setHealthStatus(new HealthStatusDto());
+
+        HealthStatusDto healthStatusDto = new HealthStatusDto();
+        healthStatusDto.setPhysicalScore(3);
+        healthStatusDto.setMentalScore(3);
+
+        report.setDuration(Duration.ZERO);
+
+        report.setHealthStatus(healthStatusDto);
         return missionService.get(missionId)
                 .then(missionDto -> {
                     report.setMission(missionDto);

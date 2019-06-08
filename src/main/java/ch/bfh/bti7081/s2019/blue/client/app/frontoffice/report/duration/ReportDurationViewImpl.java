@@ -78,4 +78,14 @@ public class ReportDurationViewImpl extends BaseViewImpl<ReportDurationModel> im
         this.presenter = presenter;
     }
 
+    @Override
+    public void setDuration(Duration duration) {
+        this.duration = duration;
+    }
+
+    @Override
+    public Duration getDuration() {
+        return this.duration;
+    }
+
 }
