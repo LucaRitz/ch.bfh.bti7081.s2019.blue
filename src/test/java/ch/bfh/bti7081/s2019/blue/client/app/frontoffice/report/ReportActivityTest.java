@@ -4,6 +4,7 @@ import ch.bfh.bti7081.s2019.blue.client.app.base.IsRouter;
 import ch.bfh.bti7081.s2019.blue.client.app.base.IsView;
 import ch.bfh.bti7081.s2019.blue.client.app.frontoffice.report.action.ReportActionsActivity;
 import ch.bfh.bti7081.s2019.blue.client.app.frontoffice.report.confirmation.ReportConfirmationActivity;
+import ch.bfh.bti7081.s2019.blue.client.app.frontoffice.report.duration.ReportDurationActivity;
 import ch.bfh.bti7081.s2019.blue.client.app.frontoffice.report.feedback.ReportFeedbackActivity;
 import ch.bfh.bti7081.s2019.blue.client.app.frontoffice.report.healthstatus.ReportHealthStatusActivity;
 import ch.bfh.bti7081.s2019.blue.client.app.frontoffice.report.tasks.ReportTasksActivity;
@@ -54,6 +55,8 @@ public class ReportActivityTest {
     @Mock
     private ReportHealthStatusActivity healthStatusActivity;
     @Mock
+    private ReportDurationActivity durationActivity;
+    @Mock
     private IsRouter router;
     @Mock
     private ReportConfirmationActivity confirmationActivity;
@@ -63,7 +66,7 @@ public class ReportActivityTest {
     void setUp() {
         activity = new ReportActivity(view, patientService, missionService,
                 reportService, employeeService, router, tasksActivity, actionsActivity,
-                healthStatusActivity, feedbackActivity, confirmationActivity);
+                healthStatusActivity, durationActivity, feedbackActivity, confirmationActivity);
     }
 
     @Test
