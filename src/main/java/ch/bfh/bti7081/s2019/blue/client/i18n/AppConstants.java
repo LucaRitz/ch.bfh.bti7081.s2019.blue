@@ -18,6 +18,8 @@ public enum AppConstants {
     REPORT_HEALTHSTATUS("report.healthstatus"),
     REPORT_HEALTHSTATUS_PHYSICAL("report.healthstatus.physical"),
     REPORT_HEALTHSTATUS_PSYCHOLOGICAL("report.healthstatus.psychological"),
+    REPORT_DURATION("report.duration"),
+    REPORT_DURATION_DURATION("report.duration.duration"),
     FOOTER_TEXT("footer.text"),
     ACTION_SAVE("action.save"),
     ACTION_CANCEL("action.cancel"),
