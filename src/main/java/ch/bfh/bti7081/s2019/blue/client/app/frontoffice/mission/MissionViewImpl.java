@@ -122,7 +122,7 @@ public class MissionViewImpl extends BaseViewImpl<MissionModel> implements Missi
     }
 
     private String getMapsUrlForAddress(String location) {
-		String apiKey = 'BLA';
+		String apiKey = "BLA";
         String baseUrl = "http://www.google.com/maps/embed/v1/place?key=" + apiKey;
         return baseUrl + "&q=" + location.replace(" ", "+") + "";
     }
